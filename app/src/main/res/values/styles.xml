@@ -8,4 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--Button styles-->
+    <style name="MainCalcOperands">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#ec407a</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_width">60dp</item>
+        <item name="android:itemBackground">#448aff</item>
+    </style>
 </resources>
