@@ -3,7 +3,7 @@
     <!--col1-->
     <string name="add">+</string>
     <string name="sub">-</string>
-    <string name="mul">X</string>
+    <string name="mul">x</string>
     <string name="div">/</string>
     <string name="brackets">( )</string>
     <string name="del">del</string>
