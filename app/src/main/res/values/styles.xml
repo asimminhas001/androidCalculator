@@ -3,38 +3,89 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">#388e3c</item>
+        <item name="colorPrimaryDark">#b0388e3c</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <!--output styles-->
-    <style name="OutputResults">
+    <!--expression output styles-->
+    <style name="ExpressionOutput">
         <item name="android:layout_margin">5dp</item>
-        <item name="android:background">#d32f2f</item>
+        <item name="android:background">#ef5350</item>
         <item name="android:textColor">#212121</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_alignParentLeft">true</item>
         <item name="android:gravity">right|bottom</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">5dp</item>
-        <item name="android:text"> </item>
+        <item name="android:text">0</item>
+        <item name="android:textSize">24sp</item>
     </style>
 
-    <!--Button styles-->
-    <style name="MainCalcOperands">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">#ec407a</item>
-        <item name="android:layout_height">60dp</item>
-        <item name="android:layout_width">60dp</item>
-        <item name="android:layout_marginLeft">5dp</item>
+    <!--result styles-->
+    <style name="ResultOutput">
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:background">#ffab91</item>
+        <item name="android:textColor">#212121</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:gravity">right|bottom</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:text">0</item>
+        <item name="android:textSize">24sp</item>
     </style>
 
     <!--History-->
     <style name="MainCalcHistory">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">#ec407a</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:background">#00e676</item>
         <item name="android:layout_width">120dp</item>
         <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <!--Operand Button styles-->
+    <style name="MainCalcOperands">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:background">#1976d2</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_margin">2.5dp</item>
+    </style>
+
+    <!--Operator Button styles-->
+    <style name="MainCalcOperators">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:background">#00acc1</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_margin">2.5dp</item>
+    </style>
+
+    <!--Function Button styles-->
+    <style name="MainCalcFunctions">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:background">#90caf9</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_margin">2.5dp</item>
+    </style>
+
+    <!--Clear Button styles-->
+    <style name="MainCalcClear">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:background">#90caf9</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_margin">2.5dp</item>
     </style>
 
 </resources>
