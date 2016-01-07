@@ -13,7 +13,7 @@
     <string name="three">3</string>
     <string name="six">6</string>
     <string name="nine">9</string>
-    <string name="fractions">A/B</string>
+    <string name="fractions">/</string>
     <string name="avg">avg</string>
 
     <!--col3-->

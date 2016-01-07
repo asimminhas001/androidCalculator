@@ -9,17 +9,22 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+
     private TextView resultView;
     private TextView expressionView;
-    private static String expressionString = "";
+    private String expressionString = "";
+    private View parentView;
 
-    // flags
+    /**
+     * Flags
+     */
     private static boolean OpenBracketsFlag = false;
     private static boolean lastBracketsFlag = false;
     private static boolean lastOperatorFlag = false;
     private static boolean lastOperandFlag = false;
     private static boolean resultRequested = false;
     private static boolean averageCalculation = false;
+    private static boolean periodFlag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         expressionView = (TextView) findViewById(R.id.expression_output);
         resultView = (TextView) findViewById(R.id.result_output);
+        parentView = findViewById(R.id.parent);
 
     }// end onCreate()
 
@@ -42,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
             displayExpression("0");
         }
         else {
-            expressionString = expressionString.substring(0, expressionString.length() - 1);
+            expressionString = expressionString.substring(0,
+                    expressionString.length() - 1);
             displayExpression(expressionString);
 
 
@@ -55,16 +62,16 @@ public class MainActivity extends AppCompatActivity {
         String closeBrackets = ")", openBrackets = "(";
 
         if (!OpenBracketsFlag && !lastBracketsFlag) {
-            expressionString += openBrackets;
+            expressionString = expressionString.concat(openBrackets);
             setOpenBracketsFlag(true);
         }
         else if (!lastBracketsFlag) {
-            expressionString += closeBrackets;
+            expressionString = expressionString.concat(closeBrackets);
             setOpenBracketsFlag(false);
         }
         else {
-            View v = (View) findViewById(R.id.parent);
-            Snackbar.make(v, "Input Number after Bracket", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(parentView, "Input Number after Bracket",
+                    Snackbar.LENGTH_SHORT).show();
         }
         displayExpression(expressionString);
     }// end btnBrackets()
@@ -75,11 +82,11 @@ public class MainActivity extends AppCompatActivity {
         String operator = "\u00F7";
 
         if (lastOperatorFlag) {
-            View v = (View) findViewById(R.id.parent);
-            Snackbar.make(v, "Input Number", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(parentView, "Input Number",
+                    Snackbar.LENGTH_SHORT).show();
         }
         else {
-            expressionString += operator;
+            expressionString = expressionString.concat(operator);
             setLastOperatorFlag(true);
         }
 
@@ -92,11 +99,11 @@ public class MainActivity extends AppCompatActivity {
         String operator = "x";
 
         if (lastOperatorFlag) {
-            View v = (View) findViewById(R.id.parent);
-            Snackbar.make(v, "Input Number", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(parentView, "Input Number",
+                    Snackbar.LENGTH_SHORT).show();
         }
         else {
-            expressionString += operator;
+            expressionString = expressionString.concat(operator);
             setLastOperatorFlag(true);
         }
 
@@ -109,11 +116,11 @@ public class MainActivity extends AppCompatActivity {
         String operator = "-";
 
         if (lastOperatorFlag) {
-            View v = (View) findViewById(R.id.parent);
-            Snackbar.make(v, "Input Number", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(parentView, "Input Number",
+                    Snackbar.LENGTH_SHORT).show();
         }
         else {
-            expressionString += operator;
+            expressionString = expressionString.concat(operator);
             setLastOperatorFlag(true);
         }
 
@@ -126,11 +133,11 @@ public class MainActivity extends AppCompatActivity {
         String operator = "+";
 
         if (lastOperatorFlag) {
-            View v = (View) findViewById(R.id.parent);
-            Snackbar.make(v, "Input Number", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(parentView, "Input Number",
+                    Snackbar.LENGTH_SHORT).show();
         }
         else {
-            expressionString += operator;
+            expressionString = expressionString.concat(operator);
             setLastOperatorFlag(true);
         }
 
@@ -141,35 +148,183 @@ public class MainActivity extends AppCompatActivity {
     // @+id/col2 functions
     //////////////////////////////////////////////////////////////////////////////
 
-    // Average button clicked
+    // Average button clicked (not done)
     //  - sums the next set of operands entered
     public void btnAvg(View view) {
         String operator = "+";
 
-        View v = (View) findViewById(R.id.parent);
-        Snackbar.make(v, "Input number followed by + " +
+        Snackbar.make(parentView, "Input number followed by + " +
                 "\nAverage is calculated automatically after = is pressed",
                 Snackbar.LENGTH_SHORT).show();
 
         if (averageCalculation) {
-            Snackbar.make(v, "Input Number", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(parentView, "Input Number",
+                    Snackbar.LENGTH_SHORT).show();
         }
         else {
             setAverageCalculation(true);
         }
 
         displayExpression(expressionString);
-    }// end btnSum()
+    }// end btnAvg()
+
+    // Fractions button clicked
+    //  - inputs a slash to signify fraction
+    public void btnFraction(View view) {
+        String operator = "/";
+
+        if (lastOperandFlag) {
+            Snackbar.make(parentView, "Input Number",
+                    Snackbar.LENGTH_SHORT).show();
+        }
+        else {
+            expressionString = expressionString.concat(operator);
+            setLastOperandFlag(true);
+        }
+        displayExpression(expressionString);
+    }// end btnFraction()
+
+    // 9 Operand clicked
+    //  - inputs number 9 into expression
+    public void btn9(View view) {
+        expressionString = expressionString.concat("9");
+        setLastOperandFlag(true);
+        displayExpression(expressionString);
+    }
+
+    // 6 Operand clicked
+    //  - inputs number 6 into expression
+    public void btn6(View view) {
+        expressionString = expressionString.concat("6");
+        setLastOperandFlag(true);
+        displayExpression(expressionString);
+    }
+
+    // 3 Operand clicked
+    //  - inputs number 3 into expression
+    public void btn3(View view) {
+        expressionString = expressionString.concat("3");
+        setLastOperandFlag(true);
+        displayExpression(expressionString);
+    }
+
+    // Equal btn clicked
+    //  - inputs number 9 into expression
+    public void btnEq(View view) {
+        displayResult("result");
+    }
 
     // @+id/col3 functions "\u00B2" = square subscript
     //////////////////////////////////////////////////////////////////////////////
 
+    // FF Operator clicked
+    //  - inputs number 0 into expression
+    public void btnFF(View view) {
+        expressionString = expressionString.concat("\u00B2");
+        displayExpression(expressionString);
+    }
+
+    // sq Operator clicked
+    //  - inputs number 0 into expression
+    public void btnSq(View view) {
+        expressionString = expressionString.concat("\u00B2");
+        displayExpression(expressionString);
+    }
+
+    // 8 Operand clicked
+    //  - inputs number 8 into expression
+    public void btn8(View view) {
+        expressionString = expressionString.concat("8");
+        setLastOperandFlag(true);
+        displayExpression(expressionString);
+    }
+
+    // 5 Operand clicked
+    //  - inputs number 5 into expression
+    public void btn5(View view) {
+        expressionString = expressionString.concat("5");
+        setLastOperandFlag(true);
+        displayExpression(expressionString);
+    }
+
+    // 2 Operand clicked
+    //  - inputs number 2 into expression
+    public void btn2(View view) {
+        expressionString = expressionString.concat("2");
+        setLastOperandFlag(true);
+        displayExpression(expressionString);
+    }
+
+    // 0 Operand clicked
+    //  - inputs number 0 into expression
+    public void btn0(View view) {
+        expressionString = expressionString.concat("0");
+        setLastOperandFlag(true);
+        displayExpression(expressionString);
+    }
+
     // @+id/col4 functions
     //////////////////////////////////////////////////////////////////////////////
 
-    // btnClear()
-    // - clears both expressions and result and
+    // btnClearExp()
+    // - clears expression
+    public void btnClearExp(View view) {
+        expressionString = "";
+        displayExpression(expressionString);
+        clearAllFlags();
+        Snackbar.make(parentView, "Expression Cleared",
+                Snackbar.LENGTH_SHORT).show();
+    }
 
+    // btnClearRes()
+    // - clears result
+    public void btnClearRes(View view) {
+        resultOutput(0);
+        Snackbar.make(parentView, "Result Cleared",
+                Snackbar.LENGTH_SHORT).show();
+    }
+
+    // 7 Operand clicked
+    //  - inputs number 7 into expression
+    public void btn7(View view) {
+        expressionString = expressionString.concat("7");
+        setLastOperandFlag(true);
+        displayExpression(expressionString);
+    }
+
+    /**
+     * 4 Operand clicked
+     * @param view
+     * - inputs number 4 into expression
+     */
+    public void btn4(View view) {
+        expressionString = expressionString.concat("4");
+        setLastOperandFlag(true);
+        displayExpression(expressionString);
+    }
+
+    // 1 Operand clicked
+    //  - inputs number 1 into expression
+    public void btn1(View view) {
+        expressionString = expressionString.concat("1");
+        setLastOperandFlag(true);
+        displayExpression(expressionString);
+    }
+
+    // . Operator clicked
+    //  - inputs . into expression
+    public void btnPeriod(View view) {
+
+        if (periodFlag) {
+            Snackbar.make(parentView, "Illegal to set another period",
+                    Snackbar.LENGTH_SHORT).show();
+        }
+        else {
+            expressionString = expressionString.concat(".");
+            setPeriodFlag(true);
+        }
+        displayExpression(expressionString);
+    }
     // history functions
     //////////////////////////////////////////////////////////////////////////////
 
@@ -181,18 +336,17 @@ public class MainActivity extends AppCompatActivity {
     //  - calculates what is to be outputted in the expressions view
     //  - calls displayExpression()
     public void expressionOutput(int num) {
-
         if (expressionString.equals("")) {
-            expressionString += num;
+            expressionString = expressionString.concat("" + num);
         }
         else {
-            expressionString += " " + num;
+            expressionString = expressionString.concat(" " + num);
         }
 
         displayExpression(expressionString);
     }
 
-    // method expressionOutput
+    // method resultOutput
     //  - argument : int
     //  - calculates what is to be outputted in the expressions view
     //  - calls displayResult()
@@ -204,14 +358,22 @@ public class MainActivity extends AppCompatActivity {
     // method displayExpression
     //  displays expression in the expressionView
     private void displayExpression(String aString) {
+        if (aString.compareTo("") == 0) {
+            expressionView.setText("0");
+        } else {
             expressionView.setText(aString);
+        }
     }
 
     // method displayResult
     //  - argument = String
     //  - displays the string in the resultView
     private void displayResult(String aString) {
-        resultView.setText(aString);
+        if (aString.compareTo("") == 0) {
+            resultView.setText("0");
+        } else {
+            resultView.setText(aString);
+        }
     }
 
     // switches
@@ -222,7 +384,7 @@ public class MainActivity extends AppCompatActivity {
     //  sets the flag OpenBracketsFlag to the argument
     private void setOpenBracketsFlag(boolean bool) {
         OpenBracketsFlag = bool;
-        setLastBracketsFlag(true);
+        lastBracketsFlag = false;
     }
 
 
@@ -231,8 +393,8 @@ public class MainActivity extends AppCompatActivity {
     //  sets the flag lastBracketsFlag to the argument
     private void setLastBracketsFlag(boolean bool) {
         lastBracketsFlag = bool;
-        setLastOperandFlag(false);
-        setLastOperatorFlag(false);
+        lastOperandFlag = false;
+        lastOperatorFlag = false;
     }
 
     // setLastOperatorFlag
@@ -240,8 +402,8 @@ public class MainActivity extends AppCompatActivity {
     //  sets the flag lastOperator to the argument
     private void setLastOperatorFlag(boolean bool) {
         lastOperatorFlag = bool;
-        setLastBracketsFlag(false);
-        setLastOperandFlag(false);
+        lastBracketsFlag = false;
+        lastOperandFlag= false;
     }
 
     // setLastOperandFlag
@@ -249,8 +411,8 @@ public class MainActivity extends AppCompatActivity {
     //  sets the flag lastOperand to the argument
     private void setLastOperandFlag(boolean bool) {
         lastOperandFlag = bool;
-        setLastBracketsFlag(false);
-        setLastOperatorFlag(false);
+        lastBracketsFlag = false;
+        lastOperatorFlag = false;
     }
 
     // setAverageCalculation
@@ -258,12 +420,26 @@ public class MainActivity extends AppCompatActivity {
     //  sets the flag lastOperand to the argument
     private void setAverageCalculation(boolean bool) {
         averageCalculation = bool;
-        setLastBracketsFlag(false);
-        setLastOperatorFlag(false);
+        lastBracketsFlag = false;
+        lastOperatorFlag = false;
     }
 
-    // clearAll
-    //  clears result and expressions, sets all flags to false
+    private void setPeriodFlag(boolean bool) {
+        periodFlag = bool;
+        lastBracketsFlag = false;
+        lastOperandFlag = false;
+        lastOperatorFlag = false;
+    }
+
+    // clearAllFlags
+    //  clears all flags
+    private void clearAllFlags() {
+        lastBracketsFlag = false;
+        lastOperandFlag = false;
+        lastOperatorFlag = false;
+        averageCalculation = false;
+        lastBracketsFlag = false;
+    }
 
 
 }

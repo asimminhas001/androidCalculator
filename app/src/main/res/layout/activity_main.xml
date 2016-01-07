@@ -21,8 +21,7 @@
         <!--expression output-->
         <TextView
             android:id="@+id/expression_output"
-            style="@style/ExpressionOutput"
-            android:layout_above="@+id/result_output"/>
+            style="@style/ExpressionOutput"/>
 
         <!--result output-->
         <TextView
@@ -93,36 +92,42 @@
         android:layout_toLeftOf="@id/col1"
         android:orientation="vertical">
 
-        <!--| sum |-->
+        <!--| avg |-->
         <Button
             style="@style/MainCalcFunctions"
             android:text="@string/avg"
-            android:onClick="btnSum"
+            android:onClick="btnAvg"
             />
 
-        <!--| A/B |-->
+        <!--| / |-->
         <Button
             style="@style/MainCalcFunctions"
-            android:text="@string/fractions"/>
+            android:text="@string/fractions"
+            android:onClick="btnFraction"
+            />
 
         <!--| 9 |-->
         <Button
             style="@style/MainCalcOperators"
-            android:text="@string/nine"/>
+            android:text="@string/nine"
+            android:onClick="btn9"/>
         <!--| 6 |-->
         <Button
             style="@style/MainCalcOperators"
-            android:text="@string/six"/>
+            android:text="@string/six"
+            android:onClick="btn6"/>
 
         <!--| 3 |-->
         <Button
             style="@style/MainCalcOperators"
-            android:text="@string/three"/>
+            android:text="@string/three"
+            android:onClick="btn3"/>
 
         <!--| = |-->
         <Button
             style="@style/MainCalcOperands"
-            android:text="@string/eq"/>
+            android:text="@string/eq"
+            android:onClick="btnEq"/>
     </LinearLayout>
 
     <!--third column-->
@@ -138,32 +143,37 @@
         <Button
             style="@style/MainCalcFunctions"
             android:text="@string/F3"
-            />
+            android:onClick="btnFF"/>
 
         <!--| x^2 |-->
         <Button
             style="@style/MainCalcFunctions"
-            android:text="@string/sq"/>
+            android:text="@string/sq"
+            android:onClick="btnSq"/>
 
         <!--| 8 |-->
         <Button
             style="@style/MainCalcOperators"
-            android:text="@string/eight"/>
+            android:text="@string/eight"
+            android:onClick="btn8"/>
 
         <!--| 5 |-->
         <Button
             style="@style/MainCalcOperators"
-            android:text="@string/five"/>
+            android:text="@string/five"
+            android:onClick="btn5"/>
 
         <!--| 2 |-->
         <Button
             style="@style/MainCalcOperators"
-            android:text="@string/two"/>
+            android:text="@string/two"
+            android:onClick="btn2"/>
 
         <!--| 0 |-->
         <Button
             style="@style/MainCalcOperators"
-            android:text="@string/zero"/>
+            android:text="@string/zero"
+            android:onClick="btn0"/>
 
     </LinearLayout>
 
@@ -176,37 +186,42 @@
         android:layout_toLeftOf="@id/col3"
         android:orientation="vertical">
 
-        <!--| FF |-->
+        <!--| Clear exp |-->
         <Button
             style="@style/MainCalcClear"
             android:text="@string/clearExp"
             android:background="#ef5350"
             android:onClick="btnClearExp"/>
 
-        <!--| FF |-->
+        <!--| Clear res |-->
         <Button
             style="@style/MainCalcClear"
             android:background="#ffab91"
-            android:text="@string/clearRes"/>
+            android:text="@string/clearRes"
+            android:onClick="btnClearRes"/>
 
         <!--| 7 |-->
         <Button
             style="@style/MainCalcOperators"
+            android:onClick="btn7"
             android:text="@string/seven"/>
 
         <!--| 4 |-->
         <Button
             style="@style/MainCalcOperators"
+            android:onClick="btn4"
             android:text="@string/four"/>
 
         <!--| 1 |-->
         <Button
             style="@style/MainCalcOperators"
+            android:onClick="btn1"
             android:text="@string/one"/>
 
         <!--| . |-->
         <Button
             style="@style/MainCalcOperators"
+            android:onClick="btnPeriod"
             android:text="@string/period"/>
     </LinearLayout>
 
