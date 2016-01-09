@@ -10,7 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="#e0e0e0"
-    tools:context="kamal.calculator.MainActivity">
+    tools:context="kamal.calculator.MainActivity.ExpressionParser">
 
     <RelativeLayout
         android:layout_toRightOf="@+id/history_col"
@@ -50,37 +50,41 @@
 
         <!--| del |-->
         <Button
+            android:id="@+id/btnDel"
             style="@style/MainCalcFunctions"
-            android:text="@string/del"
-            android:onClick="btnDel"/>
+            android:text="@string/del"/>
 
-        <!--| ( ) |-->
+        <!--| % |-->
         <Button
-            style="@style/MainCalcFunctions"
-            android:text="@string/brackets"
-            android:onClick="btnBrackets"/>
+            android:id="@+id/btnRemainder"
+            style="@style/MainCalcOperands"
+            android:text="@string/remainder"/>
 
         <!--| / |-->
         <Button
+            android:id="@+id/btnDiv"
             style="@style/MainCalcOperands"
             android:text="@string/div"
-            android:onClick="btnDiv"/>
+            />
+
         <!--| x |-->
         <Button
+            android:id="@+id/btnMul"
             style="@style/MainCalcOperands"
-            android:text="@string/mul"
-            android:onClick="btnMul"/>
+            android:text="@string/mul"/>
 
         <!--| - |-->
         <Button
+            android:id="@+id/btnSub"
             style="@style/MainCalcOperands"
-            android:text="@string/sub"
-            android:onClick="btnSub"/>
+            android:text="@string/sub"/>
+
         <!--| + |-->
         <Button
+            android:id="@+id/btnAdd"
             style="@style/MainCalcOperands"
-            android:text="@string/add"
-            android:onClick="btnAdd"/>
+            android:text="@string/add"/>
+
     </LinearLayout>
 
     <!--second column-->
@@ -94,40 +98,45 @@
 
         <!--| avg |-->
         <Button
+            android:id="@+id/btnAvg"
             style="@style/MainCalcFunctions"
             android:text="@string/avg"
-            android:onClick="btnAvg"
             />
 
-        <!--| / |-->
+        <!--| ( ) |-->
         <Button
+            android:id="@+id/btnBrackets"
             style="@style/MainCalcFunctions"
-            android:text="@string/fractions"
-            android:onClick="btnFraction"
-            />
+            android:text="@string/brackets"/>
 
         <!--| 9 |-->
         <Button
+            android:id="@+id/btn9"
             style="@style/MainCalcOperators"
             android:text="@string/nine"
-            android:onClick="btn9"/>
+            />
+
         <!--| 6 |-->
         <Button
+            android:id="@+id/btn6"
             style="@style/MainCalcOperators"
             android:text="@string/six"
-            android:onClick="btn6"/>
+            />
 
         <!--| 3 |-->
         <Button
+            android:id="@+id/btn3"
             style="@style/MainCalcOperators"
             android:text="@string/three"
-            android:onClick="btn3"/>
+            />
 
         <!--| = |-->
         <Button
+            android:id="@+id/btnEq"
             style="@style/MainCalcOperands"
             android:text="@string/eq"
-            android:onClick="btnEq"/>
+            />
+
     </LinearLayout>
 
     <!--third column-->
@@ -139,41 +148,48 @@
         android:layout_toLeftOf="@id/col2"
         android:orientation="vertical">
 
-        <!--| FF |-->
+        <!--| log |-->
         <Button
+            android:id="@+id/btnLog"
             style="@style/MainCalcFunctions"
-            android:text="@string/F3"
-            android:onClick="btnFF"/>
+            android:text="@string/log"
+            />
 
-        <!--| x^2 |-->
+        <!--| ^ |-->
         <Button
+            android:id="@+id/btnExponent"
+            android:textSize="25sp"
             style="@style/MainCalcFunctions"
-            android:text="@string/sq"
-            android:onClick="btnSq"/>
+            android:text="@string/exponent"
+            />
 
         <!--| 8 |-->
         <Button
+            android:id="@+id/btn8"
             style="@style/MainCalcOperators"
             android:text="@string/eight"
-            android:onClick="btn8"/>
+            />
 
         <!--| 5 |-->
         <Button
+            android:id="@+id/btn5"
             style="@style/MainCalcOperators"
             android:text="@string/five"
-            android:onClick="btn5"/>
+            />
 
         <!--| 2 |-->
         <Button
+            android:id="@+id/btn2"
             style="@style/MainCalcOperators"
             android:text="@string/two"
-            android:onClick="btn2"/>
+            />
 
         <!--| 0 |-->
         <Button
+            android:id="@+id/btn0"
             style="@style/MainCalcOperators"
             android:text="@string/zero"
-            android:onClick="btn0"/>
+            />
 
     </LinearLayout>
 
@@ -188,42 +204,44 @@
 
         <!--| Clear exp |-->
         <Button
+            android:id="@+id/btnClearExp"
             style="@style/MainCalcClear"
             android:text="@string/clearExp"
             android:background="#ef5350"
-            android:onClick="btnClearExp"/>
+            />
 
-        <!--| Clear res |-->
+        <!--| Clear All |-->
         <Button
+            android:id="@+id/btnClearAll"
             style="@style/MainCalcClear"
             android:background="#ffab91"
-            android:text="@string/clearRes"
-            android:onClick="btnClearRes"/>
+            android:text="@string/clearAll"
+            />
 
         <!--| 7 |-->
         <Button
+            android:id="@+id/btn7"
             style="@style/MainCalcOperators"
-            android:onClick="btn7"
             android:text="@string/seven"/>
 
         <!--| 4 |-->
         <Button
+            android:id="@+id/btn4"
             style="@style/MainCalcOperators"
-            android:onClick="btn4"
             android:text="@string/four"/>
 
         <!--| 1 |-->
         <Button
+            android:id="@+id/btn1"
             style="@style/MainCalcOperators"
             android:onClick="btn1"
             android:text="@string/one"/>
 
         <!--| . |-->
         <Button
+            android:id="@+id/btnPeriod"
             style="@style/MainCalcOperators"
-            android:onClick="btnPeriod"
             android:text="@string/period"/>
     </LinearLayout>
-
 
 </RelativeLayout>
