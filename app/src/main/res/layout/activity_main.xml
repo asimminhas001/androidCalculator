@@ -207,14 +207,14 @@
             android:id="@+id/btnClearExp"
             style="@style/MainCalcClear"
             android:text="@string/clearExp"
-            android:background="#ef5350"
+            android:background="#fafafa"
             />
 
         <!--| Clear All |-->
         <Button
             android:id="@+id/btnClearAll"
             style="@style/MainCalcClear"
-            android:background="#ffab91"
+            android:background="#d7ccc8"
             android:text="@string/clearAll"
             />
 

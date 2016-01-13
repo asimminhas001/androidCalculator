@@ -87,8 +87,14 @@ public class ExpressionParser {
         return Double.toString(result);
     }
 
+    /**
+     * Takes the stacks and computes the result
+     * @param operandStack
+     * @param operatorStack
+     * @return
+     */
     private static double computeOperatorStack(Stack operandStack, Stack operatorStack) {
-        double result = 0, operand1, operand2;
+        double operand1, operand2;
         String operator;
 
         while (!operatorStack.empty())
@@ -96,10 +102,12 @@ public class ExpressionParser {
             operand2 = Double.parseDouble(operandStack.pop().toString());
             operand1 = Double.parseDouble(operandStack.pop().toString());
             operator = operatorStack.pop().toString();
-            result = computeEquation(operand1, operator, operand2);
+
+            operatorStack.push(computeEquation(operand1, operator, operand2));
+
         }
 
-        return result;
+        return Double.parseDouble(operatorStack.pop().toString());
     }
 
     private static double computeBracketStack(Stack bracketSt, Stack operandSt, Stack operatorSt) {
