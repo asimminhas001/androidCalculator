@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         /*********************************************************
          * Operands Buttons onClick listeners
          */
+
         /**
          * btnPeriod
          */
@@ -305,6 +306,7 @@ public class MainActivity extends AppCompatActivity {
     /*********************************************************
      * View methods
      */
+
     /**
      * displayExpression()
      *  - displays the string passed in the expressionView

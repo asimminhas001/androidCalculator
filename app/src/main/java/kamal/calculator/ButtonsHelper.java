@@ -360,8 +360,7 @@ public class ButtonsHelper {
      * @param view
      */
     public void btnClearExp(View view) {
-        expressionString = "";
-        MainActivity.displayExpression(expressionString);
+        MainActivity.displayExpression(expressionString = "");
         clearAllFlags();
         Snackbar.make(parentView, "Expression Cleared",
                 Snackbar.LENGTH_SHORT).show();
@@ -369,7 +368,6 @@ public class ButtonsHelper {
 
     /**
      * btnClearAll()
-     *
      * @param view
      */
     public void btnClearAll(View view) {

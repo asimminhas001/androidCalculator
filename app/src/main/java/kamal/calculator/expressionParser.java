@@ -1,5 +1,6 @@
 package kamal.calculator;
 
+import java.util.Objects;
 import java.util.Stack;
 
 /**
@@ -48,7 +49,7 @@ public class ExpressionParser {
         Stack operatorStack = new Stack();
         Stack bracketStack = new Stack();
 
-        if (expressionString == "") {
+        if (Objects.equals(expressionString, "")) {
             return "0";
         }
 
@@ -59,27 +60,31 @@ public class ExpressionParser {
             //      the bracket stack.
             //  if an operator or operand, they get pushed into their respective stacks.
             String element = expressionStringArray[i];
-            if (expressionString.contains("[\\(\\)]")) {
+            if (element.matches("")) {
+                i++;
+            } else {
                 if (isBracket(element)) {
                     // While we are still inside the parenthesis
                     //  push everything inside the bracket stack
                     //  then compute the result.
-                    while (!isBracket(element)) {
-                        element = expressionStringArray[++i];
+                    if (element.matches("\\)")) break;
+                    element = expressionStringArray[++i];
+                    while (!isBracket(element) && (isOperand(element) || isOperator(element))) {
                         bracketStack.push(element);
-
-                        while (!bracketStack.empty()) {
-                            computeBracketStack(bracketStack, operandStack, operatorStack);
-                        }
+                        element = expressionStringArray[++i];
                     }
+                    //while (!bracketStack.empty()) {
+                    computeBracketStack(bracketStack, operandStack, operatorStack);
+                    //}
+                }
+                else if (isOperator(element)) {
+                    operatorStack.push(element);
+                }
+                else if (isOperand(element)) {
+                    operandStack.push(element);
                 }
             }
-            else if (isOperator(element)) {
-                operatorStack.push(element);
-            }
-            else if (isOperand(element)) {
-                operandStack.push(element);
-            }
+
         }
 
         result = computeOperatorStack(operandStack, operatorStack);
@@ -94,47 +99,72 @@ public class ExpressionParser {
      * @return
      */
     private static double computeOperatorStack(Stack operandStack, Stack operatorStack) {
-        double operand1, operand2;
-        String operator;
+        double operand1, operand2, operandOutput;
+        String operator, operand;
 
+        // replace operand loading (i.e. Double.parseDouble(operandStack.pop().toString());)
+        //  with method that checks for errors and returns a double
         while (!operatorStack.empty())
         {
-            operand2 = Double.parseDouble(operandStack.pop().toString());
-            operand1 = Double.parseDouble(operandStack.pop().toString());
+            operand2 = loadOperand(operandStack);
+            operand1 = loadOperand(operandStack);
             operator = operatorStack.pop().toString();
-
-            operatorStack.push(computeEquation(operand1, operator, operand2));
-
+            operandStack.push(computeEquation(operand1, operator, operand2));
         }
 
-        return Double.parseDouble(operatorStack.pop().toString());
+        return Double.parseDouble(operandStack.pop().toString());
     }
 
+    /**
+     * @param operandStack
+     * @return
+     */
+    private static double loadOperand(Stack operandStack) {
+        if (operandStack.empty()) {
+            return 0;
+        }
+        return Double.parseDouble(operandStack.pop().toString());
+    }
+
+    /**
+     *
+     * @param bracketSt
+     * @param operandSt
+     * @param operatorSt
+     * @return
+     */
     private static double computeBracketStack(Stack bracketSt, Stack operandSt, Stack operatorSt) {
         double operand1, operand2, result;
         String operator;
         while (!bracketSt.empty()) {
 
-            if (bracketSt.size() % 3 == 0) {
+            if (bracketSt.size() == 3) {
                 operand2 = Double.parseDouble(bracketSt.pop().toString());
                 operator = bracketSt.pop().toString();
                 operand1 = Double.parseDouble(bracketSt.pop().toString());
                 result = computeEquation(operand1, operator, operand2);
                 operandSt.push(result);
             }
-            else if (bracketSt.size() % 3 != 0 ) {
-                operand2 = Double.parseDouble(operandSt.pop().toString());
-                operator = bracketSt.pop().toString();
-                operand1 = Double.parseDouble(bracketSt.pop().toString());
-                result = computeEquation(operand1, operator, operand2);
-                operandSt.push(result);
-            }
+//            else if (bracketSt.size() % 3 != 0 ) {
+//                operand2 = Double.parseDouble(operandSt.pop().toString()
+//                operator = bracketSt.pop().toString();
+//                operand1 = Double.parseDouble(bracketSt.pop().toString());
+//                result = computeEquation(operand1, operator, operand2);
+//                operandSt.push(result);
+//            }
 
         }
 
         return 0;
     }
 
+    /**
+     *
+     * @param operand1
+     * @param operator
+     * @param operand2
+     * @return
+     */
     private static double computeEquation(double operand1, String operator, double operand2) {
         double result = 0;
 
