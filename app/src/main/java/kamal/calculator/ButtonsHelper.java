@@ -26,10 +26,13 @@ public class ButtonsHelper {
     protected static boolean lastBracketsFlag = false;
     protected static boolean lastOperatorFlag = false;
     protected static boolean lastOperandFlag = false;
-    protected static boolean resultRequested = false;
     protected static boolean averageCalculation = false;
     protected static boolean periodFlag = false;
 
+    /**
+     *
+     * @param v
+     */
     public ButtonsHelper(View v) {
         this.parentView = v;
         expressionView = (TextView) v.findViewById(R.id.expression_output);
@@ -151,6 +154,8 @@ public class ButtonsHelper {
      */
     public void btnEq(View view) {
         MainActivity.displayResult(ExpressionParser.computeResult(expressionString));
+        MainActivity.displayExpression(expressionString = "");
+        clearAllFlags();
     }
 
 

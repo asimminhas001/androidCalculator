@@ -4,28 +4,12 @@ import java.util.Objects;
 import java.util.Stack;
 
 /**
- * Program:
+ * Program: ExpressionParser
  * Project: Calculator
  * Author: kamal hamoud
  * Date: 2016-01-07
  */
 public class ExpressionParser {
-
-//    /**
-//     * expressionOutput
-//     *  - calculates
-//     *  @param num
-//     */
-//    protected static void expressionOutput(int num, String expressionString) {
-//        if (expressionString.equals("")) {
-//            expressionString = expressionString.concat("" + num);
-//        }
-//        else {
-//            expressionString = expressionString.concat(" " + num);
-//        }
-//
-//        MainActivity.displayExpression(expressionString);
-//    }
 
     /**
      * resultOutput method
@@ -39,7 +23,9 @@ public class ExpressionParser {
 
     /**
      * computeResult()
-     *  - parses expression string and computes the result
+     *  - parses expression string using split() with a " " delim
+     *  - go through resulting string array seperating operators, and operands
+     *  - and computes the result
      *  @returns String of the result of computation
      */
     protected static String computeResult(String expressionString) {
@@ -67,11 +53,13 @@ public class ExpressionParser {
                     // While we are still inside the parenthesis
                     //  push everything inside the bracket stack
                     //  then compute the result.
-                    if (element.matches("\\)")) break;
-                    element = expressionStringArray[++i];
-                    while (!isBracket(element) && (isOperand(element) || isOperator(element))) {
-                        bracketStack.push(element);
+                    if (!element.matches("\\)")) {
+                        String expressionStr = "";
                         element = expressionStringArray[++i];
+                        while (!isBracket(element) && (isOperand(element) || isOperator(element))) {
+                            bracketStack.push(element);
+                            element = expressionStringArray[++i];
+                        }
                     }
                     //while (!bracketStack.empty()) {
                     computeBracketStack(bracketStack, operandStack, operatorStack);
@@ -93,7 +81,7 @@ public class ExpressionParser {
     }
 
     /**
-     * Takes the stacks and computes the result
+     * Takes the 2 stacks and computes the result
      * @param operandStack
      * @param operatorStack
      * @return
@@ -127,7 +115,8 @@ public class ExpressionParser {
     }
 
     /**
-     *
+     * computeBracketStack()
+     *  - computes
      * @param bracketSt
      * @param operandSt
      * @param operatorSt
@@ -138,7 +127,7 @@ public class ExpressionParser {
         String operator;
         while (!bracketSt.empty()) {
 
-            if (bracketSt.size() == 3) {
+            if (bracketSt.size() % 3 == 0) {
                 operand2 = Double.parseDouble(bracketSt.pop().toString());
                 operator = bracketSt.pop().toString();
                 operand1 = Double.parseDouble(bracketSt.pop().toString());

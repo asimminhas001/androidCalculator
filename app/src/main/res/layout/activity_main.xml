@@ -57,32 +57,32 @@
         <!--| % |-->
         <Button
             android:id="@+id/btnRemainder"
-            style="@style/MainCalcOperands"
+            style="@style/MainCalcOperators"
             android:text="@string/remainder"/>
 
         <!--| / |-->
         <Button
             android:id="@+id/btnDiv"
-            style="@style/MainCalcOperands"
+            style="@style/MainCalcOperators"
             android:text="@string/div"
             />
 
         <!--| x |-->
         <Button
             android:id="@+id/btnMul"
-            style="@style/MainCalcOperands"
+            style="@style/MainCalcOperators"
             android:text="@string/mul"/>
 
         <!--| - |-->
         <Button
             android:id="@+id/btnSub"
-            style="@style/MainCalcOperands"
+            style="@style/MainCalcOperators"
             android:text="@string/sub"/>
 
         <!--| + |-->
         <Button
             android:id="@+id/btnAdd"
-            style="@style/MainCalcOperands"
+            style="@style/MainCalcOperators"
             android:text="@string/add"/>
 
     </LinearLayout>
@@ -112,28 +112,28 @@
         <!--| 9 |-->
         <Button
             android:id="@+id/btn9"
-            style="@style/MainCalcOperators"
+            style="@style/MainCalcOperands"
             android:text="@string/nine"
             />
 
         <!--| 6 |-->
         <Button
             android:id="@+id/btn6"
-            style="@style/MainCalcOperators"
+            style="@style/MainCalcOperands"
             android:text="@string/six"
             />
 
         <!--| 3 |-->
         <Button
             android:id="@+id/btn3"
-            style="@style/MainCalcOperators"
+            style="@style/MainCalcOperands"
             android:text="@string/three"
             />
 
         <!--| = |-->
         <Button
             android:id="@+id/btnEq"
-            style="@style/MainCalcOperands"
+            style="@style/MainCalcOperators"
             android:text="@string/eq"
             />
 
@@ -166,28 +166,28 @@
         <!--| 8 |-->
         <Button
             android:id="@+id/btn8"
-            style="@style/MainCalcOperators"
+            style="@style/MainCalcOperands"
             android:text="@string/eight"
             />
 
         <!--| 5 |-->
         <Button
             android:id="@+id/btn5"
-            style="@style/MainCalcOperators"
+            style="@style/MainCalcOperands"
             android:text="@string/five"
             />
 
         <!--| 2 |-->
         <Button
             android:id="@+id/btn2"
-            style="@style/MainCalcOperators"
+            style="@style/MainCalcOperands"
             android:text="@string/two"
             />
 
         <!--| 0 |-->
         <Button
             android:id="@+id/btn0"
-            style="@style/MainCalcOperators"
+            style="@style/MainCalcOperands"
             android:text="@string/zero"
             />
 
@@ -207,40 +207,40 @@
             android:id="@+id/btnClearExp"
             style="@style/MainCalcClear"
             android:text="@string/clearExp"
-            android:background="#fafafa"
+            android:background="#f5f5f5"
             />
 
         <!--| Clear All |-->
         <Button
             android:id="@+id/btnClearAll"
             style="@style/MainCalcClear"
-            android:background="#d7ccc8"
+            android:background="#f5f5f5"
             android:text="@string/clearAll"
             />
 
         <!--| 7 |-->
         <Button
             android:id="@+id/btn7"
-            style="@style/MainCalcOperators"
+            style="@style/MainCalcOperands"
             android:text="@string/seven"/>
 
         <!--| 4 |-->
         <Button
             android:id="@+id/btn4"
-            style="@style/MainCalcOperators"
+            style="@style/MainCalcOperands"
             android:text="@string/four"/>
 
         <!--| 1 |-->
         <Button
             android:id="@+id/btn1"
-            style="@style/MainCalcOperators"
+            style="@style/MainCalcOperands"
             android:onClick="btn1"
             android:text="@string/one"/>
 
         <!--| . |-->
         <Button
             android:id="@+id/btnPeriod"
-            style="@style/MainCalcOperators"
+            style="@style/MainCalcOperands"
             android:text="@string/period"/>
     </LinearLayout>
 
