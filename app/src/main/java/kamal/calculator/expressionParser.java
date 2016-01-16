@@ -33,7 +33,6 @@ public class ExpressionParser {
         double result;
         Stack operandStack = new Stack();
         Stack operatorStack = new Stack();
-        Stack bracketStack = new Stack();
 
         if (Objects.equals(expressionString, "")) {
             return "0";
@@ -42,28 +41,29 @@ public class ExpressionParser {
         for (int i = 0; i < expressionStringArray.length; i++) {
 
             // Load stacks
-            //  if the next element is a bracket, push everything in the bracket in
-            //      the bracket stack.
+            //  if the next element is a bracket, create a new string of the operands
+            //      and operators inside the brackets and recursively call computeResult(bracketExpression)
+            //      which gets pushed into the operandStack when answer is returned.
             //  if an operator or operand, they get pushed into their respective stacks.
             String element = expressionStringArray[i];
             if (element.matches("")) {
-                i++;
+                continue;
             } else {
                 if (isBracket(element)) {
-                    // While we are still inside the parenthesis
-                    //  push everything inside the bracket stack
-                    //  then compute the result.
+                    String bracketExpression = "";
                     if (!element.matches("\\)")) {
-                        String expressionStr = "";
                         element = expressionStringArray[++i];
+
                         while (!isBracket(element) && (isOperand(element) || isOperator(element))) {
-                            bracketStack.push(element);
+                            if (isOperator(element)) {
+                                bracketExpression += " " + element + " ";
+                            } else {
+                                bracketExpression += element;
+                            }
                             element = expressionStringArray[++i];
                         }
                     }
-                    //while (!bracketStack.empty()) {
-                    computeBracketStack(bracketStack, operandStack, operatorStack);
-                    //}
+                    operandStack.push(computeResult(bracketExpression));
                 }
                 else if (isOperator(element)) {
                     operatorStack.push(element);
@@ -87,8 +87,8 @@ public class ExpressionParser {
      * @return
      */
     private static double computeOperatorStack(Stack operandStack, Stack operatorStack) {
-        double operand1, operand2, operandOutput;
-        String operator, operand;
+        double operand1, operand2;
+        String operator;
 
         // replace operand loading (i.e. Double.parseDouble(operandStack.pop().toString());)
         //  with method that checks for errors and returns a double
@@ -104,6 +104,7 @@ public class ExpressionParser {
     }
 
     /**
+     * Returns the top operand in the operand stack if available
      * @param operandStack
      * @return
      */
@@ -115,44 +116,11 @@ public class ExpressionParser {
     }
 
     /**
-     * computeBracketStack()
-     *  - computes
-     * @param bracketSt
-     * @param operandSt
-     * @param operatorSt
-     * @return
-     */
-    private static double computeBracketStack(Stack bracketSt, Stack operandSt, Stack operatorSt) {
-        double operand1, operand2, result;
-        String operator;
-        while (!bracketSt.empty()) {
-
-            if (bracketSt.size() % 3 == 0) {
-                operand2 = Double.parseDouble(bracketSt.pop().toString());
-                operator = bracketSt.pop().toString();
-                operand1 = Double.parseDouble(bracketSt.pop().toString());
-                result = computeEquation(operand1, operator, operand2);
-                operandSt.push(result);
-            }
-//            else if (bracketSt.size() % 3 != 0 ) {
-//                operand2 = Double.parseDouble(operandSt.pop().toString()
-//                operator = bracketSt.pop().toString();
-//                operand1 = Double.parseDouble(bracketSt.pop().toString());
-//                result = computeEquation(operand1, operator, operand2);
-//                operandSt.push(result);
-//            }
-
-        }
-
-        return 0;
-    }
-
-    /**
-     *
+     * Matches the operator with the correct method to call to acquire a result
      * @param operand1
      * @param operator
      * @param operand2
-     * @return
+     * @return double - result of computation
      */
     private static double computeEquation(double operand1, String operator, double operand2) {
         double result = 0;
