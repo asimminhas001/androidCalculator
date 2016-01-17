@@ -11,7 +11,6 @@ import java.util.Stack;
  */
 public class ExpressionParser {
 
-    static HistorySQLiteConnection db = HistorySQLiteConnection.getsInstance(MainActivity.contextOfApplication);
     /**
      * resultOutput method
      *  - displays the number in the Result TextView
@@ -29,7 +28,7 @@ public class ExpressionParser {
      *  - and computes the result
      *  @returns String of the result of computation
      */
-    protected static String computeResult(String expressionString) {
+    protected static HistoryObject computeResult(String expressionString) {
         String[] expressionStringArray = expressionString.split(" ");
         double result;
         String resultStr;
@@ -37,7 +36,8 @@ public class ExpressionParser {
         Stack operatorStack = new Stack();
 
         if (Objects.equals(expressionString, "")) {
-            return "0";
+            HistoryObject ahistoryObject = new HistoryObject("0", "0");
+            return ahistoryObject;
         }
 
         for (int i = 0; i < expressionStringArray.length; i++) {
@@ -65,7 +65,7 @@ public class ExpressionParser {
                             element = expressionStringArray[++i];
                         }
                     }
-                    operandStack.push(computeResult(bracketExpression));
+                    operandStack.push(computeResult(bracketExpression).resultString);
                 }
                 else if (isOperator(element)) {
                     operatorStack.push(element);
@@ -80,8 +80,7 @@ public class ExpressionParser {
         result = computeOperatorStack(operandStack, operatorStack);
         resultStr = Double.toString(result);
         HistoryObject historyObject = new HistoryObject(expressionString, resultStr);
-        db.addHistory(historyObject);
-        return resultStr;
+        return historyObject;
     }
 
     /**

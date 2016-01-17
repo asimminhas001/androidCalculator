@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.List;
+
 /**
  * Program:
  * Project: ${Project_Name}
@@ -14,6 +16,10 @@ import org.w3c.dom.Text;
  * Date: 2016-01-07
  */
 public class ButtonsHelper {
+
+    static HistorySQLiteConnection db = HistorySQLiteConnection.getsInstance(MainActivity.contextOfApplication);
+
+
 
     protected View parentView;
     protected static TextView expressionView;
@@ -153,8 +159,23 @@ public class ButtonsHelper {
      * @param view
      */
     public void btnEq(View view) {
-        MainActivity.displayResult(ExpressionParser.computeResult(expressionString));
+        // Create historyObject which is returned by computeResult
+        HistoryObject historyObject = ExpressionParser.computeResult(expressionString);
+        List<HistoryObject> aList = db.getHistory();
+
+        // display resultString
+        MainActivity.displayResult(historyObject.resultString);
+        // reset expression string
         MainActivity.displayExpression(expressionString = "");
+        // add history object to history database
+        if (!historyObject.expressionString.equals("0")) {
+            db.addHistory(historyObject);
+
+            HistoryAdapter adapter = new HistoryAdapter(db.getHistory());
+            MainActivity.historyView.setAdapter(adapter);
+            adapter.notifyItemInserted(aList.size() - 1);
+            MainActivity.historyView.scrollToPosition(adapter.getItemCount() - 1);
+        }
         clearAllFlags();
     }
 

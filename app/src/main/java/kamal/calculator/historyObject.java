@@ -22,11 +22,19 @@ public class HistoryObject {
         resultString = aResultString;
     }
 
+    /**
+     * constructs a historyObject
+     * @param expressionString
+     * @param resultString
+     */
     public HistoryObject(String expressionString, String resultString) {
         this.expressionString = expressionString;
         this.resultString = resultString;
     }
 
+    /**
+     * - constructs a historyObject
+     */
     public HistoryObject() {
     }
 
