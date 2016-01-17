@@ -6,18 +6,29 @@ package kamal.calculator;
  * Author: kamalhamoud
  * Date: 2016-01-15
  */
-public class historyObject{
-    private String expressionString;
-    private String resultString;
+public class HistoryObject {
+    public Long Id;
+    public String expressionString;
+    public String resultString;
 
     /**
-     * Constructs an expressionObject
+     * constructs a historyObject
      * @param anExpressionString
      * @param aResultString
      */
-    public historyObject(String anExpressionString, String aResultString){
+    public HistoryObject(Long anId,String anExpressionString, String aResultString){
+        Id = anId;
         expressionString = anExpressionString;
         resultString = aResultString;
     }
+
+    public HistoryObject(String expressionString, String resultString) {
+        this.expressionString = expressionString;
+        this.resultString = resultString;
+    }
+
+    public HistoryObject() {
+    }
+
 
 }

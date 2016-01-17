@@ -1,14 +1,20 @@
 package kamal.calculator;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.File;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
-
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
+    public static Context contextOfApplication;
     protected static TextView resultView;
     protected static TextView expressionView;
     protected static View parentView;
@@ -18,10 +24,31 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        contextOfApplication = getApplicationContext();
+
         expressionView = (TextView) findViewById(R.id.expression_output);
         resultView = (TextView) findViewById(R.id.result_output);
         parentView = findViewById(R.id.parent);
         final ButtonsHelper buttonsHelper = new ButtonsHelper(parentView);
+
+        File dbFile = this.getDatabasePath("historyDatabase");
+        Log.d(LOG_TAG, "dbFile exists =" + dbFile);
+
+        // Database
+        HistorySQLiteConnection db = HistorySQLiteConnection.getsInstance(this);
+
+//        HistoryObject a = new HistoryObject("2 + 2 + 2", "6");
+//        db.getWritableDatabase();
+//        db.addHistory(a);
+//
+//        HistoryObject b = new HistoryObject("3 + 4 + 2", "9");
+//        db.getWritableDatabase();
+//        db.addHistory(b);
+//
+//        List<HistoryObject> alist = db.getHistory();
+//        for (HistoryObject item: alist) {
+//            Log.d(LOG_TAG, item.Id + " " + item.expressionString + " " + item.resultString);
+//        }
 
         /*********************************************************
          * Operands Buttons onClick listeners
