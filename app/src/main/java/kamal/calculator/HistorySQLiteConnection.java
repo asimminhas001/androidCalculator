@@ -116,7 +116,8 @@ public class HistorySQLiteConnection extends SQLiteOpenHelper{
     public List<HistoryObject> getHistory() {
         List<HistoryObject> history = new ArrayList<>();
 
-        String HISTORY_SELECT_QUERY = "SELECT * FROM " + TABLE_HISTORY;
+        String HISTORY_SELECT_QUERY = "SELECT * FROM " + TABLE_HISTORY +
+                                        " ORDER BY " + HISTORY_ID + " DESC";
 
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(HISTORY_SELECT_QUERY, null);

@@ -41,13 +41,13 @@ public class MainActivity extends AppCompatActivity {
         // Database
         HistorySQLiteConnection db = HistorySQLiteConnection.getsInstance(this);
 
-        HistoryObject a = new HistoryObject("2 + 2 + 2", "6");
-        db.getWritableDatabase();
-        db.addHistory(a);
-
-        HistoryObject b = new HistoryObject("3 + 4 + 2", "9");
-        db.getWritableDatabase();
-        db.addHistory(b);
+//        HistoryObject a = new HistoryObject("2 + 2 + 2", "6");
+//        db.getWritableDatabase();
+//        db.addHistory(a);
+//
+//        HistoryObject b = new HistoryObject("3 + 4 + 2", "9");
+//        db.getWritableDatabase();
+//        db.addHistory(b);
 
         List<HistoryObject> aList = db.getHistory();
         for (HistoryObject item: aList) {
