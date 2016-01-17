@@ -174,7 +174,7 @@ public class ButtonsHelper {
             HistoryAdapter adapter = new HistoryAdapter(db.getHistory());
             MainActivity.historyView.setAdapter(adapter);
             adapter.notifyItemInserted(aList.size() - 1);
-            MainActivity.historyView.scrollToPosition(adapter.getItemCount() - 1);
+            MainActivity.historyView.scrollToPosition(0);
         }
         clearAllFlags();
     }

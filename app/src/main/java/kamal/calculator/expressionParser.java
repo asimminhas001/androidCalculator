@@ -151,7 +151,7 @@ public class ExpressionParser {
      * @return boolean
      */
     protected static boolean isOperand(String expressionStringFragment) {
-        return expressionStringFragment.matches("[0-9]*[.]*");
+        return expressionStringFragment.matches("[0-9]*[.]*[0-9]+");
     }
 
 
