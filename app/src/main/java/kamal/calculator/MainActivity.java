@@ -3,6 +3,7 @@ package kamal.calculator;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import java.io.File;
 import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -60,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         historyView.setAdapter(adapter);
         // Set layout manager to position the items
         historyView.setLayoutManager(new LinearLayoutManager(this));
-
 
         /*********************************************************
          * Operands Buttons onClick listeners

@@ -23,7 +23,7 @@ public class ButtonsHelper {
 
     protected View parentView;
     protected static TextView expressionView;
-    private String expressionString = "";
+    protected static String expressionString = "";
 
     /**
      * Flags
@@ -188,16 +188,16 @@ public class ButtonsHelper {
     public void btnBrackets(View view) {
         String closeBrackets = " ) ", openBrackets = " ( ";
 
-        if (!OpenBracketsFlag && !lastBracketsFlag) {
+        if (!OpenBracketsFlag && !lastBracketsFlag && (lastOperatorFlag || expressionString.equals(""))) {
             expressionString = expressionString.concat(openBrackets);
             setOpenBracketsFlag(true);
             setLastBracketsFlag(true);
-        } else if (!lastBracketsFlag) {
+        } else if (OpenBracketsFlag && !lastOperatorFlag) {
             expressionString = expressionString.concat(closeBrackets);
             setOpenBracketsFlag(false);
             setLastBracketsFlag(true);
         } else {
-            Snackbar.make(parentView, "Input Number after Bracket",
+            Snackbar.make(parentView, "Input Operator before Bracket\nInput Number after Bracket",
                     Snackbar.LENGTH_SHORT).show();
         }
         MainActivity.displayExpression(expressionString);
@@ -467,7 +467,7 @@ public class ButtonsHelper {
      *
      * @param bool
      */
-    protected void setLastOperandFlag(boolean bool) {
+    protected static void setLastOperandFlag(boolean bool) {
         lastOperandFlag = bool;
         lastBracketsFlag = false;
         lastOperatorFlag = false;
@@ -506,6 +506,12 @@ public class ButtonsHelper {
         averageCalculation = false;
         lastBracketsFlag = false;
         periodFlag = false;
+    }
+
+    public static void recallHistory(HistoryObject aHistoryObject) {
+        expressionString = aHistoryObject.expressionString;
+        MainActivity.displayExpression(expressionString);
+        setLastOperandFlag(true);
     }
 
 }

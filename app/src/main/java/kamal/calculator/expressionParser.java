@@ -9,6 +9,12 @@ import java.util.Stack;
  * Author: kamal hamoud
  * Date: 2016-01-07
  */
+
+    // TODO: Add ANS button that allows use of previous answer in current equation
+    // TODO: make history click output expression and result into outputs - DONE
+    // TODO: Add log and ^ functions
+    // TODO: Move equals, dot, 0 and mod button to make it more user friendly
+    // TODO: Add clear history button/function
 public class ExpressionParser {
 
     /**
@@ -62,6 +68,7 @@ public class ExpressionParser {
                             } else {
                                 bracketExpression += element;
                             }
+                            if (i + 1 > expressionStringArray.length - 1) break;
                             element = expressionStringArray[++i];
                         }
                     }
@@ -223,6 +230,9 @@ public class ExpressionParser {
      * @return
      */
     private static double div(double A, double B) {
+        if (B == 0) {
+            return 0;
+        }
         return A / B;
     }
 
