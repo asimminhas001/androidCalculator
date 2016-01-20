@@ -3,7 +3,6 @@ package kamal.calculator;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -289,11 +288,11 @@ public class MainActivity extends AppCompatActivity {
         /**
          * btnAvg
          */
-        Button btnAvg = (Button) findViewById(R.id.btnAvg);
-        btnAvg.setOnClickListener(new View.OnClickListener() {
+        Button btnAns = (Button) findViewById(R.id.btnAns);
+        btnAns.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                buttonsHelper.btnAvg(v);
+                buttonsHelper.btnAns(v);
             }
         });
 

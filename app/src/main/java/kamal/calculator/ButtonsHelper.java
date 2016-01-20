@@ -21,7 +21,7 @@ public class ButtonsHelper {
 
 
 
-    protected View parentView;
+    protected static View parentView;
     protected static TextView expressionView;
     protected static String expressionString = "";
 
@@ -32,8 +32,8 @@ public class ButtonsHelper {
     protected static boolean lastBracketsFlag = false;
     protected static boolean lastOperatorFlag = false;
     protected static boolean lastOperandFlag = false;
-    protected static boolean averageCalculation = false;
     protected static boolean periodFlag = false;
+    protected static boolean getAnswer = false;
 
     /**
      *
@@ -160,6 +160,11 @@ public class ButtonsHelper {
      */
     public void btnEq(View view) {
         // Create historyObject which is returned by computeResult
+        if (expressionString.endsWith(" ")) {
+            Snackbar.make(parentView, "End expression with a number.",
+                    Snackbar.LENGTH_SHORT).show();
+            return;
+        }
         HistoryObject historyObject = ExpressionParser.computeResult(expressionString);
         List<HistoryObject> aList = db.getHistory();
 
@@ -405,23 +410,16 @@ public class ButtonsHelper {
     }
 
     /**
-     * btnAvg()
+     * btnAns()
      *
      * @param view
      */
-    public void btnAvg(View view) {
-
-        Snackbar.make(parentView, "Input number followed by + " +
-                        "\nAverage is calculated automatically after = is pressed",
+    public void btnAns(View view) {
+        List<HistoryObject> aList = db.getHistory();
+        HistoryObject lastExpression;
+        Snackbar.make(parentView, "Lets you use the result of an Expression in history",
                 Snackbar.LENGTH_SHORT).show();
-
-        if (averageCalculation) {
-            Snackbar.make(parentView, "Input Number",
-                    Snackbar.LENGTH_SHORT).show();
-        } else {
-            setAverageCalculation(true);
-        }
-
+        getAnswer = true;
         MainActivity.displayExpression(expressionString);
     }// end btnAvg()
 
@@ -474,17 +472,6 @@ public class ButtonsHelper {
     }
 
     /**
-     * setAverageCalculation()
-     *
-     * @param bool
-     */
-    protected void setAverageCalculation(boolean bool) {
-        averageCalculation = bool;
-        lastBracketsFlag = false;
-        lastOperatorFlag = false;
-    }
-
-    /**
      * setPeriodFlag
      *
      * @param bool
@@ -503,15 +490,35 @@ public class ButtonsHelper {
         lastBracketsFlag = false;
         lastOperandFlag = false;
         lastOperatorFlag = false;
-        averageCalculation = false;
         lastBracketsFlag = false;
         periodFlag = false;
     }
 
+    /**
+     *  Allows you to either use an expression or result from history in next equation
+     * @param aHistoryObject
+     */
     public static void recallHistory(HistoryObject aHistoryObject) {
-        expressionString = aHistoryObject.expressionString;
+
+        if (getAnswer && (lastOperatorFlag || expressionString.equals(""))) {
+            expressionString += aHistoryObject.resultString;
+            getAnswer = false;
+        } else if (lastOperatorFlag || expressionString.equals("")){
+            expressionString += aHistoryObject.expressionString;
+        } else {
+            Snackbar.make(parentView, "Enter an operator",
+                    Snackbar.LENGTH_SHORT).show();
+        }
         MainActivity.displayExpression(expressionString);
+        setFlags(aHistoryObject);
         setLastOperandFlag(true);
+    }
+
+    public static void setFlags(HistoryObject aHistoryObject) {
+        if (aHistoryObject.expressionString.contains("[\\(]")
+                && !aHistoryObject.expressionString.contains("[\\)]")) {
+            OpenBracketsFlag = true;
+        }
     }
 
 }

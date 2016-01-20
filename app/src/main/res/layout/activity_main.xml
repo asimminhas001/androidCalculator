@@ -98,9 +98,9 @@
 
         <!--| avg |-->
         <Button
-            android:id="@+id/btnAvg"
+            android:id="@+id/btnAns"
             style="@style/MainCalcFunctions"
-            android:text="@string/avg"
+            android:text="@string/ans"
             />
 
         <!--| ( ) |-->

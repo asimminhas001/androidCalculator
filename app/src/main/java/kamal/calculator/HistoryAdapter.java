@@ -50,6 +50,7 @@ public class HistoryAdapter extends
         public void onClick(View v) {
             int position = getLayoutPosition();
             HistoryObject historyObject = history.get(position);
+
             ButtonsHelper.recallHistory(historyObject);
         }
     }
