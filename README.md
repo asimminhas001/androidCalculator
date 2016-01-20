@@ -1,3 +1,3 @@
 # An Android Calculator
 
-Building a calculator in Adroid with History functionality.
+Building a calculator in Android with History functionality.

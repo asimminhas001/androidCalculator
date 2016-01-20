@@ -12,6 +12,7 @@ import java.util.Stack;
 
     // TODO: Add ANS button that allows use of previous answer in current equation
     // TODO: make history click output expression and result into outputs - DONE
+    // TODO: Use previous answer if operator is implemented. - DONE
     // TODO: Add log and ^ functions
     // TODO: Move equals, dot, 0 and mod button to make it more user friendly
     // TODO: Add clear history button/function
@@ -125,6 +126,7 @@ public class ExpressionParser {
         return Double.parseDouble(operandStack.pop().toString());
     }
 
+    // TODO:
     /**
      * Matches the operator with the correct method to call to acquire a result
      * @param operand1
