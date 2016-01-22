@@ -2,6 +2,8 @@ package kamal.calculator;
 
 import android.util.Log;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Stack;
@@ -18,7 +20,7 @@ import java.util.Stack;
     // TODO: Use previous answer if operator is implemented. - DONE
     // TODO: Add log and ^ functions - DONE
     // TODO: Move equals, dot, 0 and mod button to make it more user friendly
-    // TODO: Add clear history button/function
+    // TODO: Add clear history button/function - DONE
 public class ExpressionParser {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
@@ -161,6 +163,9 @@ public class ExpressionParser {
         operatorMap.put("^", exponent(operand1, operand2));
 
         result = operatorMap.get(operator);
+        BigDecimal bd = new BigDecimal(result * 1000);
+        bd = bd.round(new MathContext(5));
+        result = (bd.doubleValue())/1000;
 
         Log.d(LOG_TAG, "result is: " + result + "in double computeEquation" );
 

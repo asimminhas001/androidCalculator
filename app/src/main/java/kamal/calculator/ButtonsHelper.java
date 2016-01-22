@@ -554,10 +554,10 @@ public class ButtonsHelper {
     protected static void recallHistory(HistoryObject aHistoryObject) {
 
         if (getAnswer && (lastOperatorFlag || expressionString.equals(""))) {
-            expressionString = aHistoryObject.resultString;
+            expressionString += aHistoryObject.resultString;
             getAnswer = false;
         } else if (lastOperatorFlag || expressionString.equals("")) {
-            expressionString = aHistoryObject.expressionString;
+            expressionString += aHistoryObject.expressionString;
         } else {
             Snackbar.make(parentView, "Enter an operator",
                     Snackbar.LENGTH_SHORT).show();
