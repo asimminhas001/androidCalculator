@@ -16,7 +16,7 @@ import java.util.List;
  * Author: kamalhamoud
  * Date: 2016-01-16
  */
-public class HistorySQLiteConnection extends SQLiteOpenHelper{
+public class HistorySQLiteConnection extends SQLiteOpenHelper {
     // log TAG
     private static final String LOG_TAG = HistorySQLiteConnection.class.getSimpleName();
     // Single Instance
@@ -27,7 +27,7 @@ public class HistorySQLiteConnection extends SQLiteOpenHelper{
     private static final int DATABASE_VERSION = 1;
 
     // Table Name
-    private static final String TABLE_HISTORY = "history";
+    private static final String HISTORY_TABLE = "history";
 
     // History table columns
     private static final String HISTORY_ID = "id";
@@ -36,8 +36,9 @@ public class HistorySQLiteConnection extends SQLiteOpenHelper{
 
     /**
      * constructor for HistoryDatabaseHelper
-     *  - private to prevent direct instantiation
-     *  - use getInstance() instance
+     * - private to prevent direct instantiation
+     * - use getInstance() instance
+     *
      * @param context
      */
     private HistorySQLiteConnection(Context context) {
@@ -46,11 +47,12 @@ public class HistorySQLiteConnection extends SQLiteOpenHelper{
 
     /**
      * onCreate for SQLiteDatabase, creates table
+     *
      * @param db
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_HISTORY_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_HISTORY +
+        String CREATE_HISTORY_TABLE = "CREATE TABLE IF NOT EXISTS " + HISTORY_TABLE +
                 "(" +
                 HISTORY_ID + " INTEGER PRIMARY KEY," +
                 HISTORY_EXPRESSION + " TEXT," +
@@ -60,7 +62,8 @@ public class HistorySQLiteConnection extends SQLiteOpenHelper{
     }
 
     /**
-     *  Checks version number and updates if its not the same as current version number
+     * Checks version number and updates if its not the same as current version number
+     *
      * @param db
      * @param oldVersion
      * @param newVersion
@@ -68,13 +71,14 @@ public class HistorySQLiteConnection extends SQLiteOpenHelper{
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (oldVersion != newVersion) {
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_HISTORY);
+            db.execSQL("DROP TABLE IF EXISTS " + HISTORY_TABLE);
         }
         onCreate(db);
     }
 
     /**
-     *  makes sure only 1 instace of the database is on device
+     * makes sure only 1 instace of the database is on device
+     *
      * @param context
      * @return
      */
@@ -87,7 +91,8 @@ public class HistorySQLiteConnection extends SQLiteOpenHelper{
     }
 
     /**
-     *  adds history object into the db
+     * adds history object into the db
+     *
      * @param historyObject
      */
     public void addHistory(HistoryObject historyObject) {
@@ -101,23 +106,43 @@ public class HistorySQLiteConnection extends SQLiteOpenHelper{
 
             //Log.d(LOG_TAG, historyObject.expressionString + historyObject.resultString);
 
-            db.insertOrThrow(TABLE_HISTORY, null, values);
+            db.insertOrThrow(HISTORY_TABLE, null, values);
             db.setTransactionSuccessful();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Log.d(LOG_TAG, "Error updating history" + e);
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             db.endTransaction();
         }
     }
 
+    /**
+     * deletes all of the objects in the database
+     */
+    public void deleteHistory() {
+        SQLiteDatabase db = getWritableDatabase();
+        db.beginTransaction();
+
+        try {
+            db.delete(HISTORY_TABLE, null, null);
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            Log.d(LOG_TAG, "Error while deleting history");
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+    /**
+     * creates a list of the objects in the database
+     *
+     * @return list of HistoryObjects
+     */
     public List<HistoryObject> getHistory() {
         List<HistoryObject> history = new ArrayList<>();
 
-        String HISTORY_SELECT_QUERY = "SELECT * FROM " + TABLE_HISTORY +
-                                        " ORDER BY " + HISTORY_ID + " DESC";
+        String HISTORY_SELECT_QUERY = "SELECT * FROM " + HISTORY_TABLE +
+                " ORDER BY " + HISTORY_ID + " DESC";
 
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(HISTORY_SELECT_QUERY, null);
@@ -134,11 +159,9 @@ public class HistorySQLiteConnection extends SQLiteOpenHelper{
 
                 } while (cursor.moveToNext());
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Log.d(LOG_TAG, "Error getting history");
-        }
-        finally {
+        } finally {
             if (cursor != null && !cursor.isClosed()) {
                 cursor.close();
             }

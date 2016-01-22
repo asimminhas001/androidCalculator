@@ -12,6 +12,7 @@
     android:background="#e0e0e0"
     tools:context="kamal.calculator.MainActivity.ExpressionParser">
 
+    <!--outputs boxes-->
     <RelativeLayout
         android:layout_toRightOf="@+id/history_col"
         android:layout_above="@+id/col1"
@@ -204,18 +205,19 @@
 
         <!--| Clear exp |-->
         <Button
-            android:id="@+id/btnClearExp"
+            android:id="@+id/btnClear"
             style="@style/MainCalcClear"
             android:text="@string/clearExp"
             android:background="#f5f5f5"
             />
 
-        <!--| Clear All |-->
+        <!--| Clear History |-->
         <Button
-            android:id="@+id/btnClearAll"
+            android:id="@+id/btnClearHistory"
             style="@style/MainCalcClear"
             android:background="#f5f5f5"
-            android:text="@string/clearAll"
+            android:textSize="11sp"
+            android:text="@string/clearHistory"
             />
 
         <!--| 7 |-->

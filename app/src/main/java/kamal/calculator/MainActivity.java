@@ -313,24 +313,24 @@ public class MainActivity extends AppCompatActivity {
         });
 
         /**
-         * btnClearExp
+         * btnClear
          */
-        Button btnClearExp = (Button) findViewById(R.id.btnClearExp);
-        btnClearExp.setOnClickListener(new View.OnClickListener() {
+        Button btnClear = (Button) findViewById(R.id.btnClear);
+        btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                buttonsHelper.btnClearExp(v);
+                buttonsHelper.btnClear(v);
             }
         });
 
         /**
-         * btnClearRes
+         * btnClearHistory
          */
-        Button btnClearRes = (Button) findViewById(R.id.btnClearAll);
-        btnClearRes.setOnClickListener(new View.OnClickListener() {
+        Button btnClearHistory = (Button) findViewById(R.id.btnClearHistory);
+        btnClearHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                buttonsHelper.btnClearAll(v);
+                buttonsHelper.btnClearHistory(v);
             }
         });
 

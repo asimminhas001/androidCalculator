@@ -427,38 +427,15 @@ public class ButtonsHelper {
         }
     }// end btnDel()
 
-    protected void deleteTillOperand() {
-        int i = 0;
-        String lastChar = expressionString.substring(expressionString.length() - 1, expressionString.length());
-
-        while (!expressionString.isEmpty() && !ExpressionParser.isOperand(lastChar)) {
-            if (lastChar.matches("\\)")) setOpenBracketsFlag(true);
-            i++;
-            if (!expressionString.isEmpty()) {
-                expressionString = expressionString.substring(0, expressionString.length() - 1);
-                if (!expressionString.isEmpty()) {
-                    lastChar = expressionString.substring(expressionString.length() - 1, expressionString.length());
-                }
-            }
-            if (i > 4) break;
-        }
-
-        if (expressionString.length() > 4 && expressionString.substring(expressionString.substring(0, expressionString.length()-1).lastIndexOf(" "),expressionString.length()).matches("[\\(\\)log\\^\\+\\-\\%/x]+")){
-            setLastOperatorFlag(true);
-        } else {
-            setLastOperandFlag(true);
-        }
-        Log.d(LOG_TAG, "In delete " + "expression String is: " + expressionString
-                        + "\nlast char is " + lastChar);
-    }
 
     /**
-     * btnClearExp()
+     * btnClear()
      *
      * @param view
      */
-    public void btnClearExp(View view) {
+    public void btnClear(View view) {
         MainActivity.displayExpression(expressionString = "");
+        MainActivity.displayResult("");
         clearAllFlags();
         Snackbar.make(parentView, "Expression Cleared",
                 Snackbar.LENGTH_SHORT).show();
@@ -469,9 +446,18 @@ public class ButtonsHelper {
      *
      * @param view
      */
-    public void btnClearAll(View view) {
+    public void btnClearHistory(View view) {
         ExpressionParser.resultOutput(0);
         MainActivity.displayExpression(expressionString = "");
+
+        if (db.getHistory().size() > 0) {
+            db.deleteHistory();
+
+            HistoryAdapter adapter = new HistoryAdapter(db.getHistory());
+            MainActivity.historyView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+            MainActivity.historyView.scrollToPosition(0);
+        }
         clearAllFlags();
         Snackbar.make(parentView, "All Cleared",
                 Snackbar.LENGTH_SHORT).show();
@@ -598,5 +584,33 @@ public class ButtonsHelper {
         MainActivity.displayExpression(expressionString);
         setFlags(expressionString);
         setLastOperandFlag(true);
+    }
+
+    /**
+     * deletes starting from the end of expressionString string the first operator it encounters
+     */
+    protected void deleteTillOperand() {
+        int i = 0;
+        String lastChar = expressionString.substring(expressionString.length() - 1, expressionString.length());
+
+        while (!expressionString.isEmpty() && !ExpressionParser.isOperand(lastChar)) {
+            if (lastChar.matches("\\)")) setOpenBracketsFlag(true);
+            i++;
+            if (!expressionString.isEmpty()) {
+                expressionString = expressionString.substring(0, expressionString.length() - 1);
+                if (!expressionString.isEmpty()) {
+                    lastChar = expressionString.substring(expressionString.length() - 1, expressionString.length());
+                }
+            }
+            if (i > 4) break;
+        }
+
+        if (expressionString.length() > 4 && expressionString.substring(expressionString.substring(0, expressionString.length()-1).lastIndexOf(" "),expressionString.length()).matches("[\\(\\)log\\^\\+\\-\\%/x]+")){
+            setLastOperatorFlag(true);
+        } else {
+            setLastOperandFlag(true);
+        }
+        Log.d(LOG_TAG, "In delete " + "expression String is: " + expressionString
+                + "\nlast char is " + lastChar);
     }
 }
