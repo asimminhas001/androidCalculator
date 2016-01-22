@@ -1,5 +1,8 @@
 package kamal.calculator;
 
+import android.util.Log;
+
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.Stack;
 
@@ -10,13 +13,15 @@ import java.util.Stack;
  * Date: 2016-01-07
  */
 
-    // TODO: Add ANS button that allows use of previous answer in current equation
+    // TODO: Add ANS button that allows use of previous answer in current equation - DONE
     // TODO: make history click output expression and result into outputs - DONE
     // TODO: Use previous answer if operator is implemented. - DONE
-    // TODO: Add log and ^ functions
+    // TODO: Add log and ^ functions - DONE
     // TODO: Move equals, dot, 0 and mod button to make it more user friendly
     // TODO: Add clear history button/function
 public class ExpressionParser {
+
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     /**
      * resultOutput method
@@ -55,6 +60,10 @@ public class ExpressionParser {
             //      which gets pushed into the operandStack when answer is returned.
             //  if an operator or operand, they get pushed into their respective stacks.
             String element = expressionStringArray[i];
+            if (isOperand(element)) {
+                operandStack.push(element);
+                continue;
+            }
             if (element.matches("")) {
                 continue;
             } else {
@@ -63,7 +72,11 @@ public class ExpressionParser {
                     if (!element.matches("\\)")) {
                         element = expressionStringArray[++i];
 
-                        while (!isBracket(element) && (isOperand(element) || isOperator(element))) {
+                        while (!isBracket(element) && (isOperand(element) || isOperator(element) || element.matches(""))) {
+                            if (element.matches("")) {
+                                element = expressionStringArray[++i];
+                                continue;
+                            }
                             if (isOperator(element)) {
                                 bracketExpression += " " + element + " ";
                             } else {
@@ -77,9 +90,6 @@ public class ExpressionParser {
                 }
                 else if (isOperator(element)) {
                     operatorStack.push(element);
-                }
-                else if (isOperand(element)) {
-                    operandStack.push(element);
                 }
             }
 
@@ -108,6 +118,11 @@ public class ExpressionParser {
             operand2 = loadOperand(operandStack);
             operand1 = loadOperand(operandStack);
             operator = operatorStack.pop().toString();
+            if (operator.equals("log")) {
+                operandStack.push(operand1);
+                operandStack.push(computeEquation(1, operator, operand2));
+                continue;
+            }
             operandStack.push(computeEquation(operand1, operator, operand2));
         }
 
@@ -136,19 +151,18 @@ public class ExpressionParser {
      */
     private static double computeEquation(double operand1, String operator, double operand2) {
         double result = 0;
+        HashMap<String, Double> operatorMap = new HashMap();
+        operatorMap.put("+", add(operand1, operand2));
+        operatorMap.put("-", sub(operand1, operand2));
+        operatorMap.put("x", mul(operand1, operand2));
+        operatorMap.put("/", div(operand1, operand2));
+        operatorMap.put("%", mod(operand1, operand2));
+        operatorMap.put("log", log(operand2));
+        operatorMap.put("^", exponent(operand1, operand2));
 
-        switch (operator) {
-            case "+": result = add(operand1, operand2);
-                break;
-            case "-": result = sub(operand1, operand2);
-                break;
-            case "x": result = mul(operand1, operand2);
-                break;
-            case "/": result = div(operand1, operand2);
-                break;
-            case "%": result = mod(operand1, operand2);
-                break;
-        }
+        result = operatorMap.get(operator);
+
+        Log.d(LOG_TAG, "result is: " + result + "in double computeEquation" );
 
         return result;
     }
@@ -171,7 +185,7 @@ public class ExpressionParser {
      * @return boolean
      */
     protected static boolean isOperator(String expressionStringFragment) {
-        return expressionStringFragment.matches("[\\+\\-\\*%/x]+");
+        return expressionStringFragment.matches("[log\\^\\+\\-\\%/x]+");
     }
 
     /**
@@ -247,4 +261,25 @@ public class ExpressionParser {
     private static double mod(double A, double B) {
         return A % B;
     }
+
+    /**
+     *
+     * @param A (Base)
+     * @param B (Exponent)
+     * @return A to the power of B
+     */
+    private static double exponent(double A, double B) {
+        return (Math.pow(A, B));
+    }
+
+    /**
+     *
+     * @param A operand
+     * @return returns log(A)
+     */
+    private static double log(double A) {
+        return Math.log(A);
+    }
+
+
 }
