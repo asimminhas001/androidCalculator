@@ -16,7 +16,7 @@
     <string name="brackets">( )</string>
     <string name="ans">ans</string>
 
-    <!--col3 x²-->
+    <!--col3-->
     <string name="zero">0</string>
     <string name="two">2</string>
     <string name="five">5</string>
@@ -31,6 +31,8 @@
     <string name="seven">7</string>
     <string name="clearHistory">Clear History</string>
     <string name="clearExp">Clear</string>
+
+    <string name="history_title">History</string>
 
 
 

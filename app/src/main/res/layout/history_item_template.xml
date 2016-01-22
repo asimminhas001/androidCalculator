@@ -5,11 +5,12 @@
               android:elevation="2dp"
               android:orientation="vertical">
 
+    <!--Separator-->
     <View
-        android:elevation="8dp"
+        android:elevation="4dp"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:background="#ffffff" />
+        android:background="@color/colorAccent" />
 
     <!-- Expression view-->
     <TextView
@@ -17,8 +18,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="4dp"
+        android:textColor="@color/textColorSecondary"
         android:layout_marginTop="2dp"
-        android:textSize="15sp"/>
+        android:textSize="12sp"/>
 
     <!-- Result view-->
     <TextView
@@ -27,8 +29,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="4dp"
-        android:textColor="#000"
-        android:textSize="15sp"/>
+        android:textColor="@color/textColorPrimary"
+        android:textSize="14sp"/>
 
 
 </LinearLayout>

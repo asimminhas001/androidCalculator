@@ -19,8 +19,10 @@ import java.util.Stack;
     // TODO: make history click output expression and result into outputs - DONE
     // TODO: Use previous answer if operator is implemented. - DONE
     // TODO: Add log and ^ functions - DONE
-    // TODO: Move equals, dot, 0 and mod button to make it more user friendly
+    // TODO: Move equals, dot, 0 and mod button to make it more user friendly -DONE
     // TODO: Add clear history button/function - DONE
+
+    
 public class ExpressionParser {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
@@ -122,10 +124,10 @@ public class ExpressionParser {
             operator = operatorStack.pop().toString();
             if (operator.equals("log")) {
                 operandStack.push(operand1);
-                operandStack.push(computeEquation(1, operator, operand2));
+                operandStack.push(String.format("%.4f", computeEquation(operand1, operator, operand2)));
                 continue;
             }
-            operandStack.push(computeEquation(operand1, operator, operand2));
+            operandStack.push(String.format("%.4f", computeEquation(operand1, operator, operand2)));
         }
 
         return Double.parseDouble(operandStack.pop().toString());
@@ -163,11 +165,8 @@ public class ExpressionParser {
         operatorMap.put("^", exponent(operand1, operand2));
 
         result = operatorMap.get(operator);
-        BigDecimal bd = new BigDecimal(result * 1000);
-        bd = bd.round(new MathContext(5));
-        result = (bd.doubleValue())/1000;
 
-        Log.d(LOG_TAG, "result is: " + result + "in double computeEquation" );
+//        Log.d(LOG_TAG, "result is: " + result + "in double computeEquation" );
 
         return result;
     }

@@ -8,8 +8,8 @@ import android.widget.TextView;
 import java.util.List;
 
 /**
- * Program:
- * Project: ${Project_Name}
+ * Program: ButtonsHelper
+ * Project: Calculator
  * Author: kamalhamoud
  * Date: 2016-01-07
  */

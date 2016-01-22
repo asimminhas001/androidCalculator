@@ -13,7 +13,12 @@ import android.widget.TextView;
 import java.io.File;
 import java.util.List;
 
-
+/**
+ * Program: MainActivity
+ * Project: Calculator
+ * Author: kamal hamoud
+ * Date: 2016-01-07
+ */
 public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
