@@ -1,9 +1,6 @@
 package kamal.calculator;
 
 import android.util.Log;
-
-import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Stack;
@@ -15,6 +12,9 @@ import java.util.Stack;
  * Date: 2016-01-07
  */
 
+/**
+ * TODO: DONE List
+ */
     // TODO: Add ANS button that allows use of previous answer in current equation - DONE
     // TODO: make history click output expression and result into outputs - DONE
     // TODO: Use previous answer if operator is implemented. - DONE
@@ -22,10 +22,23 @@ import java.util.Stack;
     // TODO: Move equals, dot, 0 and mod button to make it more user friendly -DONE
     // TODO: Add clear history button/function - DONE
 
+/**
+ * TODO List
+ */
+    // TODO: 2 % 0 = NAN ???
+    // TODO: ANS btn feedback
+    // TODO: have btns off when not useable (i.e. after operator no operator)
+    // TODO: reduce divider shadow (elevation)
+    // TODO: implement global hashmap through interface implementation
+
     
 public class ExpressionParser {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
+
+    private static HashMap<String, Double> operatorMap = new HashMap();
+    private static boolean operatorMapLoaded = false;
+
 
     /**
      * resultOutput method
@@ -145,7 +158,12 @@ public class ExpressionParser {
         return Double.parseDouble(operandStack.pop().toString());
     }
 
-    // TODO:
+//    private static void loadOperatorMap() {
+//
+//
+//    } // end loadOperatorMap()
+
+
     /**
      * Matches the operator with the correct method to call to acquire a result
      * @param operand1
@@ -155,14 +173,18 @@ public class ExpressionParser {
      */
     private static double computeEquation(double operand1, String operator, double operand2) {
         double result = 0;
-        HashMap<String, Double> operatorMap = new HashMap();
-        operatorMap.put("+", add(operand1, operand2));
-        operatorMap.put("-", sub(operand1, operand2));
-        operatorMap.put("x", mul(operand1, operand2));
-        operatorMap.put("/", div(operand1, operand2));
-        operatorMap.put("%", mod(operand1, operand2));
-        operatorMap.put("log", log(operand2));
-        operatorMap.put("^", exponent(operand1, operand2));
+
+        if (!operatorMapLoaded) {
+            operatorMap.put("+", add(operand1, operand2));
+            operatorMap.put("-", sub(operand1, operand2));
+            operatorMap.put("x", mul(operand1, operand2));
+            operatorMap.put("/", div(operand1, operand2));
+            operatorMap.put("%", mod(operand1, operand2));
+            operatorMap.put("log", log(operand2));
+            operatorMap.put("^", exponent(operand1, operand2));
+
+            operatorMapLoaded = true;
+        }
 
         result = operatorMap.get(operator);
 

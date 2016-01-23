@@ -56,8 +56,8 @@ public class ButtonsHelper {
     public void btnDiv(View view) {
         String operator = " / ";
 
-        if (lastOperatorFlag || (!lastOperandFlag && !lastBracketsFlag) || expressionString.equals("")) {
-            if (aList.size() > 0) {
+        if (lastOperatorFlag && (!lastOperandFlag && !lastBracketsFlag))  {
+            if (aList.size() > 0 && expressionString.equals("")) {
                 getAnswer = true;
                 reloadPreviousResult(operator);
             } else {
@@ -79,8 +79,8 @@ public class ButtonsHelper {
     public void btnExponent(View view) {
         String operator = " ^ ";
 
-        if (lastOperatorFlag || (!lastOperandFlag && !lastBracketsFlag) || expressionString.equals("")) {
-            if (aList.size() > 0) {
+        if (lastOperatorFlag && (!lastOperandFlag && !lastBracketsFlag))  {
+            if (aList.size() > 0 && expressionString.equals("")) {
                 reloadPreviousResult(operator);
             } else {
                 Snackbar.make(parentView, "Input Number",
@@ -101,8 +101,8 @@ public class ButtonsHelper {
     public void btnRemainder(View view) {
         String operator = " % ";
 
-        if (lastOperatorFlag || (!lastOperandFlag && !lastBracketsFlag) || expressionString.equals("")) {
-            if (aList.size() > 0) {
+        if (lastOperatorFlag && (!lastOperandFlag && !lastBracketsFlag))  {
+            if (aList.size() > 0 && expressionString.equals("")) {
                 reloadPreviousResult(operator);
             } else {
                 Snackbar.make(parentView, "Input Number",
@@ -125,8 +125,8 @@ public class ButtonsHelper {
         String operator = " x ";
 
 
-        if (lastOperatorFlag || (!lastOperandFlag && !lastBracketsFlag) || expressionString.equals("")) {
-            if (aList.size() > 0) {
+        if (lastOperatorFlag && (!lastOperandFlag && !lastBracketsFlag))  {
+            if (aList.size() > 0 && expressionString.equals("")) {
                 reloadPreviousResult(operator);
             } else {
                 Snackbar.make(parentView, "Input Number",
@@ -148,8 +148,8 @@ public class ButtonsHelper {
     public void btnSub(View view) {
         String operator = " - ";
 
-        if (lastOperatorFlag || (!lastOperandFlag && !lastBracketsFlag) || expressionString.equals("")) {
-            if (aList.size() > 0) {
+        if (lastOperatorFlag && (!lastOperandFlag && !lastBracketsFlag))  {
+            if (aList.size() > 0 && expressionString.equals("")) {
                 reloadPreviousResult(operator);
             } else {
                 Snackbar.make(parentView, "Input Number",
@@ -171,8 +171,8 @@ public class ButtonsHelper {
     public void btnAdd(View view) {
         String operator = " + ";
 
-        if (lastOperatorFlag || (!lastOperandFlag && !lastBracketsFlag) || expressionString.equals("")) {
-            if (aList.size() > 0) {
+        if (lastOperatorFlag && (!lastOperandFlag && !lastBracketsFlag))  {
+            if (aList.size() > 0 && expressionString.equals("")) {
                 reloadPreviousResult(operator);
             } else {
                 Snackbar.make(parentView, "Input Number",
