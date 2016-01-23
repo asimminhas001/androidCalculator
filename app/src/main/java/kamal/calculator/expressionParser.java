@@ -29,15 +29,21 @@ import java.util.Stack;
     // TODO: ANS btn feedback
     // TODO: have btns off when not useable (i.e. after operator no operator)
     // TODO: reduce divider shadow (elevation)
-    // TODO: implement global hashmap through interface implementation
+    // TODO: implement global hashmap through interface implementation - DONE
+    // TODO: voice input??????
 
+interface OperatorMethods {
+    double method(double op1, double op2);
+}
     
 public class ExpressionParser {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
-    private static HashMap<String, Double> operatorMap = new HashMap();
+    private static HashMap<String, OperatorMethods> operatorMap = new HashMap();
     private static boolean operatorMapLoaded = false;
+    private static String bracketExpression;
+
 
 
     /**
@@ -60,62 +66,73 @@ public class ExpressionParser {
     protected static HistoryObject computeResult(String expressionString) {
         String[] expressionStringArray = expressionString.split(" ");
         double result;
-        String resultStr;
+        String resultStr, element;
         Stack operandStack = new Stack();
         Stack operatorStack = new Stack();
 
         if (Objects.equals(expressionString, "")) {
-            HistoryObject ahistoryObject = new HistoryObject("0", "0");
-            return ahistoryObject;
+            HistoryObject aHistoryObject = new HistoryObject("0", "0");
+            return aHistoryObject;
         }
 
         for (int i = 0; i < expressionStringArray.length; i++) {
 
-            // Load stacks
-            //  if the next element is a bracket, create a new string of the operands
-            //      and operators inside the brackets and recursively call computeResult(bracketExpression)
-            //      which gets pushed into the operandStack when answer is returned.
-            //  if an operator or operand, they get pushed into their respective stacks.
-            String element = expressionStringArray[i];
+            element = expressionStringArray[i];
             if (isOperand(element)) {
                 operandStack.push(element);
+                continue;
+            }
+            if (isOperator(element)) {
+                operatorStack.push(element);
                 continue;
             }
             if (element.matches("")) {
                 continue;
             } else {
                 if (isBracket(element)) {
-                    String bracketExpression = "";
-                    if (!element.matches("\\)")) {
-                        element = expressionStringArray[++i];
-
-                        while (!isBracket(element) && (isOperand(element) || isOperator(element) || element.matches(""))) {
-                            if (element.matches("")) {
-                                element = expressionStringArray[++i];
-                                continue;
-                            }
-                            if (isOperator(element)) {
-                                bracketExpression += " " + element + " ";
-                            } else {
-                                bracketExpression += element;
-                            }
-                            if (i + 1 > expressionStringArray.length - 1) break;
-                            element = expressionStringArray[++i];
-                        }
-                    }
+                    i = extractBracketExpression(expressionStringArray, i);
                     operandStack.push(computeResult(bracketExpression).resultString);
                 }
-                else if (isOperator(element)) {
-                    operatorStack.push(element);
-                }
             }
-
         }
 
         result = computeOperatorStack(operandStack, operatorStack);
         resultStr = Double.toString(result);
         HistoryObject historyObject = new HistoryObject(expressionString, resultStr);
         return historyObject;
+    }
+
+
+    /**
+     *  Extracts the expression inside the current set of brackets
+     *      the expression is being parsed at
+     * @param expressionStringArray
+     * @param marker (expressionStringArrays location marker)
+     * @return
+     */
+    private static int extractBracketExpression(String expressionStringArray[], int marker){
+        int i = marker;
+        String element = expressionStringArray[i];
+        bracketExpression = "";
+
+        if (!element.matches("\\)")) {
+            element = expressionStringArray[++i];
+
+            while (!isBracket(element) && (isOperand(element) || isOperator(element) || element.matches(""))) {
+                if (element.matches("")) {
+                    element = expressionStringArray[++i];
+                    continue;
+                }
+                if (isOperand(element)) {
+                    bracketExpression += element;
+                } else {
+                    bracketExpression += " " + element + " ";
+                }
+                if (i + 1 > expressionStringArray.length - 1) break;
+                element = expressionStringArray[++i];
+            }
+        }
+        return i;
     }
 
     /**
@@ -158,12 +175,6 @@ public class ExpressionParser {
         return Double.parseDouble(operandStack.pop().toString());
     }
 
-//    private static void loadOperatorMap() {
-//
-//
-//    } // end loadOperatorMap()
-
-
     /**
      * Matches the operator with the correct method to call to acquire a result
      * @param operand1
@@ -171,26 +182,15 @@ public class ExpressionParser {
      * @param operand2
      * @return double - result of computation
      */
-    private static double computeEquation(double operand1, String operator, double operand2) {
-        double result = 0;
+    private static double computeEquation(final double operand1, String operator, final double operand2) {
 
-        if (!operatorMapLoaded) {
-            operatorMap.put("+", add(operand1, operand2));
-            operatorMap.put("-", sub(operand1, operand2));
-            operatorMap.put("x", mul(operand1, operand2));
-            operatorMap.put("/", div(operand1, operand2));
-            operatorMap.put("%", mod(operand1, operand2));
-            operatorMap.put("log", log(operand2));
-            operatorMap.put("^", exponent(operand1, operand2));
-
-            operatorMapLoaded = true;
+        if (!operatorMapLoaded || operatorMap.isEmpty()) {
+            loadOperatorMap();
         }
+        return operatorMap.get(operator).method(operand1, operand2);
 
-        result = operatorMap.get(operator);
-
+        // log result into android monitor
 //        Log.d(LOG_TAG, "result is: " + result + "in double computeEquation" );
-
-        return result;
     }
 
     /**
@@ -225,87 +225,53 @@ public class ExpressionParser {
     }
 
 
-    /**
-     * Determines if string fragment is a space or not
-     * "[\\s]+"
-     * @param expressionStringFragment
-     * @return
-     */
-    protected static boolean isSpace(String expressionStringFragment) {
-        return expressionStringFragment.matches("[\\s]+");
-    }
+    private static void loadOperatorMap() {
+        operatorMap.put("+", new OperatorMethods() {
+            @Override
+            public double method(double op1, double op2) {
+                return op1 + op2;
+            }
+        });
+        operatorMap.put("-", new OperatorMethods() {
+            @Override
+            public double method(double op1, double op2) {
+                return op1 - op2;
+            }
+        });
+        operatorMap.put("x", new OperatorMethods() {
+            @Override
+            public double method(double op1, double op2) {
+                return op1 * op2;
+            }
+        });
+        operatorMap.put("/", new OperatorMethods() {
+            @Override
+            public double method(double op1, double op2) {
+                return op1 / op2;
+            }
+        });
+        operatorMap.put("%", new OperatorMethods() {
+            @Override
+            public double method(double op1, double op2) {
+                return op1 + op2;
+            }
+        });
+        operatorMap.put("log", new OperatorMethods() {
+            @Override
+            public double method(double op1, double op2) {
+                return Math.log(op2);
+            }
+        });
+        operatorMap.put("^", new OperatorMethods() {
+            @Override
+            public double method(double x, double y) {
+                return Math.pow(x, y);
+            }
+        });
 
-    /**
-     * Adds two Doubles
-     * @param A
-     * @param B
-     * @return
-     */
-    private static double add(double A, double B) {
-        return A + B;
-    }
+        operatorMapLoaded = true;
 
-    /**
-     * Subtracts two Doubles
-     * @param A
-     * @param B
-     * @return
-     */
-    private static double sub(double A, double B) {
-        return A - B;
-    }
-
-    /**
-     * multiplies two Doubles
-     * @param A
-     * @param B
-     * @return
-     */
-    private static double mul(double A, double B) {
-        return A * B;
-    }
-
-    /**
-     * Divides two Doubles
-     * @param A
-     * @param B
-     * @return
-     */
-    private static double div(double A, double B) {
-        if (B == 0) {
-            return 0;
-        }
-        return A / B;
-    }
-
-    /**
-     * Finds the remainder(mod) of A divided by B
-     * @param A
-     * @param B
-     * @return
-     */
-    private static double mod(double A, double B) {
-        return A % B;
-    }
-
-    /**
-     *
-     * @param A (Base)
-     * @param B (Exponent)
-     * @return A to the power of B
-     */
-    private static double exponent(double A, double B) {
-        return (Math.pow(A, B));
-    }
-
-    /**
-     *
-     * @param A operand
-     * @return returns log(A)
-     */
-    private static double log(double A) {
-        return Math.log(A);
-    }
+    } // end loadOperatorMap()
 
 
 }
