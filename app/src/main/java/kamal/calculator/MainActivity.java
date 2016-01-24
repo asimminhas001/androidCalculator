@@ -1,6 +1,7 @@
 package kamal.calculator;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -294,6 +295,7 @@ public class MainActivity extends AppCompatActivity {
                 buttonsHelper.btnAns(v);
             }
         });
+
 
         /**
          * btnSq

@@ -35,7 +35,7 @@ public class HistorySQLiteConnection extends SQLiteOpenHelper {
     private static final String HISTORY_RESULT = "result";
 
     /**
-     * constructor for HistoryDatabaseHelper
+     * constructor for HistorySQLiteConnection
      * - private to prevent direct instantiation
      * - use getInstance() instance
      *

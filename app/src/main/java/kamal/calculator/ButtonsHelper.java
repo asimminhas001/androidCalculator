@@ -1,5 +1,6 @@
 package kamal.calculator;
 
+import android.graphics.Color;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
@@ -468,7 +469,9 @@ public class ButtonsHelper {
      * @param view
      */
     public void btnAns(View view) {
-        Snackbar.make(parentView, "Lets you use the result of an Expression in history",
+        view.setBackgroundColor(Color.parseColor("#607D8B"));
+
+        Snackbar.make(parentView, "Select an Answer from history",
                 Snackbar.LENGTH_SHORT).show();
         getAnswer = true;
         MainActivity.displayExpression(expressionString);
@@ -553,6 +556,11 @@ public class ButtonsHelper {
     protected static void recallHistory(HistoryObject aHistoryObject) {
 
         if (getAnswer && (lastOperatorFlag || expressionString.equals(""))) {
+            if (aHistoryObject.resultString.equals("Infinity") || Double.parseDouble(aHistoryObject.resultString) == 0) {
+                Snackbar.make(parentView, "Error - Invalid result from history",
+                        Snackbar.LENGTH_SHORT).show();
+                return;
+            }
             expressionString += aHistoryObject.resultString;
             getAnswer = false;
         } else if (lastOperatorFlag || expressionString.equals("")) {
@@ -561,7 +569,7 @@ public class ButtonsHelper {
             Snackbar.make(parentView, "Enter an operator",
                     Snackbar.LENGTH_SHORT).show();
         }
-        Log.d(LOG_TAG, "expression: " + expressionString);
+//        Log.d(LOG_TAG, "expression: " + expressionString);
         MainActivity.displayExpression(expressionString);
         setFlags(expressionString);
         setLastOperandFlag(true);

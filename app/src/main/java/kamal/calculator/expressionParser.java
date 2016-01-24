@@ -254,7 +254,7 @@ public class ExpressionParser {
         operatorMap.put("%", new OperatorMethods() {
             @Override
             public double method(double op1, double op2) {
-                return op1 + op2;
+                return op1 % op2;
             }
         });
         operatorMap.put("log", new OperatorMethods() {

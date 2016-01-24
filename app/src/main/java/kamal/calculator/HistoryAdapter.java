@@ -1,10 +1,12 @@
 package kamal.calculator;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,8 +52,11 @@ public class HistoryAdapter extends
         public void onClick(View v) {
             int position = getLayoutPosition();
             HistoryObject historyObject = history.get(position);
-
             ButtonsHelper.recallHistory(historyObject);
+
+            Button btnAns = (Button) MainActivity.parentView.findViewById(R.id.btnAns);
+            btnAns.setBackgroundColor(Color.parseColor("#009688"));
+            ButtonsHelper.getAnswer = false;
         }
     }
 
