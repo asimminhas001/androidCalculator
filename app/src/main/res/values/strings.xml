@@ -14,7 +14,7 @@
     <string name="six">6</string>
     <string name="nine">9</string>
     <string name="brackets">( )</string>
-    <string name="ans">ans</string>
+    <string name="ans">prev ans</string>
 
     <!--col3-->
     <string name="zero">0</string>

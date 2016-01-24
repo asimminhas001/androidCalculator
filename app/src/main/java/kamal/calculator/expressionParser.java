@@ -21,15 +21,16 @@ import java.util.Stack;
     // TODO: Add log and ^ functions - DONE
     // TODO: Move equals, dot, 0 and mod button to make it more user friendly -DONE
     // TODO: Add clear history button/function - DONE
+    // TODO: 2 % 0 = NAN ??? - DONE
+    // TODO: implement global hashmap through interface implementation - DONE
 
 /**
  * TODO List
  */
-    // TODO: 2 % 0 = NAN ???
+
     // TODO: ANS btn feedback
     // TODO: have btns off when not useable (i.e. after operator no operator)
     // TODO: reduce divider shadow (elevation)
-    // TODO: implement global hashmap through interface implementation - DONE
     // TODO: voice input??????
 
 interface OperatorMethods {
