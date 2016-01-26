@@ -556,16 +556,24 @@ public class ButtonsHelper {
     protected static void recallHistory(HistoryObject aHistoryObject) {
 
         if (getAnswer && (lastOperatorFlag || expressionString.equals(""))) {
-            if (aHistoryObject.resultString.equals("Infinity") || Double.parseDouble(aHistoryObject.resultString) == 0) {
+
+            if (aHistoryObject.resultString.equals("-Infinity") ||
+                    aHistoryObject.resultString.equals("Infinity") ||
+                    Double.parseDouble(aHistoryObject.resultString) == 0) {
                 Snackbar.make(parentView, "Error - Invalid result from history",
                         Snackbar.LENGTH_SHORT).show();
                 return;
             }
+
             expressionString += aHistoryObject.resultString;
             getAnswer = false;
+
         } else if (lastOperatorFlag || expressionString.equals("")) {
+
             expressionString += aHistoryObject.expressionString;
+
         } else {
+
             Snackbar.make(parentView, "Enter an operator",
                     Snackbar.LENGTH_SHORT).show();
         }
@@ -585,9 +593,29 @@ public class ButtonsHelper {
         }
     }
 
+    /**
+     * grabs the top history item and loads the result into the expression view
+     * @param operator
+     */
     protected static void reloadPreviousResult(String operator){
+
+        if (db.getHistory().isEmpty()) {
+            Snackbar.make(parentView, "Error - History not available, Enter number",
+                    Snackbar.LENGTH_SHORT).show();
+            return;
+        }
         List<HistoryObject> history = db.getHistory();
-        expressionString = (history.get(0).resultString + operator);
+        HistoryObject aHistoryObject = history.get(0);
+
+        if (aHistoryObject.resultString.equals("Infinity") ||
+                aHistoryObject.resultString.equals("-Infinity") ||
+                Double.parseDouble(aHistoryObject.resultString) == 0) {
+            Snackbar.make(parentView, "Error - Invalid result from history",
+                    Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+        expressionString = (aHistoryObject.resultString + operator);
+
         MainActivity.displayExpression(expressionString);
         setFlags(expressionString);
         setLastOperatorFlag(true);

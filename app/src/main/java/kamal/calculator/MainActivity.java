@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     protected static TextView expressionView;
     protected static RecyclerView historyView;
     protected static View parentView;
+
+    private AlphaAnimation buttonClicked = new AlphaAnimation(1F, 0.7F);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,8 +76,10 @@ public class MainActivity extends AppCompatActivity {
         btnPeriod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(buttonClicked);
                 buttonsHelper.btnPeriod(v);
             }
+
         });
 
         /**
@@ -84,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
         btn0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(buttonClicked);
                 buttonsHelper.btn0(v);
             }
         });
@@ -95,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(buttonClicked);
                 buttonsHelper.btn1(v);
             }
         });
@@ -106,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(buttonClicked);
                 buttonsHelper.btn2(v);
             }
         });
@@ -117,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(buttonClicked);
                 buttonsHelper.btn3(v);
             }
         });
@@ -128,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
         btn4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(buttonClicked);
                 buttonsHelper.btn4(v);
             }
         });
@@ -139,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
         btn5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(buttonClicked);
                 buttonsHelper.btn5(v);
             }
         });
@@ -150,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
         btn6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(buttonClicked);
                 buttonsHelper.btn6(v);
             }
         });
@@ -161,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
         btn7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(buttonClicked);
                 buttonsHelper.btn7(v);
             }
         });
@@ -172,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
         btn8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(buttonClicked);
                 buttonsHelper.btn8(v);
             }
         });
@@ -183,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
         btn9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(buttonClicked);
                 buttonsHelper.btn9(v);
             }
         });
@@ -198,6 +213,7 @@ public class MainActivity extends AppCompatActivity {
         btnEq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(buttonClicked);
                 buttonsHelper.btnEq(v);
             }
         });
@@ -209,6 +225,7 @@ public class MainActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(buttonClicked);
                 buttonsHelper.btnAdd(v);
             }
         });
@@ -220,6 +237,7 @@ public class MainActivity extends AppCompatActivity {
         btnSub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(buttonClicked);
                 buttonsHelper.btnSub(v);
             }
         });
@@ -231,6 +249,7 @@ public class MainActivity extends AppCompatActivity {
         btnMul.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(buttonClicked);
                 buttonsHelper.btnMul(v);
             }
         });
@@ -242,6 +261,7 @@ public class MainActivity extends AppCompatActivity {
         btnRemainder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(buttonClicked);
                 buttonsHelper.btnRemainder(v);
             }
         });
@@ -253,6 +273,7 @@ public class MainActivity extends AppCompatActivity {
         btnDiv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(buttonClicked);
                 buttonsHelper.btnDiv(v);
             }
         });
@@ -269,6 +290,7 @@ public class MainActivity extends AppCompatActivity {
         btnBrackets.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(buttonClicked);
                 buttonsHelper.btnBrackets(v);
             }
         });
@@ -280,6 +302,7 @@ public class MainActivity extends AppCompatActivity {
         btnDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(buttonClicked);
                 buttonsHelper.btnDel(v);
             }
         });
@@ -292,6 +315,7 @@ public class MainActivity extends AppCompatActivity {
         btnAns.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(buttonClicked);
                 buttonsHelper.btnAns(v);
             }
         });
@@ -304,6 +328,7 @@ public class MainActivity extends AppCompatActivity {
         btnExponent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(buttonClicked);
                 buttonsHelper.btnExponent(v);
             }
         });
@@ -315,6 +340,7 @@ public class MainActivity extends AppCompatActivity {
         btnLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(buttonClicked);
                 buttonsHelper.btnLog(v);
             }
         });
@@ -326,6 +352,7 @@ public class MainActivity extends AppCompatActivity {
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(buttonClicked);
                 buttonsHelper.btnClear(v);
             }
         });
@@ -337,6 +364,7 @@ public class MainActivity extends AppCompatActivity {
         btnClearHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.startAnimation(buttonClicked);
                 buttonsHelper.btnClearHistory(v);
             }
         });

@@ -15,21 +15,21 @@ import java.util.Stack;
 /**
  * TODO: DONE List
  */
-    // TODO: Add ANS button that allows use of previous answer in current equation - DONE
-    // TODO: make history click output expression and result into outputs - DONE
-    // TODO: Use previous answer if operator is implemented. - DONE
-    // TODO: Add log and ^ functions - DONE
-    // TODO: Move equals, dot, 0 and mod button to make it more user friendly -DONE
-    // TODO: Add clear history button/function - DONE
-    // TODO: 2 % 0 = NAN ??? - DONE
-    // TODO: implement global hashmap through interface implementation - DONE
+    // TODO: Add ANS button that allows use of previous answer in current equation
+    // TODO: make history click output expression and result into outputs
+    // TODO: Use previous answer if operator is implemented
+    // TODO: Add log and ^ functions
+    // TODO: Move equals, dot, 0 and mod button to make it more user friendly
+    // TODO: Add clear history button/function
+    // TODO: 2 % 0 = NAN ???
+    // TODO: implement global hashmap through interface implementation
+    // TODO: ANS btn feedback
 
 /**
  * TODO List
  */
-
-    // TODO: ANS btn feedback
     // TODO: have btns off when not useable (i.e. after operator no operator)
+    // TODO: Remove infinity from history and inability to recall it
     // TODO: reduce divider shadow (elevation)
     // TODO: voice input??????
 
