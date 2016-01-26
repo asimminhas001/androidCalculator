@@ -1,6 +1,9 @@
 package kamal.calculator;
 
+import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.view.View;
+
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Stack;
@@ -24,13 +27,13 @@ import java.util.Stack;
     // TODO: 2 % 0 = NAN ???
     // TODO: implement global hashmap through interface implementation
     // TODO: ANS btn feedback
+    // TODO: Remove infinity from history and inability to recall it
+    // TODO: reduce divider shadow (elevation)
 
 /**
  * TODO List
  */
     // TODO: have btns off when not useable (i.e. after operator no operator)
-    // TODO: Remove infinity from history and inability to recall it
-    // TODO: reduce divider shadow (elevation)
     // TODO: voice input??????
 
 interface OperatorMethods {
@@ -40,6 +43,8 @@ interface OperatorMethods {
 public class ExpressionParser {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
+    protected static View parentView = MainActivity.parentView;
+
 
     private static HashMap<String, OperatorMethods> operatorMap = new HashMap();
     private static boolean operatorMapLoaded = false;
@@ -160,7 +165,11 @@ public class ExpressionParser {
             }
             operandStack.push(String.format("%.4f", computeEquation(operand1, operator, operand2)));
         }
-
+        if (operandStack.empty()) {
+            Snackbar.make(parentView, "Invalid Expression",
+                    Snackbar.LENGTH_SHORT).show();
+            return 0;
+        }
         return Double.parseDouble(operandStack.pop().toString());
     }
 

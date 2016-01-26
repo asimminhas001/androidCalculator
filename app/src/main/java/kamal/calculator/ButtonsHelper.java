@@ -57,7 +57,9 @@ public class ButtonsHelper {
     public void btnDiv(View view) {
         String operator = " / ";
 
-        if (expressionString.equals("") || (lastOperatorFlag && (!lastOperandFlag && !lastBracketsFlag)))  {
+        if (expressionString.equals("") ||
+                (lastOperatorFlag &&
+                        (!lastOperandFlag && !lastBracketsFlag)))  {
             if (aList.size() > 0 && expressionString.equals("")) {
                 getAnswer = true;
                 reloadPreviousResult(operator);
@@ -80,7 +82,9 @@ public class ButtonsHelper {
     public void btnExponent(View view) {
         String operator = " ^ ";
 
-        if (expressionString.equals("") || (lastOperatorFlag && (!lastOperandFlag && !lastBracketsFlag)))  {
+        if (expressionString.equals("") ||
+                (lastOperatorFlag &&
+                        (!lastOperandFlag && !lastBracketsFlag)))  {
             if (aList.size() > 0 && expressionString.equals("")) {
                 reloadPreviousResult(operator);
             } else {
@@ -102,7 +106,9 @@ public class ButtonsHelper {
     public void btnRemainder(View view) {
         String operator = " % ";
 
-        if (expressionString.equals("") || (lastOperatorFlag && (!lastOperandFlag && !lastBracketsFlag)))  {
+        if (expressionString.equals("") ||
+                (lastOperatorFlag &&
+                        (!lastOperandFlag && !lastBracketsFlag)))  {
             if (aList.size() > 0 && expressionString.equals("")) {
                 reloadPreviousResult(operator);
             } else {
@@ -125,7 +131,9 @@ public class ButtonsHelper {
     public void btnMul(View view) {
         String operator = " x ";
 
-        if (expressionString.equals("") || (lastOperatorFlag && (!lastOperandFlag && !lastBracketsFlag)))  {
+        if (expressionString.equals("") ||
+                (lastOperatorFlag &&
+                        (!lastOperandFlag && !lastBracketsFlag)))  {
             if (aList.size() > 0 && expressionString.equals("")) {
                 reloadPreviousResult(operator);
             } else {
@@ -148,7 +156,9 @@ public class ButtonsHelper {
     public void btnSub(View view) {
         String operator = " - ";
 
-        if (expressionString.equals("") || (lastOperatorFlag && (!lastOperandFlag && !lastBracketsFlag)))  {
+        if (expressionString.equals("") ||
+                (lastOperatorFlag &&
+                        (!lastOperandFlag && !lastBracketsFlag)))  {
             if (aList.size() > 0 && expressionString.equals("")) {
                 reloadPreviousResult(operator);
             } else {
@@ -171,7 +181,9 @@ public class ButtonsHelper {
     public void btnAdd(View view) {
         String operator = " + ";
 
-        if (expressionString.equals("") || (lastOperatorFlag && (!lastOperandFlag && !lastBracketsFlag)))  {
+        if (expressionString.equals("") ||
+                (lastOperatorFlag &&
+                        (!lastOperandFlag && !lastBracketsFlag)))  {
             if (expressionString.equals("") && aList.size() > 0) {
                 reloadPreviousResult(operator);
             } else {
@@ -194,7 +206,8 @@ public class ButtonsHelper {
     public void btnEq(View view) {
 
         // Create historyObject which is returned by computeResult
-        if ( expressionString.endsWith(" ") && !expressionString.endsWith(" ) ") ) {
+        if ( expressionString.endsWith(" ") &&
+                !expressionString.endsWith(" ) ") || expressionString.endsWith(".") ) {
             Snackbar.make(parentView, "End expression with a number.",
                     Snackbar.LENGTH_SHORT).show();
             return;
@@ -226,7 +239,8 @@ public class ButtonsHelper {
     public void btnBrackets(View view) {
         String closeBrackets = " ) ", openBrackets = " ( ";
 
-        if (!OpenBracketsFlag && !lastBracketsFlag && lastOperatorFlag || expressionString.equals("")) {
+        if (!OpenBracketsFlag && !lastBracketsFlag &&
+                lastOperatorFlag || expressionString.equals("")) {
 
             expressionString = expressionString.concat(openBrackets);
             setOpenBracketsFlag(true);
@@ -254,7 +268,8 @@ public class ButtonsHelper {
     public void btnLog(View view) {
         String operator = "log ";
 
-        if (lastOperandFlag && !lastOperatorFlag && !lastBracketsFlag) {
+        if (lastOperandFlag && !lastOperatorFlag &&
+                !lastBracketsFlag) {
                 Snackbar.make(parentView, "Input Operator",
                         Snackbar.LENGTH_SHORT).show();
         } else {
