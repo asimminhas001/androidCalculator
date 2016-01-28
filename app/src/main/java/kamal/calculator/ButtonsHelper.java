@@ -574,6 +574,7 @@ public class ButtonsHelper {
 
             if (aHistoryObject.resultString.equals("-Infinity") ||
                     aHistoryObject.resultString.equals("Infinity") ||
+                    aHistoryObject.resultString.contains("E") ||
                     Double.parseDouble(aHistoryObject.resultString) == 0) {
                 Snackbar.make(parentView, "Error - Invalid result from history",
                         Snackbar.LENGTH_SHORT).show();
@@ -623,6 +624,7 @@ public class ButtonsHelper {
         HistoryObject aHistoryObject = history.get(0);
 
         if (aHistoryObject.resultString.equals("Infinity") ||
+                aHistoryObject.resultString.contains("E") ||
                 aHistoryObject.resultString.equals("-Infinity") ||
                 Double.parseDouble(aHistoryObject.resultString) == 0) {
             Snackbar.make(parentView, "Error - Invalid result from history",
