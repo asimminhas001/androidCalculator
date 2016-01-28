@@ -254,7 +254,8 @@ public class ButtonsHelper {
 
         } else {
 
-            Snackbar.make(parentView, "Input Operator before Bracket\nInput Number after Bracket",
+            Snackbar.make(parentView, "Input Operator before Bracket\n" +
+                            "Input Number after Bracket",
                     Snackbar.LENGTH_SHORT).show();
         }
         MainActivity.displayExpression(expressionString);
@@ -651,13 +652,17 @@ public class ButtonsHelper {
             if (!expressionString.isEmpty()) {
                 expressionString = expressionString.substring(0, expressionString.length() - 1);
                 if (!expressionString.isEmpty()) {
-                    lastChar = expressionString.substring(expressionString.length() - 1, expressionString.length());
+                    lastChar = expressionString.substring(expressionString.length() - 1,
+                                    expressionString.length());
                 }
             }
             if (i > 4) break;
         }
 
-        if (expressionString.length() > 4 && expressionString.substring(expressionString.substring(0, expressionString.length()-1).lastIndexOf(" "),expressionString.length()).matches("[\\(\\)log\\^\\+\\-\\%/x]+")){
+        if (expressionString.length() > 4 &&
+                expressionString.substring(expressionString.substring(0,
+                        expressionString.length()-1).lastIndexOf(" "),
+                            expressionString.length()).matches("[\\(\\)log\\^\\+\\-\\%/x]+")){
             setLastOperatorFlag(true);
         } else {
             setLastOperandFlag(true);
