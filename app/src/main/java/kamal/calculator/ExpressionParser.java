@@ -3,7 +3,8 @@ package kamal.calculator;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 
-import java.util.HashMap;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 import java.util.Objects;
 import java.util.Stack;
 
@@ -35,21 +36,14 @@ import java.util.Stack;
     // TODO: have btns off when not useable (i.e. after operator no operator)
     // TODO: voice input??????
 
-interface OperatorMethods {
-    double method(double op1, double op2);
-}
-    
 public class ExpressionParser {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     protected static View parentView = MainActivity.parentView;
 
 
-    private static HashMap<String, OperatorMethods> operatorMap = new HashMap();
-    private static boolean operatorMapLoaded = false;
+    private static OperatorMethods operatorMap = OperatorMethods.getInstance();
     private static String bracketExpression;
-
-
 
     /**
      * resultOutput method
@@ -59,6 +53,56 @@ public class ExpressionParser {
     protected static void resultOutput(int num) {
         String resultString = "" + num;
         MainActivity.displayResult(resultString);
+    }
+
+    protected static Stack<String> parseExpression(String expression) {
+        Stack<String> retval = new Stack<>();
+        Stack<String> opstack = new Stack<>();
+        String exp = expression.replaceAll("\\s", "");
+        int index = 0, exp_length = exp.length();
+        Pattern numPattern = Pattern.compile("[-+]?[0-9]*\\.?[0-9]+");
+        Pattern opPattern = Pattern.compile("[\\^x/+-]+");
+        Matcher numMatch, opMatch;
+        String token1, token2, current = "";
+
+        while (index < exp_length) {
+            numMatch = numPattern.matcher(exp);
+            opMatch = opPattern.matcher(exp);
+            if (numMatch.find()) {
+                current = numMatch.group();
+                index += current.length();
+                exp = exp.substring(index);
+                retval.push(current);
+            } else if (opMatch.find()) {
+                token1 = current;
+                token2 = opstack.peek();
+                while (opPattern.matcher(token2).find() && operatorMap.priority(token1) > operatorMap.priority(token2)) {
+                    retval.push(token2);
+                    opstack.pop();
+                    token2 = opstack.peek();
+                }
+                opstack.push(token1);
+                index += opMatch.end() - opMatch.start();
+                exp = exp.substring(index);
+            } else if (exp.charAt(index) == '(') {
+                opstack.push("(");
+                ++index;
+                exp = exp.substring(index);
+            } else if (exp.charAt(index) == ')') {
+                ++index;
+                exp = exp.substring(index);
+                while (!opstack.peek().equals("(")) {
+                   retval.push(opstack.pop());
+                }
+                opstack.pop();
+            }
+        }
+
+        while (!opstack.empty()) {
+            retval.push(opstack.pop());
+        }
+
+        return retval;
     }
 
     /**
@@ -72,12 +116,11 @@ public class ExpressionParser {
         String[] expressionStringArray = expressionString.split(" ");
         double result;
         String resultStr, element;
-        Stack operandStack = new Stack();
-        Stack operatorStack = new Stack();
+        Stack<String> operandStack = new Stack<String>();
+        Stack<String> operatorStack = new Stack<String>();
 
         if (Objects.equals(expressionString, "")) {
-            HistoryObject aHistoryObject = new HistoryObject("0", "0");
-            return aHistoryObject;
+            return new HistoryObject("0", "0");
         }
 
         for (int i = 0; i < expressionStringArray.length; i++) {
@@ -103,8 +146,7 @@ public class ExpressionParser {
 
         result = computeOperatorStack(operandStack, operatorStack);
         resultStr = Double.toString(result);
-        HistoryObject historyObject = new HistoryObject(expressionString, resultStr);
-        return historyObject;
+        return new HistoryObject(expressionString, resultStr);
     }
 
 
@@ -193,10 +235,7 @@ public class ExpressionParser {
      */
     private static double computeEquation(final double operand1, String operator, final double operand2) {
 
-        if (!operatorMapLoaded || operatorMap.isEmpty()) {
-            loadOperatorMap();
-        }
-        return operatorMap.get(operator).method(operand1, operand2);
+        return operatorMap.exec(operator, operand1, operand2);
 
         // log result into android monitor
 //        Log.d(LOG_TAG, "result is: " + result + "in double computeEquation" );
@@ -232,55 +271,5 @@ public class ExpressionParser {
     protected static boolean isBracket(String expressionStringFragment) {
         return expressionStringFragment.matches("[\\(\\)]");
     }
-
-
-    private static void loadOperatorMap() {
-        operatorMap.put("+", new OperatorMethods() {
-            @Override
-            public double method(double op1, double op2) {
-                return op1 + op2;
-            }
-        });
-        operatorMap.put("-", new OperatorMethods() {
-            @Override
-            public double method(double op1, double op2) {
-                return op1 - op2;
-            }
-        });
-        operatorMap.put("x", new OperatorMethods() {
-            @Override
-            public double method(double op1, double op2) {
-                return op1 * op2;
-            }
-        });
-        operatorMap.put("/", new OperatorMethods() {
-            @Override
-            public double method(double op1, double op2) {
-                return op1 / op2;
-            }
-        });
-        operatorMap.put("%", new OperatorMethods() {
-            @Override
-            public double method(double op1, double op2) {
-                return op1 % op2;
-            }
-        });
-        operatorMap.put("log", new OperatorMethods() {
-            @Override
-            public double method(double op1, double op2) {
-                return Math.log(op2);
-            }
-        });
-        operatorMap.put("^", new OperatorMethods() {
-            @Override
-            public double method(double x, double y) {
-                return Math.pow(x, y);
-            }
-        });
-
-        operatorMapLoaded = true;
-
-    } // end loadOperatorMap()
-
 
 }
