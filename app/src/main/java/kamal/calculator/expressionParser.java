@@ -32,6 +32,7 @@ import java.util.Stack;
 /**
  * TODO List
  */
+    // TODO: Operator precedence still not correct when '-' is in the equation
     // TODO: have btns off when not useable (i.e. after operator no operator)
     // TODO: voice input??????
 
@@ -41,11 +42,11 @@ interface OperatorMethods {
     
 public class ExpressionParser {
 
-    private static final String LOG_TAG = MainActivity.class.getSimpleName();
+    //private static final String LOG_TAG = MainActivity.class.getSimpleName(); //error logging
     protected static View parentView = MainActivity.parentView;
 
 
-    private static HashMap<String, OperatorMethods> operatorMap = new HashMap();
+    private static HashMap<String, OperatorMethods> operatorMap = new HashMap<>();
     private static boolean operatorMapLoaded = false;
     private static String bracketExpression;
 
@@ -54,7 +55,7 @@ public class ExpressionParser {
     /**
      * resultOutput method
      *  - displays the number in the Result TextView
-     *  @param num
+     *  @param num number to be outputted to user
      */
     protected static void resultOutput(int num) {
         String resultString = "" + num;
@@ -66,7 +67,8 @@ public class ExpressionParser {
      *  - parses expression string using split() with a " " delim
      *  - go through resulting string array seperating operators, and operands
      *  - and computes the result
-     *  @returns String of the result of computation
+     *  @param expressionString inputted expressionString
+     *  a HistoryObject with result and expression
      */
     protected static HistoryObject computeResult(String expressionString) {
         String[] expressionStringArray = expressionString.split(" ");
@@ -76,8 +78,7 @@ public class ExpressionParser {
         Stack<String> operatorStack = new Stack<>();
 
         if (Objects.equals(expressionString, "")) {
-            HistoryObject aHistoryObject = new HistoryObject("0", "0");
-            return aHistoryObject;
+            return new HistoryObject("0", "0");
         }
 
         for (int i = 0; i < expressionStringArray.length; i++) {
@@ -89,10 +90,6 @@ public class ExpressionParser {
             }
             if (isOperator(element)) {
                 operatorStack.push(element);
-                continue;
-            }
-            if (element.matches("")) {
-                continue;
             } else {
                 if (isBracket(element)) {
                     i = extractBracketExpression(expressionStringArray, i);
@@ -103,17 +100,16 @@ public class ExpressionParser {
 
         result = computeOperatorStack(operandStack, operatorStack);
         resultStr = Double.toString(result);
-        HistoryObject historyObject = new HistoryObject(expressionString, resultStr);
-        return historyObject;
+        return new HistoryObject(expressionString, resultStr);
     }
 
 
     /**
      *  Extracts the expression inside the current set of brackets
      *      the expression is being parsed at
-     * @param expressionStringArray
+     * @param expressionStringArray the array containing the input
      * @param marker (expressionStringArrays location marker)
-     * @return
+     * @return location of next element to be processed after )
      */
     private static int extractBracketExpression(String expressionStringArray[], int marker){
         int i = marker;
@@ -123,7 +119,9 @@ public class ExpressionParser {
         if (!element.matches("\\)")) {
             element = expressionStringArray[++i];
 
-            while (!isBracket(element) && (isOperand(element) || isOperator(element) || element.matches(""))) {
+            while (!isBracket(element) && (isOperand(element) ||
+                    isOperator(element) || element.matches(""))) {
+
                 if (element.matches("")) {
                     element = expressionStringArray[++i];
                     continue;
@@ -142,9 +140,9 @@ public class ExpressionParser {
 
     /**
      * Takes the 2 stacks and computes the result
-     * @param operandStack
-     * @param operatorStack
-     * @return
+     * @param operandStack stack containing operator strings
+     * @param operatorStack stack containing operand strings
+     * @return the result of the computation of the two stacks
      */
     private static double computeOperatorStack(Stack operandStack, Stack operatorStack) {
         double operand1, operand2;
@@ -198,8 +196,8 @@ public class ExpressionParser {
 
     /**
      * Returns the top operand in the operand stack if available
-     * @param operandStack
-     * @return
+     * @param operandStack stack containing operands (0-9)
+     * @return the top item in the stack
      */
     private static double loadOperand(Stack operandStack) {
         if (operandStack.empty()) {
@@ -210,12 +208,12 @@ public class ExpressionParser {
 
     /**
      * Matches the operator with the correct method to call to acquire a result
-     * @param operand1
-     * @param operator
-     * @param operand2
+     * @param operand1 first operand in equation
+     * @param operator the operator
+     * @param operand2 second operand in equation
      * @return double - result of computation
      */
-    private static double computeEquation(final double operand1, String operator, final double operand2) {
+    private static double computeEquation(double operand1, String operator, double operand2) {
 
         if (!operatorMapLoaded || operatorMap.isEmpty()) {
             loadOperatorMap();
@@ -229,19 +227,19 @@ public class ExpressionParser {
     /**
      * Determines if string fragment is an operator or not
      * "[0-9]*[.]*"
-     * @param expressionStringFragment
-     * @return boolean
+     * @param expressionStringFragment element from expression string array
+     * @return true = if
      */
     protected static boolean isOperand(String expressionStringFragment) {
-        return expressionStringFragment.matches("[0-9]*[.]*[0-9]+");
+        return expressionStringFragment.matches("[\\-]*[0-9]*[.]*[0-9]+");
     }
 
 
     /**
      * Determines if string fragment is an operator or not
      * "[\\+\\-\\*%/x]+"
-     * @param expressionStringFragment
-     * @return boolean
+     * @param expressionStringFragment element from expression string array
+     * @return if element is one of the operators
      */
     protected static boolean isOperator(String expressionStringFragment) {
         return expressionStringFragment.matches("[log\\^\\+\\-%/x]+");
@@ -250,8 +248,8 @@ public class ExpressionParser {
     /**
      * Determines if string fragment is a bracket or not
      * "[\\(\\)]"
-     * @param expressionStringFragment
-     * @return boolean
+     * @param expressionStringFragment element from expression string array
+     * @return if element is a bracket character
      */
     protected static boolean isBracket(String expressionStringFragment) {
         return expressionStringFragment.matches("[\\(\\)]");
@@ -309,6 +307,11 @@ public class ExpressionParser {
 
     } // end loadOperatorMap()
 
+    /**
+     *  checks the operator precedence
+     * @param anOperator string of operator
+     * @return number of operator precedence
+     */
     private static double operatorPrecedence(String anOperator) {
         if (anOperator.matches("[\\^%/x]+")) {
             return 2;

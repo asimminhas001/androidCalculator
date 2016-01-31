@@ -13,8 +13,8 @@ public class HistoryObject {
 
     /**
      * constructs a historyObject
-     * @param anExpressionString
-     * @param aResultString
+     * @param anExpressionString to be stored in object
+     * @param aResultString to be stored in object
      */
     public HistoryObject(Long anId,String anExpressionString, String aResultString){
         Id = anId;
@@ -24,8 +24,8 @@ public class HistoryObject {
 
     /**
      * constructs a historyObject
-     * @param expressionString
-     * @param resultString
+     * @param expressionString to be stored in object
+     * @param resultString to be stored in object
      */
     public HistoryObject(String expressionString, String resultString) {
         this.expressionString = expressionString;

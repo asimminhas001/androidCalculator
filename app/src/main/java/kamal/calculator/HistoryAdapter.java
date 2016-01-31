@@ -28,13 +28,14 @@ public class HistoryAdapter extends
 
         public TextView expressionTextView;
         public TextView resultTextView;
-        private Context context;
+        // private Context context;
 
         /**
          * ViewHolder constructor
          *  - Constructor that accepts the item row and does view lookups
          *      to find each subview
-         * @param itemView
+         * @param context context of the view
+         * @param itemView view to grab the id's
          */
         public ViewHolder(Context context, View itemView) {
             // Stores the itemView in a public final member variable that can be used
@@ -43,7 +44,7 @@ public class HistoryAdapter extends
             expressionTextView = (TextView) itemView.findViewById(R.id.history_expression);
             resultTextView = (TextView) itemView.findViewById(R.id.history_result);
             // Store the context
-            this.context = context;
+            // this.context = context;
             // Attack a click listener to the entire row view
             itemView.setOnClickListener(this);
         }
@@ -66,7 +67,7 @@ public class HistoryAdapter extends
     /**
      * HistoryAdapter()
      *  - pass history array into constructor
-     * @param aHistory
+     * @param aHistory an object HistoryObject
      */
     public HistoryAdapter(List<HistoryObject> aHistory) {
         history = aHistory;
@@ -75,9 +76,9 @@ public class HistoryAdapter extends
 
     /**
      * onCreateViewHolder()
-     * @param parent
-     * @param viewType
-     * @return
+     * @param parent parent viewgroup
+     * @param viewType the viewtype integer
+     * @return returns the view holder object
      */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -88,14 +89,13 @@ public class HistoryAdapter extends
         View historyView = inflater.inflate(R.layout.history_item_template, parent, false);
 
         // Return a new holder instance
-        ViewHolder viewHolder = new ViewHolder(context, historyView);
-        return viewHolder;
+        return new ViewHolder(context, historyView);
     }
 
     /**
      * onBindViewHolder()
-     * @param holder
-     * @param position
+     * @param holder view holder of the history
+     * @param position position of the history object
      */
     @Override
     public void onBindViewHolder(HistoryAdapter.ViewHolder holder, int position) {
@@ -112,7 +112,7 @@ public class HistoryAdapter extends
 
     /**
      * getItemCount()
-     * @return
+     * @return size of the history database
      */
     @Override
     public int getItemCount() {

@@ -378,7 +378,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * displayExpression()
      *  - displays the string passed in the expressionView
-     *  @param aString
+     *  @param aString passed to display to user
      */
     protected static void displayExpression(String aString) {
         if (aString.compareTo("") == 0) {
@@ -391,7 +391,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * displayResult()
      *  - displays the string passed in the resultView
-     *  @param aString
+     *  @param aString passed to display to user
      */
     protected static void displayResult(String aString) {
         if (aString.compareTo("") == 0) {

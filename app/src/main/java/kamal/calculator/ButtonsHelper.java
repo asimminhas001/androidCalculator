@@ -37,10 +37,10 @@ public class ButtonsHelper {
     protected static boolean getAnswer = false;
 
     /**
-     * @param v
+     * @param v view of the button
      */
     public ButtonsHelper(View v) {
-        this.parentView = v;
+        parentView = v;
         expressionView = (TextView) v.findViewById(R.id.expression_output);
     }
 
@@ -52,7 +52,7 @@ public class ButtonsHelper {
     /**
      * btnDiv()
      *
-     * @param view
+     * @param view of the button
      */
     public void btnDiv(View view) {
         String operator = " / ";
@@ -77,7 +77,7 @@ public class ButtonsHelper {
     /**
      * btnExponent()
      *
-     * @param view
+     * @param view of the button
      */
     public void btnExponent(View view) {
         String operator = " ^ ";
@@ -101,7 +101,7 @@ public class ButtonsHelper {
     /**
      * btnRemainder()
      *
-     * @param view
+     * @param view of the button
      */
     public void btnRemainder(View view) {
         String operator = " % ";
@@ -126,7 +126,7 @@ public class ButtonsHelper {
     /**
      * btnMul()
      *
-     * @param view
+     * @param view of the button
      */
     public void btnMul(View view) {
         String operator = " x ";
@@ -151,7 +151,7 @@ public class ButtonsHelper {
     /**
      * btnSub()
      *
-     * @param view
+     * @param view of the button
      */
     public void btnSub(View view) {
         String operator = " - ";
@@ -176,7 +176,7 @@ public class ButtonsHelper {
     /**
      * btnAdd()
      *
-     * @param view
+     * @param view of the button
      */
     public void btnAdd(View view) {
         String operator = " + ";
@@ -201,7 +201,7 @@ public class ButtonsHelper {
     /**
      * btnEq()
      *
-     * @param view
+     * @param view of the button
      */
     public void btnEq(View view) {
 
@@ -234,7 +234,7 @@ public class ButtonsHelper {
     /**
      * btnBrackets()
      *
-     * @param view
+     * @param view of the button
      */
     public void btnBrackets(View view) {
         String closeBrackets = " ) ", openBrackets = " ( ";
@@ -264,7 +264,7 @@ public class ButtonsHelper {
     /**
      * btnLog()
      *
-     * @param view
+     * @param view of the button
      */
     public void btnLog(View view) {
         String operator = "log ";
@@ -288,7 +288,7 @@ public class ButtonsHelper {
     /**
      * btn9()
      *
-     * @param view
+     * @param view of the button
      */
     public void btn9(View view) {
         expressionString = expressionString.concat("9");
@@ -299,7 +299,7 @@ public class ButtonsHelper {
     /**
      * btn8()
      *
-     * @param view
+     * @param view of the button
      */
     public void btn8(View view) {
         expressionString = expressionString.concat("8");
@@ -310,7 +310,7 @@ public class ButtonsHelper {
     /**
      * btn7()
      *
-     * @param view
+     * @param view of the button
      */
     public void btn7(View view) {
         expressionString = expressionString.concat("7");
@@ -321,7 +321,7 @@ public class ButtonsHelper {
     /**
      * btn6()
      *
-     * @param view
+     * @param view of the button
      */
     public void btn6(View view) {
         expressionString = expressionString.concat("6");
@@ -332,7 +332,7 @@ public class ButtonsHelper {
     /**
      * btn5()
      *
-     * @param view
+     * @param view of the button
      */
     public void btn5(View view) {
         expressionString = expressionString.concat("5");
@@ -343,7 +343,7 @@ public class ButtonsHelper {
     /**
      * btn4()
      *
-     * @param view
+     * @param view of the button
      */
     public void btn4(View view) {
         expressionString = expressionString.concat("4");
@@ -354,7 +354,7 @@ public class ButtonsHelper {
     /**
      * btn3()
      *
-     * @param view
+     * @param view of the button
      */
     public void btn3(View view) {
         expressionString = expressionString.concat("3");
@@ -366,7 +366,7 @@ public class ButtonsHelper {
     /**
      * btn2()
      *
-     * @param view
+     * @param view of the button
      */
     public void btn2(View view) {
         expressionString = expressionString.concat("2");
@@ -377,7 +377,7 @@ public class ButtonsHelper {
     /**
      * btn1()
      *
-     * @param view
+     * @param view of the button
      */
     public void btn1(View view) {
         expressionString = expressionString.concat("1");
@@ -388,7 +388,7 @@ public class ButtonsHelper {
     /**
      * btn0()
      *
-     * @param view
+     * @param view of the button
      */
     public void btn0(View view) {
         expressionString = expressionString.concat("0");
@@ -399,7 +399,7 @@ public class ButtonsHelper {
     /**
      * btnPeriod()
      *
-     * @param view
+     * @param view of the button
      */
     public void btnPeriod(View view) {
 
@@ -420,7 +420,7 @@ public class ButtonsHelper {
     /**
      * btnDel()
      *
-     * @param view
+     * @param view of the button
      */
     public void btnDel(View view) {
 
@@ -432,11 +432,8 @@ public class ButtonsHelper {
                 deleteTillOperand();
 
             } else {
-                if (!expressionString.isEmpty()) {
-                    expressionString = expressionString.substring(0,
-                            expressionString.length() - 1);
-                }
-
+                expressionString = expressionString.substring(0,
+                        expressionString.length() - 1);
             }
 
             MainActivity.displayExpression(expressionString);
@@ -447,7 +444,7 @@ public class ButtonsHelper {
     /**
      * btnClear()
      *
-     * @param view
+     * @param view of the button
      */
     public void btnClear(View view) {
         MainActivity.displayExpression(expressionString = "");
@@ -460,7 +457,7 @@ public class ButtonsHelper {
     /**
      * btnClearAll()
      *
-     * @param view
+     * @param view of the button
      */
     public void btnClearHistory(View view) {
         ExpressionParser.resultOutput(0);
@@ -482,7 +479,7 @@ public class ButtonsHelper {
     /**
      * btnAns()
      *
-     * @param view
+     * @param view of the button
      */
     public void btnAns(View view) {
         view.setBackgroundColor(Color.parseColor("#607D8B"));
@@ -501,7 +498,7 @@ public class ButtonsHelper {
     /**
      * setOpenBracketsFlag()
      *
-     * @param bool
+     * @param bool setting of the openBracketsFlag
      */
     protected void setOpenBracketsFlag(boolean bool) {
         OpenBracketsFlag = bool;
@@ -510,7 +507,7 @@ public class ButtonsHelper {
     /**
      * setLastBracketsFlag()
      *
-     * @param bool
+     * @param bool setting of the setLastBracketsFlag
      */
     protected static void setLastBracketsFlag(boolean bool) {
         lastBracketsFlag = bool;
@@ -521,7 +518,7 @@ public class ButtonsHelper {
     /**
      * setLastOperatorFlag()
      *
-     * @param bool
+     * @param bool setting of the setLastOperatorFlag
      */
     protected static void setLastOperatorFlag(boolean bool) {
         lastOperatorFlag = bool;
@@ -533,7 +530,7 @@ public class ButtonsHelper {
     /**
      * setLastOperandFlag()
      *
-     * @param bool
+     * @param bool setting of the setLastOperandFlag
      */
     protected static void setLastOperandFlag(boolean bool) {
         lastOperandFlag = bool;
@@ -544,7 +541,7 @@ public class ButtonsHelper {
     /**
      * setPeriodFlag
      *
-     * @param bool
+     * @param bool setting of the setPeriodFlag
      */
     protected void setPeriodFlag(boolean bool) {
         periodFlag = bool;
@@ -567,7 +564,7 @@ public class ButtonsHelper {
     /**
      * Allows you to either use an expression or result from history in next equation
      *
-     * @param aHistoryObject
+     * @param aHistoryObject historyObject that contains the recalled history
      */
     protected static void recallHistory(HistoryObject aHistoryObject) {
 
@@ -600,6 +597,10 @@ public class ButtonsHelper {
         setLastOperandFlag(true);
     }
 
+    /**
+     * sets the flags of the expressionString passed
+     * @param expressionStr passed Expression String sent to the view
+     */
     protected static void setFlags(String expressionStr) {
         if (expressionStr.contains("[\\(]")
                 && !expressionStr.contains("[\\)]")) {
@@ -612,7 +613,7 @@ public class ButtonsHelper {
 
     /**
      * grabs the top history item and loads the result into the expression view
-     * @param operator
+     * @param operator sent to be concatenated to the recalled object
      */
     protected static void reloadPreviousResult(String operator){
 
@@ -662,7 +663,7 @@ public class ButtonsHelper {
         if (expressionString.length() > 4 &&
                 expressionString.substring(expressionString.substring(0,
                         expressionString.length()-1).lastIndexOf(" "),
-                            expressionString.length()).matches("[\\(\\)log\\^\\+\\-\\%/x]+")){
+                            expressionString.length()).matches("[\\(\\)log\\^\\+\\-%/x]+")){
             setLastOperatorFlag(true);
         } else {
             setLastOperandFlag(true);
