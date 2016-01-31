@@ -165,7 +165,9 @@ public class ExpressionParser {
                     operand2 = loadOperand(operandStack);
                     operand1 = loadOperand(operandStack);
 
+                    operandStack.push(String.format("%.4f", computeEquation(operand1, operator, operand2)));
                     operandStack.push(currentOperand);
+                    continue;
                 } else {
                     operand2 = loadOperand(operandStack);
                     operand1 = loadOperand(operandStack);
