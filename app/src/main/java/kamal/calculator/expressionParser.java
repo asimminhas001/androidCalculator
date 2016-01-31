@@ -72,8 +72,8 @@ public class ExpressionParser {
         String[] expressionStringArray = expressionString.split(" ");
         double result;
         String resultStr, element;
-        Stack operandStack = new Stack();
-        Stack operatorStack = new Stack();
+        Stack<String> operandStack = new Stack<>();
+        Stack<String> operatorStack = new Stack<>();
 
         if (Objects.equals(expressionString, "")) {
             HistoryObject aHistoryObject = new HistoryObject("0", "0");
@@ -154,9 +154,31 @@ public class ExpressionParser {
         //  with method that checks for errors and returns a double
         while (!operatorStack.empty())
         {
-            operand2 = loadOperand(operandStack);
-            operand1 = loadOperand(operandStack);
-            operator = operatorStack.pop().toString();
+
+            if (operatorStack.size() > 1) {
+                operator = operatorStack.pop().toString();
+                if (operatorPrecedence(operator) < operatorPrecedence(operatorStack.peek().toString())) {
+                    String higherPrecedenceOperator = operatorStack.pop().toString();
+                    String currentOperand = operandStack.pop().toString();
+                    operatorStack.push(operator);
+                    operator = higherPrecedenceOperator;
+                    operand2 = loadOperand(operandStack);
+                    operand1 = loadOperand(operandStack);
+
+                    operandStack.push(currentOperand);
+                } else {
+                    operand2 = loadOperand(operandStack);
+                    operand1 = loadOperand(operandStack);
+                }
+            } else {
+                operator = operatorStack.pop().toString();
+                operand2 = loadOperand(operandStack);
+                operand1 = loadOperand(operandStack);
+            }
+
+
+
+
             if (operator.equals("log")) {
                 operandStack.push(operand1);
                 operandStack.push(String.format("%.4f", computeEquation(operand1, operator, operand2)));
@@ -220,7 +242,7 @@ public class ExpressionParser {
      * @return boolean
      */
     protected static boolean isOperator(String expressionStringFragment) {
-        return expressionStringFragment.matches("[log\\^\\+\\-\\%/x]+");
+        return expressionStringFragment.matches("[log\\^\\+\\-%/x]+");
     }
 
     /**
@@ -234,6 +256,9 @@ public class ExpressionParser {
     }
 
 
+    /**
+     * Loads the operator hash map with the operator key and its equivalent method
+     */
     private static void loadOperatorMap() {
         operatorMap.put("+", new OperatorMethods() {
             @Override
@@ -281,6 +306,12 @@ public class ExpressionParser {
         operatorMapLoaded = true;
 
     } // end loadOperatorMap()
+
+    private static double operatorPrecedence(String anOperator) {
+        if (anOperator.matches("[\\^%/x]+")) {
+            return 2;
+        } else return 1;
+    }
 
 
 }
