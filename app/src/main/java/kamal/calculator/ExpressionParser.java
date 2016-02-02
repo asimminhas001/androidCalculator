@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.util.Objects;
 import java.util.Stack;
+import java.util.LinkedList;
 
 /**
  * Program: ExpressionParser
@@ -55,56 +56,6 @@ public class ExpressionParser {
         MainActivity.displayResult(resultString);
     }
 
-    protected static Stack<String> parseExpression(String expression) {
-        Stack<String> retval = new Stack<>();
-        Stack<String> opstack = new Stack<>();
-        String exp = expression.replaceAll("\\s", "");
-        int index = 0, exp_length = exp.length();
-        Pattern numPattern = Pattern.compile("[-+]?[0-9]*\\.?[0-9]+");
-        Pattern opPattern = Pattern.compile("[\\^x/+-]+");
-        Matcher numMatch, opMatch;
-        String token1, token2, current = "";
-
-        while (index < exp_length) {
-            numMatch = numPattern.matcher(exp);
-            opMatch = opPattern.matcher(exp);
-            if (numMatch.find()) {
-                current = numMatch.group();
-                index += current.length();
-                exp = exp.substring(index);
-                retval.push(current);
-            } else if (opMatch.find()) {
-                token1 = current;
-                token2 = opstack.peek();
-                while (opPattern.matcher(token2).find() && operatorMap.priority(token1) > operatorMap.priority(token2)) {
-                    retval.push(token2);
-                    opstack.pop();
-                    token2 = opstack.peek();
-                }
-                opstack.push(token1);
-                index += opMatch.end() - opMatch.start();
-                exp = exp.substring(index);
-            } else if (exp.charAt(index) == '(') {
-                opstack.push("(");
-                ++index;
-                exp = exp.substring(index);
-            } else if (exp.charAt(index) == ')') {
-                ++index;
-                exp = exp.substring(index);
-                while (!opstack.peek().equals("(")) {
-                   retval.push(opstack.pop());
-                }
-                opstack.pop();
-            }
-        }
-
-        while (!opstack.empty()) {
-            retval.push(opstack.pop());
-        }
-
-        return retval;
-    }
-
     /**
      * computeResult()
      *  - parses expression string using split() with a " " delim
@@ -113,39 +64,9 @@ public class ExpressionParser {
      *  @returns String of the result of computation
      */
     protected static HistoryObject computeResult(String expressionString) {
-        String[] expressionStringArray = expressionString.split(" ");
-        double result;
-        String resultStr, element;
-        Stack<String> operandStack = new Stack<String>();
-        Stack<String> operatorStack = new Stack<String>();
+        String exp = expressionString.replaceAll("log", "\\$");
+        String resultStr = CustomAST.evaluate(exp);
 
-        if (Objects.equals(expressionString, "")) {
-            return new HistoryObject("0", "0");
-        }
-
-        for (int i = 0; i < expressionStringArray.length; i++) {
-
-            element = expressionStringArray[i];
-            if (isOperand(element)) {
-                operandStack.push(element);
-                continue;
-            }
-            if (isOperator(element)) {
-                operatorStack.push(element);
-                continue;
-            }
-            if (element.matches("")) {
-                continue;
-            } else {
-                if (isBracket(element)) {
-                    i = extractBracketExpression(expressionStringArray, i);
-                    operandStack.push(computeResult(bracketExpression).resultString);
-                }
-            }
-        }
-
-        result = computeOperatorStack(operandStack, operatorStack);
-        resultStr = Double.toString(result);
         return new HistoryObject(expressionString, resultStr);
     }
 
