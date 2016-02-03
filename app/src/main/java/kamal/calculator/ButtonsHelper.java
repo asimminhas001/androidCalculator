@@ -269,7 +269,7 @@ public class ButtonsHelper {
     public void btnLog(View view) {
         String operator = "log ";
 
-        if (lastOperandFlag && !lastOperatorFlag &&
+        if (lastOperatorFlag &&
                 !lastBracketsFlag) {
                 Snackbar.make(parentView, "Input Operator",
                         Snackbar.LENGTH_SHORT).show();

@@ -176,9 +176,6 @@ public class ExpressionParser {
                 operand1 = loadOperand(operandStack);
             }
 
-
-
-
             if (operator.equals("log")) {
                 operandStack.push(operand1);
                 operandStack.push(String.format("%.4f", computeEquation(operand1, operator, operand2)));
