@@ -267,7 +267,7 @@ public class ButtonsHelper {
      * @param view of the button
      */
     public void btnLog(View view) {
-        String operator = "log ";
+        String operator = " log ";
 
         if (lastOperatorFlag &&
                 !lastBracketsFlag) {
