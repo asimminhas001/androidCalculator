@@ -143,12 +143,12 @@
             android:text="@string/three"
             />
 
-        <!--| 0 |-->
+
+        <!--| . |-->
         <Button
-            android:id="@+id/btn0"
+            android:id="@+id/btnPeriod"
             style="@style/MainCalcOperands"
-            android:text="@string/zero"
-            />
+            android:text="@string/period"/>
 
     </LinearLayout>
 
@@ -196,11 +196,13 @@
             android:text="@string/two"
             />
 
-        <!--| . |-->
+        <!--| 0 |-->
         <Button
-            android:id="@+id/btnPeriod"
+            android:id="@+id/btn0"
             style="@style/MainCalcOperands"
-            android:text="@string/period"/>
+            android:text="@string/zero"
+            />
+
 
     </LinearLayout>
 
