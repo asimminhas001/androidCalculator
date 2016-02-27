@@ -65,7 +65,13 @@ public class ButtonsHelper {
                 reloadPreviousResult(operator);
             } else {
                 Snackbar.make(parentView, "Input Number",
-                        Snackbar.LENGTH_SHORT).show();
+                        Snackbar.LENGTH_SHORT)
+                        .setAction("DISMISS", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                            }
+                        })
+                        .show();
             }
         } else {
             expressionString = expressionString.concat(operator);
@@ -89,7 +95,13 @@ public class ButtonsHelper {
                 reloadPreviousResult(operator);
             } else {
                 Snackbar.make(parentView, "Input Number",
-                        Snackbar.LENGTH_SHORT).show();
+                        Snackbar.LENGTH_SHORT)
+                        .setAction("DISMISS", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                            }
+                        })
+                        .show();
             }
         } else {
             expressionString = expressionString.concat(operator);
@@ -113,7 +125,13 @@ public class ButtonsHelper {
                 reloadPreviousResult(operator);
             } else {
                 Snackbar.make(parentView, "Input Number",
-                        Snackbar.LENGTH_SHORT).show();
+                        Snackbar.LENGTH_SHORT)
+                        .setAction("DISMISS", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                            }
+                        })
+                        .show();
             }
         } else {
             expressionString = expressionString.concat(operator);
@@ -138,7 +156,13 @@ public class ButtonsHelper {
                 reloadPreviousResult(operator);
             } else {
                 Snackbar.make(parentView, "Input Number",
-                        Snackbar.LENGTH_SHORT).show();
+                        Snackbar.LENGTH_SHORT)
+                        .setAction("DISMISS", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                            }
+                        })
+                        .show();
             }
         } else {
             expressionString = expressionString.concat(operator);
@@ -163,7 +187,13 @@ public class ButtonsHelper {
                 reloadPreviousResult(operator);
             } else {
                 Snackbar.make(parentView, "Input Number",
-                        Snackbar.LENGTH_SHORT).show();
+                        Snackbar.LENGTH_SHORT)
+                        .setAction("DISMISS", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                            }
+                        })
+                        .show();
             }
         } else {
             expressionString = expressionString.concat(operator);
@@ -188,7 +218,13 @@ public class ButtonsHelper {
                 reloadPreviousResult(operator);
             } else {
                 Snackbar.make(parentView, "Input Number",
-                        Snackbar.LENGTH_SHORT).show();
+                        Snackbar.LENGTH_SHORT)
+                        .setAction("DISMISS", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                            }
+                        })
+                        .show();
             }
         } else {
             expressionString = expressionString.concat(operator);
@@ -209,7 +245,13 @@ public class ButtonsHelper {
         if ( expressionString.endsWith(" ") &&
                 !expressionString.endsWith(" ) ") || expressionString.endsWith(".") ) {
             Snackbar.make(parentView, "End expression with a number.",
-                    Snackbar.LENGTH_SHORT).show();
+                    Snackbar.LENGTH_SHORT)
+                    .setAction("DISMISS", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                        }
+                    })
+                    .show();
             return;
         }
         HistoryObject historyObject = ExpressionParser.computeResult(expressionString);
@@ -256,7 +298,13 @@ public class ButtonsHelper {
 
             Snackbar.make(parentView, "Input Operator before Bracket\n" +
                             "Input Number after Bracket",
-                    Snackbar.LENGTH_SHORT).show();
+                    Snackbar.LENGTH_SHORT)
+                    .setAction("DISMISS", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                        }
+                    })
+                    .show();
         }
         MainActivity.displayExpression(expressionString);
     }// end btnBrackets()
@@ -272,7 +320,13 @@ public class ButtonsHelper {
         if (lastOperatorFlag &&
                 !lastBracketsFlag) {
                 Snackbar.make(parentView, "Input Operator",
-                        Snackbar.LENGTH_SHORT).show();
+                        Snackbar.LENGTH_SHORT)
+                        .setAction("DISMISS", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                            }
+                        })
+                        .show();
         } else {
             expressionString = expressionString.concat(operator);
             setLastOperandFlag(true);
@@ -405,11 +459,26 @@ public class ButtonsHelper {
 
         if (periodFlag) {
             Snackbar.make(parentView, "Illegal to set another period",
-                    Snackbar.LENGTH_SHORT).show();
+                    Snackbar.LENGTH_SHORT)
+                    .setAction("DISMISS", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                        }
+                    })
+                    .show();
         } else {
             expressionString = expressionString.concat(".");
             setPeriodFlag(true);
         }
+        MainActivity.displayExpression(expressionString);
+    }
+
+    /**
+     * Negative button
+     * @param v = current view
+     */
+    public void btnNeg(View v) {
+        expressionString = expressionString.concat("-");
         MainActivity.displayExpression(expressionString);
     }
 
@@ -451,7 +520,13 @@ public class ButtonsHelper {
         MainActivity.displayResult("");
         clearAllFlags();
         Snackbar.make(parentView, "Expression Cleared",
-                Snackbar.LENGTH_SHORT).show();
+                Snackbar.LENGTH_SHORT)
+                .setAction("DISMISS", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                    }
+                })
+                .show();
     }
 
     /**
@@ -473,7 +548,13 @@ public class ButtonsHelper {
         }
         clearAllFlags();
         Snackbar.make(parentView, "All Cleared",
-                Snackbar.LENGTH_SHORT).show();
+                Snackbar.LENGTH_SHORT)
+                .setAction("DISMISS", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                    }
+                })
+                .show();
     }
 
     /**
@@ -485,7 +566,13 @@ public class ButtonsHelper {
         view.setBackgroundColor(Color.parseColor("#607D8B"));
 
         Snackbar.make(parentView, "Select an Answer from history",
-                Snackbar.LENGTH_SHORT).show();
+                Snackbar.LENGTH_SHORT)
+                .setAction("DISMISS", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                    }
+                })
+                .show();
         getAnswer = true;
         MainActivity.displayExpression(expressionString);
     }// end btnAvg()
@@ -575,7 +662,13 @@ public class ButtonsHelper {
                     aHistoryObject.resultString.contains("E") ||
                     Double.parseDouble(aHistoryObject.resultString) == 0) {
                 Snackbar.make(parentView, "Error - Invalid result from history",
-                        Snackbar.LENGTH_SHORT).show();
+                        Snackbar.LENGTH_SHORT)
+                        .setAction("DISMISS", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                            }
+                        })
+                        .show();
                 return;
             }
 
@@ -589,7 +682,13 @@ public class ButtonsHelper {
         } else {
 
             Snackbar.make(parentView, "Enter an operator",
-                    Snackbar.LENGTH_SHORT).show();
+                    Snackbar.LENGTH_SHORT)
+                    .setAction("DISMISS", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                        }
+                    })
+                    .show();
         }
 //        Log.d(LOG_TAG, "expression: " + expressionString);
         MainActivity.displayExpression(expressionString);
@@ -619,7 +718,13 @@ public class ButtonsHelper {
 
         if (db.getHistory().isEmpty()) {
             Snackbar.make(parentView, "Error - History not available, Enter number",
-                    Snackbar.LENGTH_SHORT).show();
+                    Snackbar.LENGTH_SHORT)
+                    .setAction("DISMISS", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                        }
+                    })
+                    .show();
             return;
         }
         List<HistoryObject> history = db.getHistory();
@@ -630,7 +735,13 @@ public class ButtonsHelper {
                 aHistoryObject.resultString.equals("-Infinity") ||
                 Double.parseDouble(aHistoryObject.resultString) == 0) {
             Snackbar.make(parentView, "Error - Invalid result from history",
-                    Snackbar.LENGTH_SHORT).show();
+                    Snackbar.LENGTH_SHORT)
+                    .setAction("DISMISS", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                        }
+                    })
+                    .show();
             return;
         }
         expressionString = (aHistoryObject.resultString + operator);
@@ -671,4 +782,6 @@ public class ButtonsHelper {
         Log.d(LOG_TAG, "In delete " + "expression String is: " + expressionString
                 + "\nlast char is " + lastChar);
     }
+
+
 }

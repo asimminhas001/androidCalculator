@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     protected static View parentView;
 
     private AlphaAnimation buttonClicked = new AlphaAnimation(1F, 0.7F);
+    private AlphaAnimation buttonLongClicked = new AlphaAnimation(1F, 0.4F);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +75,14 @@ public class MainActivity extends AppCompatActivity {
          * btnPeriod
          */
         Button btnPeriod = (Button) findViewById(R.id.btnPeriod);
+        btnPeriod.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                v.startAnimation(buttonLongClicked);
+                buttonsHelper.btnNeg(v);
+                return true;
+            }
+        });
         btnPeriod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+
 
         /**
          * btn0

@@ -185,7 +185,13 @@ public class ExpressionParser {
         }
         if (operandStack.empty()) {
             Snackbar.make(parentView, "Invalid Expression",
-                    Snackbar.LENGTH_SHORT).show();
+                    Snackbar.LENGTH_SHORT)
+                    .setAction("DISMISS", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                        }
+                    })
+                    .show();
             return 0;
         }
         return Double.parseDouble(operandStack.pop().toString());
