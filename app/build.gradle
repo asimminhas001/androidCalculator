@@ -26,4 +26,10 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.0.1'
     compile "com.android.support:design:25.0.1"
     compile 'com.android.support:recyclerview-v7:25.0.1'
+
+    // Conductor
+    compile 'com.bluelinelabs:conductor:2.0.4'
+// If you want the components that go along with
+// Android's support libraries (currently just a PagerAdapter):
+    compile 'com.bluelinelabs:conductor-support:2.0.4'
 }

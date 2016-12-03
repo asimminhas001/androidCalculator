@@ -1,9 +1,7 @@
 package kamal.calculator;
 
-import android.content.Context;
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -21,14 +19,15 @@ import java.util.List;
  * Author: kamal hamoud
  * Date: 2016-01-07
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainActivityContract {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
-    public static Context contextOfApplication;
-    protected static TextView resultView;
-    protected static TextView expressionView;
-    protected static RecyclerView historyView;
-    protected static View parentView;
+
+    TextView resultView;
+    TextView expressionView;
+    RecyclerView historyView;
+    View parentView;
+
 
     private AlphaAnimation buttonClicked = new AlphaAnimation(1F, 0.7F);
     private AlphaAnimation buttonLongClicked = new AlphaAnimation(1F, 0.4F);
@@ -39,13 +38,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        contextOfApplication = getApplicationContext();
-
         expressionView = (TextView) findViewById(R.id.expression_output);
         resultView = (TextView) findViewById(R.id.result_output);
         parentView = findViewById(R.id.parent);
         historyView = (RecyclerView) findViewById(R.id.history_col);
-        final ButtonsHelper buttonsHelper = new ButtonsHelper(parentView);
+        final ButtonsHelper buttonsHelper = new ButtonsHelper(parentView, getApplicationContext()
+                , this);
+        ExpressionParser parser = new ExpressionParser(parentView, this);
 
         File dbFile = this.getDatabasePath("historyDatabase");
         Log.d(LOG_TAG, "dbFile exists =" + dbFile);
@@ -391,7 +390,8 @@ public class MainActivity extends AppCompatActivity {
      *  - displays the string passed in the expressionView
      *  @param aString passed to display to user
      */
-    protected static void displayExpression(String aString) {
+    @Override
+    public void displayExpression(String aString) {
         if (aString.compareTo("") == 0) {
             expressionView.setText("0");
         } else {
@@ -404,7 +404,8 @@ public class MainActivity extends AppCompatActivity {
      *  - displays the string passed in the resultView
      *  @param aString passed to display to user
      */
-    protected static void displayResult(String aString) {
+    @Override
+    public void displayResult(String aString) {
         if (aString.compareTo("") == 0) {
             resultView.setText("0");
         } else {
@@ -412,5 +413,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    public RecyclerView getHistoryView() {
+        return historyView;
+    }
 }

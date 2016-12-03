@@ -3,11 +3,7 @@ package kamal.calculator;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
-import java.util.Objects;
 import java.util.Stack;
-import java.util.LinkedList;
 
 /**
  * Program: ExpressionParser
@@ -40,20 +36,26 @@ import java.util.LinkedList;
 public class ExpressionParser {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
-    protected static View parentView = MainActivity.parentView;
+    View parentView;
 
 
     private static OperatorMethods operatorMap = OperatorMethods.getInstance();
     private static String bracketExpression;
+    MainActivityContract activityContract;
+
+    public ExpressionParser(View parentView, MainActivityContract activityContract) {
+        this.parentView = parentView;
+        this.activityContract = activityContract;
+    }
 
     /**
      * resultOutput method
      *  - displays the number in the Result TextView
      *  @param num
      */
-    protected static void resultOutput(int num) {
+    public void resultOutput(int num) {
         String resultString = "" + num;
-        MainActivity.displayResult(resultString);
+        activityContract.displayResult(resultString);
     }
 
     /**
@@ -109,7 +111,7 @@ public class ExpressionParser {
      * @param operatorStack
      * @return
      */
-    private static double computeOperatorStack(Stack operandStack, Stack operatorStack) {
+    private double computeOperatorStack(Stack operandStack, Stack operatorStack) {
         double operand1, operand2;
         String operator;
 
