@@ -1,5 +1,6 @@
 package kamal.calculator;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -16,11 +17,18 @@ import java.util.List;
  */
 public class ButtonsHelper {
 
-    static HistorySQLiteConnection db = HistorySQLiteConnection.getsInstance(MainActivity.contextOfApplication);
+    static HistorySQLiteConnection db;
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
-    protected List<HistoryObject> aList = db.getHistory();
+    protected List<HistoryObject> aList;
+    static MainActivityContract activityContract;
 
-
+    public ButtonsHelper(View v, Context context, MainActivityContract activty) {
+        db = HistorySQLiteConnection.getsInstance(context);
+        parentView = v;
+        expressionView = (TextView) v.findViewById(R.id.expression_output);
+        activityContract = activty;
+        aList = db.getHistory();
+    }
 
     protected static View parentView;
     protected static TextView expressionView;
@@ -35,14 +43,6 @@ public class ButtonsHelper {
     protected static boolean lastOperandFlag = false;
     protected static boolean periodFlag = false;
     protected static boolean getAnswer = false;
-
-    /**
-     * @param v view of the button
-     */
-    public ButtonsHelper(View v) {
-        parentView = v;
-        expressionView = (TextView) v.findViewById(R.id.expression_output);
-    }
 
 
     /*********************************************************
@@ -77,7 +77,7 @@ public class ButtonsHelper {
             expressionString = expressionString.concat(operator);
             setLastOperatorFlag(true);
         }
-        MainActivity.displayExpression(expressionString);
+        activityContract.displayExpression(expressionString);
     }// end btnFraction()
 
     /**
@@ -107,7 +107,8 @@ public class ButtonsHelper {
             expressionString = expressionString.concat(operator);
             setLastOperatorFlag(true);
         }
-        MainActivity.displayExpression(expressionString);
+        activityContract.displayExpression(expressionString);
+
     }
 
     /**
@@ -138,7 +139,7 @@ public class ButtonsHelper {
             setLastOperatorFlag(true);
         }
 
-        MainActivity.displayExpression(expressionString);
+        activityContract.displayExpression(expressionString);
     }// end btnDiv
 
     /**
@@ -169,7 +170,7 @@ public class ButtonsHelper {
             setLastOperatorFlag(true);
         }
 
-        MainActivity.displayExpression(expressionString);
+        activityContract.displayExpression(expressionString);
     }// end btnMul()
 
     /**
@@ -200,7 +201,7 @@ public class ButtonsHelper {
             setLastOperatorFlag(true);
         }
 
-        MainActivity.displayExpression(expressionString);
+        activityContract.displayExpression(expressionString);
     }// end btnSub
 
     /**
@@ -231,7 +232,7 @@ public class ButtonsHelper {
             setLastOperatorFlag(true);
         }
 
-        MainActivity.displayExpression(expressionString);
+        activityContract.displayExpression(expressionString);
     }// end btnAdd()
 
     /**
@@ -257,17 +258,17 @@ public class ButtonsHelper {
         HistoryObject historyObject = ExpressionParser.computeResult(expressionString);
 
         // display resultString
-        MainActivity.displayResult(historyObject.resultString);
+        activityContract.displayResult(historyObject.resultString);
         // reset expression string
-        MainActivity.displayExpression(expressionString = "");
+        activityContract.displayExpression(expressionString = "");
         // add history object to history database
         if (!historyObject.expressionString.equals("0")) {
             db.addHistory(historyObject);
 
             HistoryAdapter adapter = new HistoryAdapter(db.getHistory());
-            MainActivity.historyView.setAdapter(adapter);
+            activityContract.getHistoryRecyclerView().setAdapter(adapter);
             adapter.notifyItemInserted(aList.size() - 1);
-            MainActivity.historyView.scrollToPosition(0);
+            activityContract.getHistoryRecyclerView().scrollToPosition(0);
         }
         clearAllFlags();
     }
@@ -306,7 +307,7 @@ public class ButtonsHelper {
                     })
                     .show();
         }
-        MainActivity.displayExpression(expressionString);
+        activityContract.displayExpression(expressionString);
     }// end btnBrackets()
 
     /**
@@ -332,7 +333,7 @@ public class ButtonsHelper {
             setLastOperandFlag(true);
         }
 
-        MainActivity.displayExpression(expressionString);
+        activityContract.displayExpression(expressionString);
     }
 
     /*********************************************************
@@ -347,7 +348,7 @@ public class ButtonsHelper {
     public void btn9(View view) {
         expressionString = expressionString.concat("9");
         setLastOperandFlag(true);
-        MainActivity.displayExpression(expressionString);
+        activityContract.displayExpression(expressionString);
     }
 
     /**
@@ -358,7 +359,7 @@ public class ButtonsHelper {
     public void btn8(View view) {
         expressionString = expressionString.concat("8");
         setLastOperandFlag(true);
-        MainActivity.displayExpression(expressionString);
+        activityContract.displayExpression(expressionString);
     }
 
     /**
@@ -369,7 +370,7 @@ public class ButtonsHelper {
     public void btn7(View view) {
         expressionString = expressionString.concat("7");
         setLastOperandFlag(true);
-        MainActivity.displayExpression(expressionString);
+        activityContract.displayExpression(expressionString);
     }
 
     /**
@@ -380,7 +381,7 @@ public class ButtonsHelper {
     public void btn6(View view) {
         expressionString = expressionString.concat("6");
         setLastOperandFlag(true);
-        MainActivity.displayExpression(expressionString);
+        activityContract.displayExpression(expressionString);
     }
 
     /**
@@ -391,7 +392,7 @@ public class ButtonsHelper {
     public void btn5(View view) {
         expressionString = expressionString.concat("5");
         setLastOperandFlag(true);
-        MainActivity.displayExpression(expressionString);
+        activityContract.displayExpression(expressionString);
     }
 
     /**
@@ -402,7 +403,7 @@ public class ButtonsHelper {
     public void btn4(View view) {
         expressionString = expressionString.concat("4");
         setLastOperandFlag(true);
-        MainActivity.displayExpression(expressionString);
+        activityContract.displayExpression(expressionString);
     }
 
     /**
@@ -413,7 +414,7 @@ public class ButtonsHelper {
     public void btn3(View view) {
         expressionString = expressionString.concat("3");
         setLastOperandFlag(true);
-        MainActivity.displayExpression(expressionString);
+        activityContract.displayExpression(expressionString);
     }
 
 
@@ -425,7 +426,7 @@ public class ButtonsHelper {
     public void btn2(View view) {
         expressionString = expressionString.concat("2");
         setLastOperandFlag(true);
-        MainActivity.displayExpression(expressionString);
+        activityContract.displayExpression(expressionString);
     }
 
     /**
@@ -436,7 +437,7 @@ public class ButtonsHelper {
     public void btn1(View view) {
         expressionString = expressionString.concat("1");
         setLastOperandFlag(true);
-        MainActivity.displayExpression(expressionString);
+        activityContract.displayExpression(expressionString);
     }
 
     /**
@@ -447,7 +448,7 @@ public class ButtonsHelper {
     public void btn0(View view) {
         expressionString = expressionString.concat("0");
         setLastOperandFlag(true);
-        MainActivity.displayExpression(expressionString);
+        activityContract.displayExpression(expressionString);
     }
 
     /**
@@ -470,7 +471,7 @@ public class ButtonsHelper {
             expressionString = expressionString.concat(".");
             setPeriodFlag(true);
         }
-        MainActivity.displayExpression(expressionString);
+        activityContract.displayExpression(expressionString);
     }
 
     /**
@@ -479,7 +480,7 @@ public class ButtonsHelper {
      */
     public void btnNeg(View v) {
         expressionString = expressionString.concat("-");
-        MainActivity.displayExpression(expressionString);
+        activityContract.displayExpression(expressionString);
     }
 
     /*********************************************************
@@ -494,7 +495,7 @@ public class ButtonsHelper {
     public void btnDel(View view) {
 
         if (expressionString.isEmpty()) {
-            MainActivity.displayExpression("0");
+            activityContract.displayExpression("0");
         } else {
 
             if (expressionString.endsWith(" ")) {
@@ -505,7 +506,7 @@ public class ButtonsHelper {
                         expressionString.length() - 1);
             }
 
-            MainActivity.displayExpression(expressionString);
+            activityContract.displayExpression(expressionString);
         }
     }// end btnDel()
 
@@ -516,8 +517,8 @@ public class ButtonsHelper {
      * @param view of the button
      */
     public void btnClear(View view) {
-        MainActivity.displayExpression(expressionString = "");
-        MainActivity.displayResult("");
+        activityContract.displayExpression(expressionString = "");
+        activityContract.displayResult("");
         clearAllFlags();
         Snackbar.make(parentView, "Expression Cleared",
                 Snackbar.LENGTH_SHORT)
@@ -535,17 +536,18 @@ public class ButtonsHelper {
      * @param view of the button
      */
     public void btnClearHistory(View view) {
-        ExpressionParser.resultOutput(0);
-        MainActivity.displayExpression(expressionString = "");
+        activityContract.displayResult("0");
+        activityContract.displayExpression(expressionString = "");
 
         if (db.getHistory().size() > 0) {
             db.deleteHistory();
 
             HistoryAdapter adapter = new HistoryAdapter(db.getHistory());
-            MainActivity.historyView.setAdapter(adapter);
+            activityContract.getHistoryRecyclerView().setAdapter(adapter);
             adapter.notifyDataSetChanged();
-            MainActivity.historyView.scrollToPosition(0);
+            activityContract.getHistoryRecyclerView().scrollToPosition(0);
         }
+
         clearAllFlags();
         Snackbar.make(parentView, "All Cleared",
                 Snackbar.LENGTH_SHORT)
@@ -574,7 +576,7 @@ public class ButtonsHelper {
                 })
                 .show();
         getAnswer = true;
-        MainActivity.displayExpression(expressionString);
+        activityContract.displayExpression(expressionString);
     }// end btnAvg()
 
 
@@ -653,7 +655,7 @@ public class ButtonsHelper {
      *
      * @param aHistoryObject historyObject that contains the recalled history
      */
-    protected static void recallHistory(HistoryObject aHistoryObject) {
+    static void recallHistory(HistoryObject aHistoryObject) {
 
         if (getAnswer && (lastOperatorFlag || expressionString.equals(""))) {
 
@@ -691,7 +693,7 @@ public class ButtonsHelper {
                     .show();
         }
 //        Log.d(LOG_TAG, "expression: " + expressionString);
-        MainActivity.displayExpression(expressionString);
+        activityContract.displayExpression(expressionString);
         setFlags(expressionString);
         setLastOperandFlag(true);
     }
@@ -714,7 +716,7 @@ public class ButtonsHelper {
      * grabs the top history item and loads the result into the expression view
      * @param operator sent to be concatenated to the recalled object
      */
-    protected static void reloadPreviousResult(String operator){
+    private void reloadPreviousResult(String operator){
 
         if (db.getHistory().isEmpty()) {
             Snackbar.make(parentView, "Error - History not available, Enter number",
@@ -746,7 +748,7 @@ public class ButtonsHelper {
         }
         expressionString = (aHistoryObject.resultString + operator);
 
-        MainActivity.displayExpression(expressionString);
+        activityContract.displayExpression(expressionString);
         setFlags(expressionString);
         setLastOperatorFlag(true);
     }
@@ -754,7 +756,7 @@ public class ButtonsHelper {
     /**
      * deletes starting from the end of expressionString string the first operator it encounters
      */
-    protected void deleteTillOperand() {
+    private void deleteTillOperand() {
         int i = 0;
         String lastChar = expressionString.substring(expressionString.length() - 1, expressionString.length());
 
