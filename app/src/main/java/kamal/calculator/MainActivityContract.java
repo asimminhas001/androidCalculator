@@ -12,5 +12,5 @@ public interface MainActivityContract {
 
     void displayExpression(String aString);
     void displayResult(String aString);
-    RecyclerView getHistoryView();
+    RecyclerView getHistoryRecyclerView();
 }

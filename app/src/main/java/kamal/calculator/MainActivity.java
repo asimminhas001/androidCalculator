@@ -25,8 +25,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
 
     TextView resultView;
     TextView expressionView;
-    RecyclerView historyView;
-    View parentView;
+    RecyclerView historyRecyclerView;
+    static View parentView;
 
 
     private AlphaAnimation buttonClicked = new AlphaAnimation(1F, 0.7F);
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
         expressionView = (TextView) findViewById(R.id.expression_output);
         resultView = (TextView) findViewById(R.id.result_output);
         parentView = findViewById(R.id.parent);
-        historyView = (RecyclerView) findViewById(R.id.history_col);
+        historyRecyclerView = (RecyclerView) findViewById(R.id.history_col);
         final ButtonsHelper buttonsHelper = new ButtonsHelper(parentView, getApplicationContext()
                 , this);
         ExpressionParser parser = new ExpressionParser(parentView, this);
@@ -61,10 +61,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
 
         // Create adapter passing in the list of HistoryObjects
         HistoryAdapter adapter = new HistoryAdapter(aList);
-        // Attach adapter to historyView
-        historyView.setAdapter(adapter);
+        // Attach adapter to historyRecyclerView
+        historyRecyclerView.setAdapter(adapter);
         // Set layout manager to position the items
-        historyView.setLayoutManager(new LinearLayoutManager(this));
+        historyRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         /*********************************************************
          * Operands Buttons onClick listeners
@@ -413,8 +413,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
         }
     }
 
-    @Override
-    public RecyclerView getHistoryView() {
-        return historyView;
+    public RecyclerView getHistoryRecyclerView() {
+        return historyRecyclerView;
     }
 }

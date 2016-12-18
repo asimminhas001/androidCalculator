@@ -19,14 +19,15 @@ public class ButtonsHelper {
 
     static HistorySQLiteConnection db;
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
-    protected List<HistoryObject> aList = db.getHistory();
-    MainActivityContract activityContract;
+    protected List<HistoryObject> aList;
+    static MainActivityContract activityContract;
 
     public ButtonsHelper(View v, Context context, MainActivityContract activty) {
         db = HistorySQLiteConnection.getsInstance(context);
         parentView = v;
         expressionView = (TextView) v.findViewById(R.id.expression_output);
         activityContract = activty;
+        aList = db.getHistory();
     }
 
     protected static View parentView;
@@ -265,9 +266,9 @@ public class ButtonsHelper {
             db.addHistory(historyObject);
 
             HistoryAdapter adapter = new HistoryAdapter(db.getHistory());
-            activityContract.getHistoryView().setAdapter(adapter);
+            activityContract.getHistoryRecyclerView().setAdapter(adapter);
             adapter.notifyItemInserted(aList.size() - 1);
-            activityContract.getHistoryView().scrollToPosition(0);
+            activityContract.getHistoryRecyclerView().scrollToPosition(0);
         }
         clearAllFlags();
     }
@@ -542,9 +543,9 @@ public class ButtonsHelper {
             db.deleteHistory();
 
             HistoryAdapter adapter = new HistoryAdapter(db.getHistory());
-            activityContract.getHistoryView().setAdapter(adapter);
+            activityContract.getHistoryRecyclerView().setAdapter(adapter);
             adapter.notifyDataSetChanged();
-            activityContract.getHistoryView().scrollToPosition(0);
+            activityContract.getHistoryRecyclerView().scrollToPosition(0);
         }
 
         clearAllFlags();
@@ -654,7 +655,7 @@ public class ButtonsHelper {
      *
      * @param aHistoryObject historyObject that contains the recalled history
      */
-    void recallHistory(HistoryObject aHistoryObject) {
+    static void recallHistory(HistoryObject aHistoryObject) {
 
         if (getAnswer && (lastOperatorFlag || expressionString.equals(""))) {
 
