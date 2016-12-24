@@ -18,11 +18,11 @@ import java.util.List;
 public class ButtonsHelper {
 
     static HistorySQLiteConnection db;
-    private static final String LOG_TAG = MainActivity.class.getSimpleName();
+    private static final String LOG_TAG = CalcMainActivity.class.getSimpleName();
     protected List<HistoryObject> aList;
-    static MainActivityContract activityContract;
+    static CalcMainActivityContract activityContract;
 
-    public ButtonsHelper(View v, Context context, MainActivityContract activty) {
+    public ButtonsHelper(View v, Context context, CalcMainActivityContract activty) {
         db = HistorySQLiteConnection.getsInstance(context);
         parentView = v;
         expressionView = (TextView) v.findViewById(R.id.expression_output);

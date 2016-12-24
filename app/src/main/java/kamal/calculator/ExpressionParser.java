@@ -35,15 +35,15 @@ import java.util.Stack;
 
 public class ExpressionParser {
 
-    private static final String LOG_TAG = MainActivity.class.getSimpleName();
+    private static final String LOG_TAG = CalcMainActivity.class.getSimpleName();
     View parentView;
 
 
     private static OperatorMethods operatorMap = OperatorMethods.getInstance();
     private static String bracketExpression;
-    MainActivityContract activityContract;
+    CalcMainActivityContract activityContract;
 
-    public ExpressionParser(View parentView, MainActivityContract activityContract) {
+    public ExpressionParser(View parentView, CalcMainActivityContract activityContract) {
         this.parentView = parentView;
         this.activityContract = activityContract;
     }
