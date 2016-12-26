@@ -4,13 +4,13 @@
     app:contentInsetStart="0dp">
 
     <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         app:contentInsetStart="0dp"
         app:titleTextColor="@android:color/white">
-
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -23,9 +23,9 @@
                 android:layout_alignParentStart="false"
                 android:layout_centerInParent="false"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
                 android:padding="8dp"
-                android:src="@mipmap/ic_launcher"
-                android:layout_marginLeft="8dp" />
+                android:src="@mipmap/ic_launcher" />
 
             <TextView
                 android:id="@+id/toolbar_title"
@@ -45,8 +45,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
                 android:layout_centerInParent="true"
-                android:clickable="true"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
                 android:padding="16dp"
                 android:src="@drawable/ic_more_vert_black_24dp" />
         </RelativeLayout>

@@ -42,4 +42,7 @@ dependencies {
 
     // Flow
     compile 'com.squareup.flow:flow:1.0.0-alpha2'
+
+    // ColorPicker
+    compile(group: 'uz.shift', name: 'colorpicker', version: '0.5', ext: 'aar')
 }
