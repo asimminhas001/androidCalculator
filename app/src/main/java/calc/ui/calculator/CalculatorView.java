@@ -23,7 +23,7 @@ import kamal.calculator.R;
  * Created by mhamoud on 2016-12-24.
  */
 
-public final class CalculatorView extends LinearLayout implements View.OnClickListener {
+public final class CalculatorView extends LinearLayout {
 
     public CalculatorView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -44,15 +44,15 @@ public final class CalculatorView extends LinearLayout implements View.OnClickLi
         ImageView toolbarSettingsBtn = ButterKnife.findById(this, R.id.toolbar_settings_btn);
 
         toolbarTitle.setText(R.string.calculator_screen_name);
-        toolbarSettingsBtn.setOnClickListener(this);
+
+        toolbarSettingsBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Go to SettingsScreen
+                // You can pass data by adding a constructor to the SettingsScreen
+                Flow.get(getContext()).set(new SettingsScreen());
+            }
+        });
     }
 
-    @Override
-    public void onClick(View view) {
-        if (view instanceof ImageView) {
-            // Go to SettingsScreen
-            // You can pass data by adding a constructor to the SettingsScreen
-            Flow.get(getContext()).set(new SettingsScreen());
-        }
-    }
 }
