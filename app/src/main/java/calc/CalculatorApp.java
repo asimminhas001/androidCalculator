@@ -5,7 +5,6 @@ import android.app.Application;
 import calc.di.component.AppComponent;
 import calc.di.component.DaggerAppComponent;
 import calc.di.module.AppModule;
-import dagger.internal.DaggerCollections;
 
 /**
  * Created by mhamoud on 2016-12-24.

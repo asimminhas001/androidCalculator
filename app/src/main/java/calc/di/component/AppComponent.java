@@ -3,6 +3,7 @@ package calc.di.component;
 import javax.inject.Singleton;
 
 import calc.ui.BaseActivity;
+import calc.ui.settings.SettingsView;
 import dagger.Component;
 import calc.CalculatorApp;
 import calc.di.module.AppModule;
@@ -14,7 +15,7 @@ import calc.di.module.AppModule;
 @Singleton
 @Component(modules = {AppModule.class})
 public interface AppComponent {
-    void inject(CalculatorApp app);
+    void inject(CalculatorApp calculatorApp);
     void inject(BaseActivity baseActivity);
 //    void inject(MainPresenter mainPresenter);
 }

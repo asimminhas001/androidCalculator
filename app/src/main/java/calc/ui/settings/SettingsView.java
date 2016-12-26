@@ -1,6 +1,7 @@
 package calc.ui.settings;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
@@ -9,8 +10,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import calc.CalculatorApp;
 import kamal.calculator.R;
 import uz.shift.colorpicker.LineColorPicker;
 import uz.shift.colorpicker.OnColorChangedListener;
@@ -66,4 +70,5 @@ public final class SettingsView extends LinearLayout {
         // get selected color
         int color = colorPicker.getColor();
     }
+
 }
