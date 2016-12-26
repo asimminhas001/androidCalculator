@@ -56,9 +56,9 @@ public class BasicDispatcher implements Dispatcher {
 
         @LayoutRes final int layout;
         if (destKey instanceof CalculatorScreen) {
-            layout = R.layout.calculator_screen;
+            layout = R.layout.screen_calculator;
         } else if (destKey instanceof SettingsScreen){
-            layout = R.layout.settings_screen;
+            layout = R.layout.screen_settings;
         } else {
             throw new AssertionError("Unrecognized screen " + destKey);
         }
