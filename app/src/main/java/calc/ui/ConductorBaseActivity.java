@@ -58,4 +58,9 @@ public final class ConductorBaseActivity extends AppCompatActivity implements Ac
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        // todo close realm
+        super.onDestroy();
+    }
 }

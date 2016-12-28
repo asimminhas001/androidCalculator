@@ -5,6 +5,8 @@ import android.app.Application;
 import calc.di.component.AppComponent;
 import calc.di.component.DaggerAppComponent;
 import calc.di.module.AppModule;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 /**
  * Created by mhamoud on 2016-12-24.
@@ -21,12 +23,20 @@ public class CalculatorApp extends Application {
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .build();
-
+        initRealmConfiguration();
         appComponent.inject(this);
     }
 
     public AppComponent getComponent() {
         return appComponent;
+    }
+
+    private void initRealmConfiguration() {
+        //
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        Realm.setDefaultConfiguration(realmConfiguration);
     }
 
 }

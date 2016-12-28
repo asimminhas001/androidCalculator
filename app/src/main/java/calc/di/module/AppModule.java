@@ -6,9 +6,12 @@ import android.preference.PreferenceManager;
 
 import javax.inject.Singleton;
 
+import calc.realm.RealmService;
 import dagger.Module;
 import dagger.Provides;
 import calc.CalculatorApp;
+import dagger.producers.ProducerModule;
+import io.realm.Realm;
 
 /**
  * Created by mhamoud on 2016-12-24.
@@ -33,6 +36,16 @@ public class AppModule {
     @Singleton
     public SharedPreferences provideSharedPreferences() {
         return PreferenceManager.getDefaultSharedPreferences(calculatorApp);
+    }
+
+    @Provides
+    Realm provideRealm() {
+        return Realm.getDefaultInstance();
+    }
+
+    @Provides
+    RealmService provideRealmService(final Realm realm) {
+        return new RealmService(realm);
     }
 
 }
