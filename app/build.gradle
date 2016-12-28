@@ -21,6 +21,7 @@ android {
     }
 }
 
+
 dependencies {
 
     // Global version numbers
@@ -41,8 +42,8 @@ dependencies {
     provided 'javax.annotation:jsr250-api:1.0'
     provided 'com.google.dagger:dagger-compiler:2.0'
 
-    // Flow
-    compile 'com.squareup.flow:flow:1.0.0-alpha2'
+    // Conductor
+    compile 'com.bluelinelabs:conductor:2.0.5'
 
     // ColorPicker
     compile(group: 'uz.shift', name: 'colorpicker', version: '0.5', ext: 'aar')
