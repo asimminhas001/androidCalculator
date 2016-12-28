@@ -22,7 +22,7 @@ import kamal.calculator.R;
  * Created by mhamoud on 2016-12-24.
  */
 
-public class BaseActivity extends AppCompatActivity {
+public class FlowBaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
