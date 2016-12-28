@@ -35,6 +35,7 @@ public class AppModule {
         return PreferenceManager.getDefaultSharedPreferences(calculatorApp);
     }
 
+
 //    @Provides
 //    @Singleton
 //    MainPresenter mainPresenter() {
