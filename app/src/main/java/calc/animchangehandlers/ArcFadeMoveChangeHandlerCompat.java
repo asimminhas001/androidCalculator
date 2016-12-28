@@ -1,4 +1,4 @@
-package calc.ui.animchangehandlers;
+package calc.animchangehandlers;
 
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler;
 import com.bluelinelabs.conductor.changehandler.TransitionChangeHandlerCompat;

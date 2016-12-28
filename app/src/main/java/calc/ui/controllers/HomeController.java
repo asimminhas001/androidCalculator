@@ -12,7 +12,7 @@ import com.bluelinelabs.conductor.ControllerChangeHandler;
 import com.bluelinelabs.conductor.ControllerChangeType;
 import com.bluelinelabs.conductor.RouterTransaction;
 
-import calc.ui.animchangehandlers.FlipChangeHandler;
+import calc.animchangehandlers.FlipChangeHandler;
 import calc.ui.controllers.base.BaseController;
 import kamal.calculator.R;
 
@@ -35,7 +35,6 @@ public class HomeController extends BaseController {
     protected View inflateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
         return inflater.inflate(R.layout.controller_home, container, false);
     }
-
 
     @Override
     protected void onViewBound(@NonNull View view) {

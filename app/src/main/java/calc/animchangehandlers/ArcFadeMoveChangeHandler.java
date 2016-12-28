@@ -1,4 +1,4 @@
-package calc.ui.animchangehandlers;
+package calc.animchangehandlers;
 
 import android.annotation.TargetApi;
 import android.os.Build;
