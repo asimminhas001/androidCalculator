@@ -17,13 +17,13 @@ import kamal.calculator.R;
 
 public class SettingsController extends BaseController {
 
+    public SettingsController() {
+        setHasOptionsMenu(false);
+    }
+
     @Override
     protected String getTitle() {
         return getResources().getString(R.string.settings_screen_name);
-    }
-
-    public SettingsController() {
-        setHasOptionsMenu(false);
     }
 
     @Override

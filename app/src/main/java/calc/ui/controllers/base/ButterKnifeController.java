@@ -16,7 +16,7 @@ import butterknife.Unbinder;
  */
 
 public abstract class ButterKnifeController extends Controller {
-
+    
     private Unbinder unbinder;
 
     protected ButterKnifeController() {
@@ -46,5 +46,6 @@ public abstract class ButterKnifeController extends Controller {
         unbinder.unbind();
         unbinder = null;
     }
+
 
 }

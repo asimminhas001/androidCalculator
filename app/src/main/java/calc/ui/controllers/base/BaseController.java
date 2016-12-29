@@ -13,7 +13,7 @@ import calc.ui.ActionBarProvider;
  * Created by mhamoud on 2016-12-27.
  */
 
-public abstract class BaseController extends ButterKnifeController {
+public abstract class BaseController extends RefWatchingController {
 
     protected BaseController() {
     }

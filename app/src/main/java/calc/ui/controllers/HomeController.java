@@ -22,13 +22,13 @@ import kamal.calculator.R;
 
 public class HomeController extends BaseController {
 
+    public HomeController() {
+        setHasOptionsMenu(true);
+    }
+
     @Override
     protected String getTitle() {
         return getResources().getString(R.string.calculator_screen_name);
-    }
-
-    public HomeController() {
-        setHasOptionsMenu(true);
     }
 
     @Override
