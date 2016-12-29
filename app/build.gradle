@@ -52,4 +52,7 @@ dependencies {
 
     // ColorPicker
     compile(group: 'uz.shift', name: 'colorpicker', version: '0.5', ext: 'aar')
+
+    // Timber
+    compile 'com.jakewharton.timber:timber:4.4.0'
 }
