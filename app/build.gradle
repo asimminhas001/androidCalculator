@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 25
@@ -19,6 +21,7 @@ android {
     }
 }
 
+
 dependencies {
 
     // Global version numbers
@@ -30,9 +33,26 @@ dependencies {
     compile "com.android.support:design:$SUPPORT_LIBRARY_VERSION"
     compile "com.android.support:recyclerview-v7:$SUPPORT_LIBRARY_VERSION"
 
+    // Butterknife
+    compile 'com.jakewharton:butterknife:8.4.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+
+    // Dagger
+    compile 'com.google.dagger:dagger:2.8'
+    provided 'javax.annotation:jsr250-api:1.0'
+    provided 'com.google.dagger:dagger-compiler:2.0'
+
     // Conductor
-    compile 'com.bluelinelabs:conductor:2.0.4'
-// If you want the components that go along with
-// Android's support libraries (currently just a PagerAdapter):
-    compile 'com.bluelinelabs:conductor-support:2.0.4'
+    compile 'com.bluelinelabs:conductor:2.0.5'
+
+    // LeakCanary
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+
+    // ColorPicker
+    compile(group: 'uz.shift', name: 'colorpicker', version: '0.5', ext: 'aar')
+
+    // Timber
+    compile 'com.jakewharton.timber:timber:4.4.0'
 }

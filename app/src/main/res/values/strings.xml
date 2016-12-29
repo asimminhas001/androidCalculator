@@ -1,5 +1,10 @@
 <resources>
+
     <string name="app_name">Calculator</string>
+    <string name="history_title">History</string>
+    <string name="calculator_screen_name">Calculator</string>
+    <string name="settings_screen_name">Settings</string>
+
     <!--col1-->
     <string name="add">+</string>
     <string name="sub">-</string>
@@ -31,9 +36,5 @@
     <string name="seven">7</string>
     <string name="clearHistory">Clear History</string>
     <string name="clearExp">Clear</string>
-
-    <string name="history_title">History</string>
-
-
 
 </resources>

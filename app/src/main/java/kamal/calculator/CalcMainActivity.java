@@ -14,14 +14,14 @@ import java.io.File;
 import java.util.List;
 
 /**
- * Program: MainActivity
+ * Program: CalcMainActivity
  * Project: Calculator
  * Author: kamal hamoud
  * Date: 2016-01-07
  */
-public class MainActivity extends AppCompatActivity implements MainActivityContract {
+public class CalcMainActivity extends AppCompatActivity implements CalcMainActivityContract {
 
-    private static final String LOG_TAG = MainActivity.class.getSimpleName();
+    private static final String LOG_TAG = CalcMainActivity.class.getSimpleName();
 
     TextView resultView;
     TextView expressionView;

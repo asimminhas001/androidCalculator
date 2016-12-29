@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -55,7 +54,7 @@ public class HistoryAdapter extends
             HistoryObject historyObject = history.get(position);
             ButtonsHelper.recallHistory(historyObject);
 
-            Button btnAns = (Button) MainActivity.parentView.findViewById(R.id.btnAns);
+            Button btnAns = (Button) CalcMainActivity.parentView.findViewById(R.id.btnAns);
             btnAns.setBackgroundColor(Color.parseColor("#009688"));
             ButtonsHelper.getAnswer = false;
         }
