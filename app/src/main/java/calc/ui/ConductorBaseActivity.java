@@ -1,5 +1,6 @@
 package calc.ui;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,14 +13,14 @@ import com.bluelinelabs.conductor.RouterTransaction;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import calc.CalculatorApp;
-import calc.ui.controllers.HomeController;
+import calc.ui.controllers.home.HomeController;
 import kamal.calculator.R;
 
 /**
  * Created by mhamoud on 2016-12-27.
  */
 
-public final class ConductorBaseActivity extends AppCompatActivity implements ActionBarProvider {
+public final class ConductorBaseActivity extends AppCompatActivity implements BaseView, ActionBarProvider {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -35,13 +36,9 @@ public final class ConductorBaseActivity extends AppCompatActivity implements Ac
         ((CalculatorApp) getApplication())
                 .getComponent()
                 .inject(this);
+
         setContentView(R.layout.activity_conductor);
-
-        // FIXME: ButterKnife bind isn't working...
         ButterKnife.bind(this);
-
-        toolbar = ButterKnife.findById(this, R.id.toolbar);
-        container = ButterKnife.findById(this, R.id.controller_container);
 
         setSupportActionBar(toolbar);
 
@@ -49,6 +46,11 @@ public final class ConductorBaseActivity extends AppCompatActivity implements Ac
         if (!router.hasRootController()) {
             router.setRoot(RouterTransaction.with(new HomeController()));
         }
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 
     @Override

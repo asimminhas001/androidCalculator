@@ -1,13 +1,16 @@
-package calc.ui.controllers;
+package calc.ui.controllers.settings;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.bluelinelabs.conductor.ControllerChangeHandler;
 import com.bluelinelabs.conductor.ControllerChangeType;
 
+import butterknife.BindView;
 import calc.ui.controllers.base.BaseController;
 import kamal.calculator.R;
 
@@ -15,7 +18,12 @@ import kamal.calculator.R;
  * Created by mhamoud on 2016-12-27.
  */
 
-public class SettingsController extends BaseController {
+public class SettingsController extends BaseController implements SettingsView {
+
+    private SettingsPresenter presenter;
+
+    @BindView(R.id.settings_textview)
+    TextView textView;
 
     public SettingsController() {
         setHasOptionsMenu(false);
@@ -34,16 +42,14 @@ public class SettingsController extends BaseController {
     @Override
     protected void onViewBound(@NonNull View view) {
         super.onViewBound(view);
-
-        // Set up views here (eg RecyclerView + adapter)
-
     }
 
     @Override
     protected void onAttach(@NonNull View view) {
         super.onAttach(view);
 
-        // presenter.attach();
+        presenter = new SettingsPresenter();
+        presenter.attachView(this);
 
         getActionBar().setDisplayShowHomeEnabled(false);
     }
@@ -52,7 +58,17 @@ public class SettingsController extends BaseController {
     protected void onDetach(@NonNull View view) {
         super.onDetach(view);
 
-        // presenter.detach();
+        presenter.detachView();
+    }
+
+    @Override
+    public void setText(String text) {
+        textView.setText(text);
+    }
+
+    @Override
+    public Context getContext() {
+        return getActivity();
     }
 
     @Override
