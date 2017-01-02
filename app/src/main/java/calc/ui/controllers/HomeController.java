@@ -15,7 +15,6 @@ import com.bluelinelabs.conductor.RouterTransaction;
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import calc.animchangehandlers.FlipChangeHandler;
 import calc.ui.controllers.base.BaseController;
 import kamal.calculator.R;
@@ -27,7 +26,7 @@ import kamal.calculator.R;
 public class HomeController extends BaseController {
 
     @BindView(R.id.home_screen_textview)
-    TextView homescreenTextView;
+    TextView textView;
 
     public HomeController() {
         setHasOptionsMenu(true);
@@ -49,6 +48,9 @@ public class HomeController extends BaseController {
 
         // Set up views here (eg RecyclerView + adapter)
 
+
+        // TODO: Need to figure out the lifecycle and order
+        // TODO: of calls for controllers
     }
 
     @Override
@@ -59,6 +61,15 @@ public class HomeController extends BaseController {
 
         getActionBar().setDisplayShowHomeEnabled(true);
         getActionBar().setLogo(R.mipmap.ic_launcher);
+
+        textView.setText("Tap here for a Fade effect. Tap the Settings button for a Flip effect");
+
+        // retrolambda test
+        textView.setOnClickListener(view1 -> {
+            getRouter().pushController(RouterTransaction.with(new SettingsController())
+                    .pushChangeHandler(new FadeChangeHandler())
+                    .popChangeHandler(new FadeChangeHandler()));
+        });
     }
 
     @Override
