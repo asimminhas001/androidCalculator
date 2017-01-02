@@ -45,7 +45,7 @@ public class CalculatorApp extends Application {
     }
 
     private void initRealmConfiguration() {
-        //
+        Realm.init(this);
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
                 .deleteRealmIfMigrationNeeded()
                 .build();

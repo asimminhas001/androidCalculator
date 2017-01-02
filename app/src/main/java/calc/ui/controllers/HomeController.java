@@ -7,11 +7,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.bluelinelabs.conductor.ControllerChangeHandler;
 import com.bluelinelabs.conductor.ControllerChangeType;
 import com.bluelinelabs.conductor.RouterTransaction;
+import com.bluelinelabs.conductor.changehandler.FadeChangeHandler;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import calc.animchangehandlers.FlipChangeHandler;
 import calc.ui.controllers.base.BaseController;
 import kamal.calculator.R;
@@ -21,6 +25,9 @@ import kamal.calculator.R;
  */
 
 public class HomeController extends BaseController {
+
+    @BindView(R.id.home_screen_textview)
+    TextView homescreenTextView;
 
     public HomeController() {
         setHasOptionsMenu(true);
@@ -42,14 +49,23 @@ public class HomeController extends BaseController {
 
         // Set up views here (eg RecyclerView + adapter)
 
+    }
+
+    @Override
+    protected void onAttach(@NonNull View view) {
+        super.onAttach(view);
+
+        // presenter.attach();
+
         getActionBar().setDisplayShowHomeEnabled(true);
         getActionBar().setLogo(R.mipmap.ic_launcher);
     }
 
     @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.home, menu);
+    protected void onDetach(@NonNull View view) {
+        super.onDetach(view);
+
+        // presenter.detach();
     }
 
     @Override
@@ -59,6 +75,12 @@ public class HomeController extends BaseController {
         if (changeType.isEnter) {
             setTitle();
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.home, menu);
     }
 
     @Override
