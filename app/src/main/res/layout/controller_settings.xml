@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="SETTINGS SCREEN"
+        android:text="@string/settings_screen_name"
         android:textSize="28sp" />
 
 </FrameLayout>
