@@ -21,7 +21,7 @@ https://drive.google.com/file/d/0B7tOK_HzoD_yYmNZQ2VSUm9IUHM/view?usp=sharing
 
 The lifecycle of a Controller is significantly simpler to understand than that of a Fragment. A lifecycle diagram is shown below:
 
-![Controller Lifecycle](docs/Controller Lifecycle.jpg)
+![Controller Lifecycle](https://github.com/bluelinelabs/Conductor/raw/develop/docs/Controller%20Lifecycle.jpg)
 
 ## Advanced Topics
 
