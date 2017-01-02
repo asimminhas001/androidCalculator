@@ -17,7 +17,7 @@ https://drive.google.com/file/d/0B7tOK_HzoD_yYmNZQ2VSUm9IUHM/view?usp=sharing
 - Android Studio 2.* (latest)
 - Some Android Experience or Basic Android tutorial although this is a decent app to learn from.
 
-### Conductor Controller Lifecycle (reference from [Conductor github])
+### Conductor Controller Lifecycle (source - [Conductor's README](https://github.com/bluelinelabs/Conductor/blob/develop/README.md))
 
 The lifecycle of a Controller is significantly simpler to understand than that of a Fragment. A lifecycle diagram is shown below:
 
