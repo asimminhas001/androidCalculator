@@ -37,7 +37,22 @@ public class SettingsController extends BaseController {
 
         // Set up views here (eg RecyclerView + adapter)
 
+    }
+
+    @Override
+    protected void onAttach(@NonNull View view) {
+        super.onAttach(view);
+
+        // presenter.attach();
+
         getActionBar().setDisplayShowHomeEnabled(false);
+    }
+
+    @Override
+    protected void onDetach(@NonNull View view) {
+        super.onDetach(view);
+
+        // presenter.detach();
     }
 
     @Override

@@ -1,10 +1,16 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'realm-android'
+apply plugin: 'me.tatarka.retrolambda' // make sure to apply last
 
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.1"
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
     defaultConfig {
         applicationId "kamal.calculator"
@@ -20,7 +26,6 @@ android {
         }
     }
 }
-
 
 dependencies {
 
@@ -55,4 +60,10 @@ dependencies {
 
     // Timber
     compile 'com.jakewharton.timber:timber:4.4.0'
+}
+
+retrolambda {
+    // use command '/usr/libexec/java_home' in your terminal to find
+    // path to jdk1.8
+    jdk "/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home"
 }
