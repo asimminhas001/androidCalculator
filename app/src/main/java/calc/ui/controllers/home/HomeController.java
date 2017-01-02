@@ -1,5 +1,6 @@
-package calc.ui.controllers;
+package calc.ui.controllers.home;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,13 +18,16 @@ import com.bluelinelabs.conductor.changehandler.FadeChangeHandler;
 import butterknife.BindView;
 import calc.animchangehandlers.FlipChangeHandler;
 import calc.ui.controllers.base.BaseController;
+import calc.ui.controllers.settings.SettingsController;
 import kamal.calculator.R;
 
 /**
  * Created by mhamoud on 2016-12-27.
  */
 
-public class HomeController extends BaseController {
+public class HomeController extends BaseController implements HomeView {
+
+    private HomePresenter presenter;
 
     @BindView(R.id.home_screen_textview)
     TextView textView;
@@ -45,24 +49,17 @@ public class HomeController extends BaseController {
     @Override
     protected void onViewBound(@NonNull View view) {
         super.onViewBound(view);
-
-        // Set up views here (eg RecyclerView + adapter)
-
-
-        // TODO: Need to figure out the lifecycle and order
-        // TODO: of calls for controllers
     }
 
     @Override
     protected void onAttach(@NonNull View view) {
         super.onAttach(view);
 
-        // presenter.attach();
+        presenter = new HomePresenter();
+        presenter.attachView(this);
 
         getActionBar().setDisplayShowHomeEnabled(true);
         getActionBar().setLogo(R.mipmap.ic_launcher);
-
-        textView.setText("Tap here for a Fade effect. Tap the Settings button for a Flip effect");
 
         // retrolambda test
         textView.setOnClickListener(view1 -> {
@@ -76,7 +73,17 @@ public class HomeController extends BaseController {
     protected void onDetach(@NonNull View view) {
         super.onDetach(view);
 
-        // presenter.detach();
+        presenter.detachView();
+    }
+
+    @Override
+    public void setText(String text) {
+        textView.setText(text);
+    }
+
+    @Override
+    public Context getContext() {
+        return getActivity();
     }
 
     @Override
