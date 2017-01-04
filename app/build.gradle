@@ -16,15 +16,17 @@ android {
         applicationId "kamal.calculator"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 1
+        versionCode getVersionCode()
         versionName "1.0"
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
@@ -67,3 +69,43 @@ retrolambda {
     // path to jdk1.8
     jdk "/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home"
 }
+
+//region Versioning
+ext.getVersionCode = { ->
+    def versionPropsFile = file('version.properties')
+
+    if (versionPropsFile.canRead()) {
+        def Properties versionProps = new Properties()
+
+        versionProps.load(new FileInputStream(versionPropsFile))
+
+        def code = versionProps['VERSION_CODE'].toInteger() + 1
+        return code;
+
+    } else {
+        throw new GradleException("Could not read version.properties!")
+    }
+}
+
+task incrementVersionCode {
+    def versionPropsFile = file('version.properties')
+
+    if (versionPropsFile.canRead()) {
+        def Properties versionProps = new Properties()
+
+        versionProps.load(new FileInputStream(versionPropsFile))
+
+        // increment & store
+        def code = versionProps['VERSION_CODE'].toInteger() + 1
+        versionProps['VERSION_CODE'] = code.toString()
+        versionProps.store(versionPropsFile.newWriter(), null)
+
+    } else {
+        throw new GradleException("Could not read version.properties!")
+    }
+}
+
+project.afterEvaluate {
+    preBuild.dependsOn incrementVersionCode
+}
+//endregion
