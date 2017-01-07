@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
  * Date: 2016-12-03
  */
 
-public interface MainActivityContract {
+public interface CalcMainActivityContract {
 
     void displayExpression(String aString);
     void displayResult(String aString);

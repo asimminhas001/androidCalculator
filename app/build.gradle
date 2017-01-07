@@ -1,35 +1,111 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'realm-android'
+apply plugin: 'me.tatarka.retrolambda' // make sure to apply last
 
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.1"
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     defaultConfig {
         applicationId "kamal.calculator"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 1
+        versionCode getVersionCode()
         versionName "1.0"
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-}
 
+}
 
 dependencies {
+
+    // Global version numbers
+    final SUPPORT_LIBRARY_VERSION = '25.1.0'
+
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:25.0.1'
-    compile "com.android.support:design:25.0.1"
-    compile 'com.android.support:recyclerview-v7:25.0.1'
+    compile "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
+    compile "com.android.support:design:$SUPPORT_LIBRARY_VERSION"
+    compile "com.android.support:recyclerview-v7:$SUPPORT_LIBRARY_VERSION"
+
+    // Butterknife
+    compile 'com.jakewharton:butterknife:8.4.0'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+
+    // Dagger
+    compile 'com.google.dagger:dagger:2.8'
+    provided 'javax.annotation:jsr250-api:1.0'
+    provided 'com.google.dagger:dagger-compiler:2.0'
 
     // Conductor
-    compile 'com.bluelinelabs:conductor:2.0.4'
-// If you want the components that go along with
-// Android's support libraries (currently just a PagerAdapter):
-    compile 'com.bluelinelabs:conductor-support:2.0.4'
+    compile 'com.bluelinelabs:conductor:2.0.5'
+
+    // LeakCanary
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+
+    // ColorPicker
+    compile(group: 'uz.shift', name: 'colorpicker', version: '0.5', ext: 'aar')
+
+    // Timber
+    compile 'com.jakewharton.timber:timber:4.4.0'
 }
+
+retrolambda {
+    // use command '/usr/libexec/java_home' in your terminal to find
+    // path to jdk1.8
+    jdk "/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home"
+}
+
+//region Versioning
+ext.getVersionCode = { ->
+    def versionPropsFile = file('version.properties')
+
+    if (versionPropsFile.canRead()) {
+        def Properties versionProps = new Properties()
+
+        versionProps.load(new FileInputStream(versionPropsFile))
+
+        def code = versionProps['VERSION_CODE'].toInteger()
+        return code;
+
+    } else {
+        throw new GradleException("Could not read version.properties!")
+    }
+}
+
+task incrementVersionCode {
+    def versionPropsFile = file('version.properties')
+
+    if (versionPropsFile.canRead()) {
+        def Properties versionProps = new Properties()
+
+        versionProps.load(new FileInputStream(versionPropsFile))
+
+        // increment & store
+        def code = versionProps['VERSION_CODE'].toInteger() + 1
+        versionProps['VERSION_CODE'] = code.toString()
+        versionProps.store(versionPropsFile.newWriter(), null)
+
+    } else {
+        throw new GradleException("Could not read version.properties!")
+    }
+}
+
+project.afterEvaluate {
+    preBuild.dependsOn incrementVersionCode
+}
+//endregion
